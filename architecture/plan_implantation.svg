@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="plan" viewBox="0 0 1440 870" width="1440" height="870" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plan d'implantation de l'usine : 8 zones, 3 machines sur un convoyeur, 9 nœuds capteurs reliés par WiFi à un point d'accès central, lui-même câblé à la passerelle du local technique.">
+<style>
+.plan text{font-family:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif}
+.sheet{fill:#F6F8F9}
+.ttl{font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:21px;font-weight:700;letter-spacing:.05em;fill:#17293B}
+.sub{font-size:11.5px;fill:#5A6B7B}
+.lb,.lb-s,.zl,.ml,.mt,.cote,.lnk{paint-order:stroke;stroke:#F6F8F9;stroke-width:3px;stroke-linejoin:round}
+.lb{font-size:11px;font-weight:500;fill:#17293B}
+.lb-s{font-size:9.5px;fill:#5A6B7B}
+.lnk{font-size:10px;font-weight:600;fill:#0E746D}
+.lnk-wan{fill:#B4611A}
+.lnk-eth{fill:#17293B}
+.zl{font-size:10.5px;font-weight:600;letter-spacing:.08em;fill:#5A6B7B}
+.ml{font-size:11.5px;font-weight:600;fill:#17293B;stroke:#D3DAE1}
+.mt{font-size:10px;fill:#5A6B7B;stroke:#D3DAE1}
+.sid{font-family:'IBM Plex Mono',Consolas,monospace;font-size:9.5px;font-weight:600;fill:#FFFFFF}
+.cote{font-family:'IBM Plex Mono',Consolas,monospace;font-size:10px;fill:#17293B}
+.dim{stroke:#17293B;stroke-width:.8}
+.dim-ext{stroke:#5A6B7B;stroke-width:.6}
+.wall-ext{stroke:#1E2B38;stroke-width:8;stroke-linecap:square}
+.wall-int{stroke:#1E2B38;stroke-width:4;stroke-linecap:square}
+.z-office{fill:#E3EAF2}.z-tech{fill:#D5EBE6}.z-prod{fill:#FAF0D9}
+.z-store{fill:#E5EEDD}.z-neutral{fill:#ECEEF0}
+.door-leaf{stroke:#1E2B38;stroke-width:1.6}
+.door-arc{stroke:#5A6B7B;stroke-width:.8;fill:none;stroke-dasharray:3 2}
+.rideau{stroke:#B4611A;stroke-width:3;stroke-dasharray:6 4}
+.marq{stroke:#C99A00;stroke-width:1.4;stroke-dasharray:10 6;fill:none}
+.zone-sep{stroke:#5A6B7B;stroke-width:1;stroke-dasharray:2 4}
+.mach{fill:#D3DAE1;stroke:#1E2B38;stroke-width:1.4}
+.conv{fill:#B9C3CD;stroke:#1E2B38;stroke-width:1}
+.roll{stroke:#1E2B38;stroke-width:.6;opacity:.5}
+.pal{fill:#E2CBA2;stroke:#1E2B38;stroke-width:.6}
+.flow{stroke:#17293B;stroke-width:1.4;fill:none}
+.cone{fill:#7B3FAF;fill-opacity:.13;stroke:#7B3FAF;stroke-opacity:.55;stroke-width:1}
+.lk-wifi{stroke:#0E746D;stroke-width:1.4;stroke-dasharray:6 4;fill:none}
+.lk-eth{stroke:#17293B;stroke-width:2.4;fill:none}
+.lk-wan{stroke:#B4611A;stroke-width:2;stroke-dasharray:10 4 2 4;fill:none}
+.lk-flow{stroke:#17293B;stroke-width:1.4;fill:none}
+.beam{stroke:#D93636;stroke-width:1.6;stroke-dasharray:2 2}
+.wire{stroke:#1F66AE;stroke-width:1}
+.emit{fill:#1F66AE}
+.mk-wifi{fill:#0E746D}.mk-ink{fill:#17293B}.mk-wan{fill:#B4611A}
+.s-temp{fill:#C63F29}.s-count{fill:#1F66AE}.s-pir{fill:#7B3FAF}
+.s-infra{fill:#0E746D}.s-screen{fill:#4E5D6C}
+.box{fill:#F6F8F9;stroke:#17293B;stroke-width:1.2}
+.box-wan{fill:#F6F8F9;stroke:#B4611A;stroke-width:1.4}
+.bz{fill:#7B3FAF}
+.ct-frame{fill:#F6F8F9;stroke:#17293B;stroke-width:1.2}
+.ct-rule{stroke:#17293B;stroke-width:.7}
+.ct-k{font-size:8.5px;letter-spacing:.1em;fill:#5A6B7B}
+.ct-v{font-size:11.5px;font-weight:500;fill:#17293B}
+.ct-h{font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.05em;fill:#17293B}
+.lgh{font-size:10px;font-weight:600;letter-spacing:.12em;fill:#5A6B7B}
+.lg{font-size:11px;fill:#17293B}
+.sc-a{fill:#17293B}.sc-b{fill:#F6F8F9;stroke:#17293B;stroke-width:.8}
+</style>
+<defs>
+<marker id="mk-wifi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk-wifi"/></marker>
+<marker id="mk-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk-ink"/></marker>
+<marker id="mk-wan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk-wan"/></marker>
+<clipPath id="clip-Z1"><rect x="72" y="152" width="156" height="156"/></clipPath>
+<clipPath id="clip-Z2"><rect x="232" y="152" width="276" height="156"/></clipPath>
+<clipPath id="clip-Z3"><rect x="512" y="152" width="156" height="156"/></clipPath>
+<clipPath id="clip-Z4"><rect x="672" y="152" width="196" height="156"/></clipPath>
+<clipPath id="clip-Z5"><rect x="872" y="152" width="196" height="156"/></clipPath>
+<clipPath id="clip-Z6"><rect x="72" y="312" width="196" height="436"/></clipPath>
+<clipPath id="clip-Z7"><rect x="272" y="312" width="596" height="436"/></clipPath>
+<clipPath id="clip-Z8"><rect x="872" y="312" width="196" height="436"/></clipPath>
+</defs>
+<rect x="0" y="0" width="1440" height="870" class="sheet"/>
+<text x="70" y="44" class="ttl" text-anchor="start">PLAN D'IMPLANTATION · RDC</text>
+<text x="70" y="64" class="sub" text-anchor="start">Usine · 50 × 30 m (1 500 m²) · système IoT de surveillance</text>
+<rect x="70" y="150" width="160" height="160" class="z-office"/>
+<rect x="230" y="150" width="280" height="160" class="z-office"/>
+<rect x="510" y="150" width="160" height="160" class="z-tech"/>
+<rect x="670" y="150" width="200" height="160" class="z-neutral"/>
+<rect x="870" y="150" width="200" height="160" class="z-office"/>
+<rect x="70" y="310" width="200" height="440" class="z-store"/>
+<rect x="270" y="310" width="600" height="440" class="z-prod"/>
+<rect x="870" y="310" width="200" height="440" class="z-store"/>
+<line x1="270" y1="310" x2="270" y2="750" class="zone-sep"/>
+<line x1="870" y1="310" x2="870" y2="750" class="zone-sep"/>
+<line x1="82" y1="676" x2="1058" y2="676" class="marq"/>
+<line x1="82" y1="724" x2="1058" y2="724" class="marq"/>
+<text x="570" y="705" class="lb-s" text-anchor="middle">ALLÉE PIÉTONNE</text>
+<rect x="90" y="350" width="24" height="20" class="pal"/>
+<rect x="130" y="350" width="24" height="20" class="pal"/>
+<rect x="170" y="350" width="24" height="20" class="pal"/>
+<rect x="210" y="350" width="24" height="20" class="pal"/>
+<rect x="90" y="382" width="24" height="20" class="pal"/>
+<rect x="130" y="382" width="24" height="20" class="pal"/>
+<rect x="170" y="382" width="24" height="20" class="pal"/>
+<rect x="210" y="382" width="24" height="20" class="pal"/>
+<text x="162" y="418" class="lb-s" text-anchor="middle">palettes matières premières</text>
+<rect x="890" y="350" width="24" height="20" class="pal"/>
+<rect x="930" y="350" width="24" height="20" class="pal"/>
+<rect x="970" y="350" width="24" height="20" class="pal"/>
+<rect x="1010" y="350" width="24" height="20" class="pal"/>
+<rect x="890" y="382" width="24" height="20" class="pal"/>
+<rect x="930" y="382" width="24" height="20" class="pal"/>
+<rect x="970" y="382" width="24" height="20" class="pal"/>
+<rect x="1010" y="382" width="24" height="20" class="pal"/>
+<text x="962" y="418" class="lb-s" text-anchor="middle">palettes produits finis</text>
+<rect x="280" y="536" width="580" height="28" class="conv"/>
+<line x1="285" y1="537" x2="285" y2="563" class="roll"/>
+<line x1="295" y1="537" x2="295" y2="563" class="roll"/>
+<line x1="305" y1="537" x2="305" y2="563" class="roll"/>
+<line x1="315" y1="537" x2="315" y2="563" class="roll"/>
+<line x1="325" y1="537" x2="325" y2="563" class="roll"/>
+<line x1="335" y1="537" x2="335" y2="563" class="roll"/>
+<line x1="345" y1="537" x2="345" y2="563" class="roll"/>
+<line x1="355" y1="537" x2="355" y2="563" class="roll"/>
+<line x1="365" y1="537" x2="365" y2="563" class="roll"/>
+<line x1="375" y1="537" x2="375" y2="563" class="roll"/>
+<line x1="385" y1="537" x2="385" y2="563" class="roll"/>
+<line x1="395" y1="537" x2="395" y2="563" class="roll"/>
+<line x1="405" y1="537" x2="405" y2="563" class="roll"/>
+<line x1="415" y1="537" x2="415" y2="563" class="roll"/>
+<line x1="425" y1="537" x2="425" y2="563" class="roll"/>
+<line x1="435" y1="537" x2="435" y2="563" class="roll"/>
+<line x1="445" y1="537" x2="445" y2="563" class="roll"/>
+<line x1="455" y1="537" x2="455" y2="563" class="roll"/>
+<line x1="465" y1="537" x2="465" y2="563" class="roll"/>
+<line x1="475" y1="537" x2="475" y2="563" class="roll"/>
+<line x1="485" y1="537" x2="485" y2="563" class="roll"/>
+<line x1="495" y1="537" x2="495" y2="563" class="roll"/>
+<line x1="505" y1="537" x2="505" y2="563" class="roll"/>
+<line x1="515" y1="537" x2="515" y2="563" class="roll"/>
+<line x1="525" y1="537" x2="525" y2="563" class="roll"/>
+<line x1="535" y1="537" x2="535" y2="563" class="roll"/>
+<line x1="545" y1="537" x2="545" y2="563" class="roll"/>
+<line x1="555" y1="537" x2="555" y2="563" class="roll"/>
+<line x1="565" y1="537" x2="565" y2="563" class="roll"/>
+<line x1="575" y1="537" x2="575" y2="563" class="roll"/>
+<line x1="585" y1="537" x2="585" y2="563" class="roll"/>
+<line x1="595" y1="537" x2="595" y2="563" class="roll"/>
+<line x1="605" y1="537" x2="605" y2="563" class="roll"/>
+<line x1="615" y1="537" x2="615" y2="563" class="roll"/>
+<line x1="625" y1="537" x2="625" y2="563" class="roll"/>
+<line x1="635" y1="537" x2="635" y2="563" class="roll"/>
+<line x1="645" y1="537" x2="645" y2="563" class="roll"/>
+<line x1="655" y1="537" x2="655" y2="563" class="roll"/>
+<line x1="665" y1="537" x2="665" y2="563" class="roll"/>
+<line x1="675" y1="537" x2="675" y2="563" class="roll"/>
+<line x1="685" y1="537" x2="685" y2="563" class="roll"/>
+<line x1="695" y1="537" x2="695" y2="563" class="roll"/>
+<line x1="705" y1="537" x2="705" y2="563" class="roll"/>
+<line x1="715" y1="537" x2="715" y2="563" class="roll"/>
+<line x1="725" y1="537" x2="725" y2="563" class="roll"/>
+<line x1="735" y1="537" x2="735" y2="563" class="roll"/>
+<line x1="745" y1="537" x2="745" y2="563" class="roll"/>
+<line x1="755" y1="537" x2="755" y2="563" class="roll"/>
+<line x1="765" y1="537" x2="765" y2="563" class="roll"/>
+<line x1="775" y1="537" x2="775" y2="563" class="roll"/>
+<line x1="785" y1="537" x2="785" y2="563" class="roll"/>
+<line x1="795" y1="537" x2="795" y2="563" class="roll"/>
+<line x1="805" y1="537" x2="805" y2="563" class="roll"/>
+<line x1="815" y1="537" x2="815" y2="563" class="roll"/>
+<line x1="825" y1="537" x2="825" y2="563" class="roll"/>
+<line x1="835" y1="537" x2="835" y2="563" class="roll"/>
+<line x1="845" y1="537" x2="845" y2="563" class="roll"/>
+<line x1="855" y1="537" x2="855" y2="563" class="roll"/>
+<rect x="310" y="480" width="120" height="140" rx="2" class="mach"/>
+<text x="370" y="505" class="ml" text-anchor="middle">M1 · Découpe</text>
+<text x="370" y="521" class="mt" text-anchor="middle">DS18B20</text>
+<text x="370" y="588" class="ml" text-anchor="middle">seuil 85 °C</text>
+<rect x="490" y="480" width="120" height="140" rx="2" class="mach"/>
+<text x="550" y="505" class="ml" text-anchor="middle">M2 · Presse</text>
+<text x="550" y="521" class="mt" text-anchor="middle">DS18B20</text>
+<text x="550" y="588" class="ml" text-anchor="middle">seuil 90 °C</text>
+<rect x="670" y="480" width="120" height="140" rx="2" class="mach"/>
+<text x="730" y="505" class="ml" text-anchor="middle">M3 · Four</text>
+<text x="730" y="521" class="mt" text-anchor="middle">sonde type K</text>
+<text x="730" y="588" class="ml" text-anchor="middle">seuil 220 °C</text>
+<line x1="290" y1="648" x2="850" y2="648" class="flow" marker-end="url(#mk-ink)"/>
+<text x="570" y="638" class="lb-s" text-anchor="middle">sens du flux produit : réception → M1 → M2 → M3 → expédition</text>
+<path d="M180,174 L172.6,313.8 A140,140 0 0 1 62.6,97.7 Z" class="cone" clip-path="url(#clip-Z1)"/>
+<path d="M150,450 L200.9,580.4 A140,140 0 0 1 11.6,428.9 Z" class="cone" clip-path="url(#clip-Z6)"/>
+<path d="M990,450 L1128.4,428.9 A140,140 0 0 1 939.1,580.4 Z" class="cone" clip-path="url(#clip-Z8)"/>
+<line x1="70" y1="150" x2="1070" y2="150" class="wall-ext"/>
+<line x1="1070" y1="150" x2="1070" y2="490" class="wall-ext"/>
+<line x1="1070" y1="610" x2="1070" y2="750" class="wall-ext"/>
+<line x1="1070" y1="750" x2="70" y2="750" class="wall-ext"/>
+<line x1="70" y1="750" x2="70" y2="610" class="wall-ext"/>
+<line x1="70" y1="490" x2="70" y2="250" class="wall-ext"/>
+<line x1="70" y1="210" x2="70" y2="150" class="wall-ext"/>
+<line x1="70" y1="310" x2="200" y2="310" class="wall-int"/>
+<line x1="224" y1="310" x2="470" y2="310" class="wall-int"/>
+<line x1="494" y1="310" x2="810" y2="310" class="wall-int"/>
+<line x1="834" y1="310" x2="1020" y2="310" class="wall-int"/>
+<line x1="1044" y1="310" x2="1070" y2="310" class="wall-int"/>
+<line x1="230" y1="150" x2="230" y2="260" class="wall-int"/>
+<line x1="230" y1="284" x2="230" y2="310" class="wall-int"/>
+<line x1="510" y1="150" x2="510" y2="260" class="wall-int"/>
+<line x1="510" y1="284" x2="510" y2="310" class="wall-int"/>
+<line x1="670" y1="150" x2="670" y2="310" class="wall-int"/>
+<line x1="870" y1="150" x2="870" y2="310" class="wall-int"/>
+<line x1="70" y1="210" x2="90" y2="210" class="door-leaf"/>
+<path d="M90,210 A20,20 0 0 1 70,230" class="door-arc"/>
+<line x1="70" y1="250" x2="90" y2="250" class="door-leaf"/>
+<path d="M90,250 A20,20 0 0 0 70,230" class="door-arc"/>
+<line x1="200" y1="310" x2="200" y2="334" class="door-leaf"/>
+<path d="M200,334 A24,24 0 0 0 224,310" class="door-arc"/>
+<line x1="470" y1="310" x2="470" y2="334" class="door-leaf"/>
+<path d="M470,334 A24,24 0 0 0 494,310" class="door-arc"/>
+<line x1="810" y1="310" x2="810" y2="334" class="door-leaf"/>
+<path d="M810,334 A24,24 0 0 0 834,310" class="door-arc"/>
+<line x1="1020" y1="310" x2="1020" y2="334" class="door-leaf"/>
+<path d="M1020,334 A24,24 0 0 0 1044,310" class="door-arc"/>
+<line x1="230" y1="260" x2="254" y2="260" class="door-leaf"/>
+<path d="M254,260 A24,24 0 0 1 230,284" class="door-arc"/>
+<line x1="510" y1="260" x2="534" y2="260" class="door-leaf"/>
+<path d="M534,260 A24,24 0 0 1 510,284" class="door-arc"/>
+<line x1="70" y1="490" x2="70" y2="610" class="rideau"/>
+<line x1="1070" y1="490" x2="1070" y2="610" class="rideau"/>
+<text x="58" y="230" class="lb-s" text-anchor="middle" transform="rotate(-90 58 230)">Entrée personnel</text>
+<text x="58" y="550" class="lb-s" text-anchor="middle" transform="rotate(-90 58 550)">Quai réception · porte sectionnelle 6 m</text>
+<text x="1082" y="550" class="lb-s" text-anchor="middle" transform="rotate(90 1082 550)">Quai expédition · porte sectionnelle 6 m</text>
+<text x="77" y="167" class="zl" text-anchor="start">Z1 · ACCUEIL</text>
+<text x="237" y="167" class="zl" text-anchor="start">Z2 · SALLE DE CONTRÔLE</text>
+<text x="517" y="167" class="zl" text-anchor="start">Z3 · LOCAL TECHNIQUE</text>
+<text x="677" y="167" class="zl" text-anchor="start">Z4 · VESTIAIRES</text>
+<text x="877" y="167" class="zl" text-anchor="start">Z5 · MAINTENANCE</text>
+<text x="77" y="327" class="zl" text-anchor="start">Z6 · RÉCEPTION MP</text>
+<text x="277" y="327" class="zl" text-anchor="start">Z7 · LIGNE DE PRODUCTION</text>
+<text x="877" y="327" class="zl" text-anchor="start">Z8 · EXPÉDITION</text>
+<line x1="382" y1="475" x2="516.2" y2="419.1" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="547.8" y1="467.2" x2="540.4" y2="424" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="717.8" y1="475.5" x2="559.9" y2="418" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="471" y1="489" x2="526.5" y2="423.5" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="627" y1="490.3" x2="552.8" y2="423.3" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="807" y1="497.8" x2="559.9" y2="417.1" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="189" y1="180" x2="518.1" y2="396.9" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="163.6" y1="448.6" x2="516" y2="412.3" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="976.2" y1="448.8" x2="560" y2="411.9" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="558" y1="400.4" x2="709.4" y2="327.9" class="lk-wifi" marker-end="url(#mk-wifi)"/>
+<line x1="538" y1="398" x2="538" y2="252" class="lk-eth"/>
+<line x1="538" y1="228" x2="538" y2="206" class="lk-eth"/>
+<line x1="558" y1="240" x2="610" y2="240" class="lk-eth"/>
+<line x1="518" y1="240" x2="392" y2="240" class="lk-eth"/>
+<line x1="460" y1="513" x2="460" y2="532" class="wire"/>
+<rect x="456" y="531" width="8" height="4" class="emit"/>
+<rect x="456" y="565" width="8" height="4" class="emit"/>
+<line x1="460" y1="535" x2="460" y2="565" class="beam"/>
+<line x1="640" y1="513" x2="640" y2="532" class="wire"/>
+<rect x="636" y="531" width="8" height="4" class="emit"/>
+<rect x="636" y="565" width="8" height="4" class="emit"/>
+<line x1="640" y1="535" x2="640" y2="565" class="beam"/>
+<line x1="820" y1="513" x2="820" y2="532" class="wire"/>
+<rect x="816" y="531" width="8" height="4" class="emit"/>
+<rect x="816" y="565" width="8" height="4" class="emit"/>
+<line x1="820" y1="535" x2="820" y2="565" class="beam"/>
+<line x1="538" y1="182" x2="538" y2="80" class="lk-wan" marker-end="url(#mk-wan)"/>
+<text x="804" y="427" class="lnk" text-anchor="middle" transform="rotate(5.1 804 427)">WiFi 2,4 GHz · MQTT vers AP</text>
+<text x="531" y="362" class="lnk lnk-eth" text-anchor="middle" transform="rotate(-90 531 362)">Ethernet Cat6 (PoE)</text>
+<text x="546" y="100" class="lnk lnk-wan" text-anchor="start">WAN 4G / fibre</text>
+<rect x="612" y="230" width="36" height="20" rx="3" class="s-infra"/>
+<text x="630" y="243.4" class="sid" text-anchor="middle">GW</text>
+<rect x="520" y="230" width="36" height="20" rx="3" class="s-infra"/>
+<text x="538" y="243.4" class="sid" text-anchor="middle">SW</text>
+<rect x="520" y="184" width="36" height="20" rx="3" class="s-infra"/>
+<text x="538" y="197.4" class="sid" text-anchor="middle">RTR</text>
+<rect x="558" y="278" width="36" height="20" rx="3" class="s-infra"/>
+<text x="576" y="291.4" class="sid" text-anchor="middle">UPS</text>
+<rect x="520" y="400" width="36" height="20" rx="3" class="s-infra"/>
+<text x="538" y="413.4" class="sid" text-anchor="middle">AP</text>
+<circle cx="370" cy="480" r="11" class="s-temp"/>
+<text x="370" y="483.4" class="sid" text-anchor="middle">T1</text>
+<circle cx="550" cy="480" r="11" class="s-temp"/>
+<text x="550" y="483.4" class="sid" text-anchor="middle">T2</text>
+<circle cx="730" cy="480" r="11" class="s-temp"/>
+<text x="730" y="483.4" class="sid" text-anchor="middle">T3</text>
+<rect x="449" y="491" width="22" height="22" rx="2" class="s-count"/>
+<text x="460" y="505.4" class="sid" text-anchor="middle">C1</text>
+<rect x="629" y="491" width="22" height="22" rx="2" class="s-count"/>
+<text x="640" y="505.4" class="sid" text-anchor="middle">C2</text>
+<rect x="809" y="491" width="22" height="22" rx="2" class="s-count"/>
+<text x="820" y="505.4" class="sid" text-anchor="middle">C3</text>
+<polygon points="180,161 193,174 180,187 167,174" class="s-pir"/>
+<text x="180" y="177.4" class="sid" text-anchor="middle">P1</text>
+<polygon points="150,437 163,450 150,463 137,450" class="s-pir"/>
+<text x="150" y="453.4" class="sid" text-anchor="middle">P2</text>
+<polygon points="990,437 1003,450 990,463 977,450" class="s-pir"/>
+<text x="990" y="453.4" class="sid" text-anchor="middle">P3</text>
+<rect x="710" y="311" width="40" height="14" rx="2" class="s-screen"/>
+<text x="730" y="321.4" class="sid" text-anchor="middle">E1</text>
+<rect x="350" y="233" width="40" height="14" rx="2" class="s-screen"/>
+<text x="370" y="243.4" class="sid" text-anchor="middle">E2</text>
+<rect x="197" y="171" width="3.5" height="6" class="bz"/>
+<polygon points="200.5,171 205,168 205,180 200.5,177" class="bz"/>
+<rect x="167" y="447" width="3.5" height="6" class="bz"/>
+<polygon points="170.5,447 175,444 175,456 170.5,453" class="bz"/>
+<rect x="965" y="447" width="3.5" height="6" class="bz"/>
+<polygon points="968.5,447 973,444 973,456 968.5,453" class="bz"/>
+<text x="560" y="198" class="lb" text-anchor="start">Routeur 4G / fibre</text>
+<text x="560" y="244" class="lb" text-anchor="start">Switch</text>
+<text x="630" y="264" class="lb" text-anchor="middle">Passerelle</text>
+<text x="630" y="276" class="lb-s" text-anchor="middle">Raspberry Pi 4</text>
+<text x="598" y="292" class="lb" text-anchor="start">Onduleur</text>
+<text x="562" y="406" class="lb" text-anchor="start">Point d'accès WiFi</text>
+<text x="562" y="418" class="lb-s" text-anchor="start">plafond, h ≈ 6 m</text>
+<text x="730" y="339" class="lb" text-anchor="middle">Écran 15″ kiosque</text>
+<text x="370" y="227" class="lb" text-anchor="middle">Poste de supervision</text>
+<rect x="463" y="22" width="150" height="56" rx="28" class="box-wan"/>
+<text x="538" y="46" class="lb" text-anchor="middle">Internet</text>
+<text x="538" y="62" class="lb-s" text-anchor="middle">4G · fibre optique</text>
+<rect x="690" y="22" width="220" height="56" rx="4" class="box"/>
+<text x="800" y="46" class="lb" text-anchor="middle">Services en ligne</text>
+<text x="800" y="62" class="lb-s" text-anchor="middle">SMTP Gmail · API SMS Orange / MTN</text>
+<rect x="985" y="22" width="140" height="56" rx="4" class="box"/>
+<text x="1055" y="46" class="lb" text-anchor="middle">Smartphone</text>
+<text x="1055" y="62" class="lb-s" text-anchor="middle">du responsable</text>
+<line x1="613" y1="50" x2="688" y2="50" class="lk-flow" marker-end="url(#mk-ink)"/>
+<text x="650.5" y="44" class="lb-s" text-anchor="middle">alerte</text>
+<line x1="910" y1="50" x2="983" y2="50" class="lk-flow" marker-end="url(#mk-ink)"/>
+<text x="947" y="44" class="lb-s" text-anchor="middle">email · SMS</text>
+<line x1="64" y1="128" x2="1076" y2="128" class="dim"/>
+<line x1="70" y1="144" x2="70" y2="122" class="dim-ext"/>
+<line x1="66" y1="132" x2="74" y2="124" class="dim"/>
+<line x1="230" y1="144" x2="230" y2="122" class="dim-ext"/>
+<line x1="226" y1="132" x2="234" y2="124" class="dim"/>
+<line x1="510" y1="144" x2="510" y2="122" class="dim-ext"/>
+<line x1="506" y1="132" x2="514" y2="124" class="dim"/>
+<line x1="670" y1="144" x2="670" y2="122" class="dim-ext"/>
+<line x1="666" y1="132" x2="674" y2="124" class="dim"/>
+<line x1="870" y1="144" x2="870" y2="122" class="dim-ext"/>
+<line x1="866" y1="132" x2="874" y2="124" class="dim"/>
+<line x1="1070" y1="144" x2="1070" y2="122" class="dim-ext"/>
+<line x1="1066" y1="132" x2="1074" y2="124" class="dim"/>
+<text x="150" y="123" class="cote" text-anchor="middle">8,00</text>
+<text x="370" y="123" class="cote" text-anchor="middle">14,00</text>
+<text x="590" y="123" class="cote" text-anchor="middle">8,00</text>
+<text x="770" y="123" class="cote" text-anchor="middle">10,00</text>
+<text x="970" y="123" class="cote" text-anchor="middle">10,00</text>
+<line x1="64" y1="772" x2="1076" y2="772" class="dim"/>
+<line x1="70" y1="756" x2="70" y2="778" class="dim-ext"/>
+<line x1="66" y1="776" x2="74" y2="768" class="dim"/>
+<line x1="270" y1="756" x2="270" y2="778" class="dim-ext"/>
+<line x1="266" y1="776" x2="274" y2="768" class="dim"/>
+<line x1="870" y1="756" x2="870" y2="778" class="dim-ext"/>
+<line x1="866" y1="776" x2="874" y2="768" class="dim"/>
+<line x1="1070" y1="756" x2="1070" y2="778" class="dim-ext"/>
+<line x1="1066" y1="776" x2="1074" y2="768" class="dim"/>
+<text x="170" y="767" class="cote" text-anchor="middle">10,00</text>
+<text x="570" y="767" class="cote" text-anchor="middle">30,00</text>
+<text x="970" y="767" class="cote" text-anchor="middle">10,00</text>
+<line x1="64" y1="800" x2="1076" y2="800" class="dim"/>
+<line x1="70" y1="756" x2="70" y2="806" class="dim-ext"/>
+<line x1="66" y1="804" x2="74" y2="796" class="dim"/>
+<line x1="1070" y1="756" x2="1070" y2="806" class="dim-ext"/>
+<line x1="1066" y1="804" x2="1074" y2="796" class="dim"/>
+<text x="570" y="795" class="cote" text-anchor="middle">50,00 m</text>
+<line x1="30" y1="144" x2="30" y2="756" class="dim"/>
+<line x1="40" y1="150" x2="36" y2="150" class="dim-ext"/>
+<line x1="26" y1="154" x2="34" y2="146" class="dim"/>
+<line x1="40" y1="750" x2="36" y2="750" class="dim-ext"/>
+<line x1="26" y1="754" x2="34" y2="746" class="dim"/>
+<text x="25" y="450" class="cote" text-anchor="middle" transform="rotate(-90 25 450)">30,00 m</text>
+<line x1="1100" y1="144" x2="1100" y2="756" class="dim"/>
+<line x1="1076" y1="150" x2="1094" y2="150" class="dim-ext"/>
+<line x1="1096" y1="154" x2="1104" y2="146" class="dim"/>
+<line x1="1076" y1="310" x2="1094" y2="310" class="dim-ext"/>
+<line x1="1096" y1="314" x2="1104" y2="306" class="dim"/>
+<line x1="1076" y1="750" x2="1094" y2="750" class="dim-ext"/>
+<line x1="1096" y1="754" x2="1104" y2="746" class="dim"/>
+<text x="1105" y="230" class="cote" text-anchor="middle" transform="rotate(90 1105 230)">8,00</text>
+<text x="1105" y="530" class="cote" text-anchor="middle" transform="rotate(90 1105 530)">22,00</text>
+<rect x="70" y="826" width="100" height="6" class="sc-a"/>
+<rect x="170" y="826" width="100" height="6" class="sc-b"/>
+<rect x="270" y="826" width="100" height="6" class="sc-a"/>
+<rect x="370" y="826" width="100" height="6" class="sc-b"/>
+<text x="70" y="848" class="cote" text-anchor="middle">0</text>
+<text x="170" y="848" class="cote" text-anchor="middle">5</text>
+<text x="270" y="848" class="cote" text-anchor="middle">10</text>
+<text x="370" y="848" class="cote" text-anchor="middle">15</text>
+<text x="470" y="848" class="cote" text-anchor="middle">20 m</text>
+<text x="490" y="833" class="lb-s" text-anchor="start">Échelle graphique · 1 m = 20 unités</text>
+<polygon points="760,814 768,838 760,832 752,838" class="sc-a"/>
+<text x="760" y="852" class="lb" text-anchor="middle">N</text>
+<text x="1140" y="160" class="lgh" text-anchor="start">ÉQUIPEMENTS</text>
+<circle cx="1160" cy="186" r="11" class="s-temp"/>
+<text x="1160" y="189.4" class="sid" text-anchor="middle">T</text>
+<text x="1186" y="190" class="lg" text-anchor="start">Nœud thermique · ESP32 + sonde (×3)</text>
+<rect x="1149" y="200" width="22" height="22" rx="2" class="s-count"/>
+<text x="1160" y="214.4" class="sid" text-anchor="middle">C</text>
+<text x="1186" y="215" class="lg" text-anchor="start">Nœud de comptage · barrière IR (×3)</text>
+<polygon points="1160,223 1173,236 1160,249 1147,236" class="s-pir"/>
+<text x="1160" y="239.4" class="sid" text-anchor="middle">P</text>
+<text x="1186" y="240" class="lg" text-anchor="start">Nœud intrusion · PIR + buzzer (×3)</text>
+<rect x="1142" y="251" width="36" height="20" rx="3" class="s-infra"/>
+<text x="1160" y="264.4" class="sid" text-anchor="middle">GW</text>
+<text x="1186" y="265" class="lg" text-anchor="start">Réseau, passerelle, alimentation</text>
+<rect x="1140" y="279" width="40" height="14" rx="2" class="s-screen"/>
+<text x="1160" y="289.4" class="sid" text-anchor="middle">E</text>
+<text x="1186" y="290" class="lg" text-anchor="start">Affichage du tableau de bord</text>
+<text x="1140" y="319" class="lgh" text-anchor="start">LIAISONS</text>
+<line x1="1142" y1="341" x2="1178" y2="341" class="lk-wifi"/>
+<text x="1186" y="345" class="lg" text-anchor="start">Radio WiFi 2,4 GHz · MQTT</text>
+<line x1="1142" y1="363" x2="1178" y2="363" class="lk-eth"/>
+<text x="1186" y="367" class="lg" text-anchor="start">Câble Ethernet Cat6</text>
+<line x1="1142" y1="385" x2="1178" y2="385" class="lk-wan"/>
+<text x="1186" y="389" class="lg" text-anchor="start">Sortie Internet (4G / fibre)</text>
+<line x1="1142" y1="407" x2="1178" y2="407" class="beam"/>
+<text x="1186" y="411" class="lg" text-anchor="start">Faisceau IR de comptage</text>
+<line x1="1142" y1="429" x2="1178" y2="429" class="door-arc"/>
+<text x="1186" y="433" class="lg" text-anchor="start">Débattement de porte</text>
+<path d="M1144,458 L1160,444 L1176,458 Z" class="cone"/>
+<text x="1186" y="455" class="lg" text-anchor="start">Champ PIR · 7 m, 120°</text>
+<text x="1140" y="481" class="lgh" text-anchor="start">ZONES</text>
+<rect x="1140" y="494" width="22" height="14" class="z-office" stroke="currentColor" stroke-opacity=".25"/>
+<text x="1168" y="505" class="lg" text-anchor="start">Bureaux</text>
+<rect x="1235" y="494" width="22" height="14" class="z-tech" stroke="currentColor" stroke-opacity=".25"/>
+<text x="1263" y="505" class="lg" text-anchor="start">Technique</text>
+<rect x="1330" y="494" width="22" height="14" class="z-prod" stroke="currentColor" stroke-opacity=".25"/>
+<text x="1358" y="505" class="lg" text-anchor="start">Production</text>
+<rect x="1140" y="516" width="22" height="14" class="z-store" stroke="currentColor" stroke-opacity=".25"/>
+<text x="1168" y="527" class="lg" text-anchor="start">Stockage</text>
+<rect x="1235" y="516" width="22" height="14" class="z-neutral" stroke="currentColor" stroke-opacity=".25"/>
+<text x="1263" y="527" class="lg" text-anchor="start">Annexes</text>
+<rect x="1140" y="640" width="285" height="210" class="ct-frame"/>
+<text x="1150" y="662" class="ct-h" text-anchor="start">IFRI · RÉSEAUX DE CAPTEURS &amp; IOT</text>
+<line x1="1140" y1="674" x2="1425" y2="674" class="ct-rule"/>
+<text x="1150" y="688" class="ct-k" text-anchor="start">PROJET</text>
+<text x="1150" y="703" class="ct-v" text-anchor="start">Surveillance d'une ligne de production</text>
+<line x1="1140" y1="714" x2="1425" y2="714" class="ct-rule"/>
+<text x="1150" y="728" class="ct-k" text-anchor="start">PLANCHE</text>
+<text x="1150" y="743" class="ct-v" text-anchor="start">Implantation physique des équipements</text>
+<line x1="1140" y1="754" x2="1425" y2="754" class="ct-rule"/>
+<text x="1150" y="770" class="ct-k" text-anchor="start">ÉCHELLE</text>
+<text x="1150" y="790" class="ct-v" text-anchor="start">graphique</text>
+<line x1="1235" y1="754" x2="1235" y2="802" class="ct-rule"/>
+<text x="1245" y="770" class="ct-k" text-anchor="start">DATE</text>
+<text x="1245" y="790" class="ct-v" text-anchor="start">19/10/2026</text>
+<line x1="1330" y1="754" x2="1330" y2="802" class="ct-rule"/>
+<text x="1340" y="770" class="ct-k" text-anchor="start">INDICE</text>
+<text x="1340" y="790" class="ct-v" text-anchor="start">A</text>
+<line x1="1140" y1="802" x2="1425" y2="802" class="ct-rule"/>
+<text x="1150" y="818" class="ct-k" text-anchor="start">DESSINÉ PAR</text>
+<text x="1150" y="838" class="ct-v" text-anchor="start">Groupe 7</text>
+<line x1="1235" y1="802" x2="1235" y2="850" class="ct-rule"/>
+<text x="1245" y="818" class="ct-k" text-anchor="start">NIVEAU</text>
+<text x="1245" y="838" class="ct-v" text-anchor="start">RDC</text>
+<line x1="1330" y1="802" x2="1330" y2="850" class="ct-rule"/>
+<text x="1340" y="818" class="ct-k" text-anchor="start">PLANCHE</text>
+<text x="1340" y="838" class="ct-v" text-anchor="start">01 / 01</text>
+</svg>
