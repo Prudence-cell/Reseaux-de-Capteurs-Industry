@@ -1,0 +1,87 @@
+Random seed: 123456
+MESURE E_latence_moy=31.30 ms
+MESURE E_latence_p95=41.72 ms
+MESURE E_latence_max=45.35 ms
+MESURE E_latence_n=180.00 
+MESURE E_latence_1saut_moy=27.66 ms (n=120)
+MESURE E_latence_2saut_moy=38.60 ms (n=60)
+MESURE E_pdr_2=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_3=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_4=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_5=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_6=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_7=100.00 % (20/20) sauts=1 parent=1
+MESURE E_pdr_8=100.00 % (20/20) sauts=2 parent=2
+MESURE E_pdr_9=100.00 % (20/20) sauts=2 parent=2
+MESURE E_pdr_10=100.00 % (20/20) sauts=2 parent=6
+RADIO AVG ON 5850861700 us 99.23 %
+RADIO AVG TX 653476 us 0.01 %
+RADIO AVG RX 3678779 us 0.06 %
+RADIO AVG INT 1927882 us 0.03 %
+RADIO Sky_1 MONITORED 589646731 us
+RADIO Sky_1 ON 585168891 us 99.24 %
+RADIO Sky_1 TX 78487 us 0.01 %
+RADIO Sky_1 RX 420535 us 0.07 %
+RADIO Sky_1 INT 148919 us 0.03 %
+RADIO Sky_2 MONITORED 589646700 us
+RADIO Sky_2 ON 585306044 us 99.26 %
+RADIO Sky_2 TX 129573 us 0.02 %
+RADIO Sky_2 RX 414677 us 0.07 %
+RADIO Sky_2 INT 105276 us 0.02 %
+RADIO Sky_3 MONITORED 589646700 us
+RADIO Sky_3 ON 584642857 us 99.15 %
+RADIO Sky_3 TX 49997 us 0.01 %
+RADIO Sky_3 RX 438610 us 0.07 %
+RADIO Sky_3 INT 145353 us 0.02 %
+RADIO Sky_4 MONITORED 589646700 us
+RADIO Sky_4 ON 585193619 us 99.24 %
+RADIO Sky_4 TX 52316 us 0.01 %
+RADIO Sky_4 RX 495449 us 0.08 %
+RADIO Sky_4 INT 100743 us 0.02 %
+RADIO Sky_5 MONITORED 589646700 us
+RADIO Sky_5 ON 584827700 us 99.18 %
+RADIO Sky_5 TX 50531 us 0.01 %
+RADIO Sky_5 RX 492961 us 0.08 %
+RADIO Sky_5 INT 98109 us 0.02 %
+RADIO Sky_6 MONITORED 589646700 us
+RADIO Sky_6 ON 585292155 us 99.26 %
+RADIO Sky_6 TX 89882 us 0.02 %
+RADIO Sky_6 RX 458861 us 0.08 %
+RADIO Sky_6 INT 100783 us 0.02 %
+RADIO Sky_7 MONITORED 589646700 us
+RADIO Sky_7 ON 585141041 us 99.24 %
+RADIO Sky_7 TX 53167 us 0.01 %
+RADIO Sky_7 RX 365211 us 0.06 %
+RADIO Sky_7 INT 229550 us 0.04 %
+RADIO Sky_8 MONITORED 589646700 us
+RADIO Sky_8 ON 585469604 us 99.29 %
+RADIO Sky_8 TX 49876 us 0.01 %
+RADIO Sky_8 RX 178016 us 0.03 %
+RADIO Sky_8 INT 372818 us 0.06 %
+RADIO Sky_9 MONITORED 589646700 us
+RADIO Sky_9 ON 584833896 us 99.18 %
+RADIO Sky_9 TX 49521 us 0.01 %
+RADIO Sky_9 RX 222362 us 0.04 %
+RADIO Sky_9 INT 320902 us 0.05 %
+RADIO Sky_10 MONITORED 589646700 us
+RADIO Sky_10 ON 584985893 us 99.21 %
+RADIO Sky_10 TX 50126 us 0.01 %
+RADIO Sky_10 RX 192097 us 0.03 %
+RADIO Sky_10 INT 305429 us 0.05 %
+RADIO 
+MESURE E_radio_on_1=99.24 % -> 18.96 mA, autonomie 4 jours
+MESURE E_radio_on_2=99.26 % -> 18.96 mA, autonomie 4 jours
+MESURE E_radio_on_3=99.15 % -> 18.94 mA, autonomie 4 jours
+MESURE E_radio_on_4=99.24 % -> 18.96 mA, autonomie 4 jours
+MESURE E_radio_on_5=99.18 % -> 18.94 mA, autonomie 4 jours
+MESURE E_radio_on_6=99.26 % -> 18.96 mA, autonomie 4 jours
+MESURE E_radio_on_7=99.24 % -> 18.96 mA, autonomie 4 jours
+MESURE E_radio_on_8=99.29 % -> 18.97 mA, autonomie 4 jours
+MESURE E_radio_on_9=99.18 % -> 18.94 mA, autonomie 4 jours
+MESURE E_radio_on_10=99.21 % -> 18.95 mA, autonomie 4 jours
+MESURE E_radio_on_capteurs_moy=99.22 %
+MESURE E_pdr_global=100.00 %
+VERDICT E OK duty cycle radio mesure sur 10 noeuds, moyenne capteurs 99.22 %, PDR 100.00 %, latence moy 31 ms
+FIN SUCCES a t=604.2 s
+TEST OK
+Test ended at simulation time: 604175304

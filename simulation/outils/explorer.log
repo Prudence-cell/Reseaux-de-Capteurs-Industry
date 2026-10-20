@@ -1,0 +1,167 @@
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/**
+ * InternalFlashC.nc - Internal flash implementation for telos msp
+ * platform. On the msp, the flash must first be erased before a value
+ * can be written. However, the msp can only erase the flash at a
+ * segment granularity (128 bytes for the information section). This
+ * module allows transparent read/write of individual bytes to the
+ * information section by dynamically switching between the two
+ * provided segments in the information section.
+ *
+ * Valid address range is 0x1000 - 0x107E (0x107F is used to store the
+ * version number of the information segment).
+ *
+ * @author Jonathan Hui <jwhui@cs.berkeley.edu>
+ */
+
+module InternalFlashC {
+  provides interface InternalFlash;
+}
+
+implementation {
+
+  enum {
+    IFLASH_OFFSET     = 0x1000,
+    IFLASH_SIZE       = 128,
+    IFLASH_SEG0_VNUM_ADDR = 0x107f,
+    IFLASH_SEG1_VNUM_ADDR = 0x10ff,
+    IFLASH_INVALID_VNUM = -1,
+  };
+
+  uint8_t chooseSegment() {
+    int8_t vnum0 = *(int8_t*)IFLASH_SEG0_VNUM_ADDR;
+    int8_t vnum1 = *(int8_t*)IFLASH_SEG1_VNUM_ADDR;
+    if (vnum0 == IFLASH_INVALID_VNUM)
+      return 1;
+    else if (vnum1 == IFLASH_INVALID_VNUM)
+      return 0;
+    return ( (int8_t)(vnum0 - vnum1) < 0 );
+  }
+
+  command error_t InternalFlash.write(void* addr, void* buf, uint16_t size) {
+
+    volatile int8_t *newPtr;
+    int8_t *oldPtr;
+    int8_t *bufPtr = (int8_t*)buf;
+    int8_t version;
+    uint16_t i;
+
+    addr += IFLASH_OFFSET;
+    newPtr = oldPtr = (int8_t*)IFLASH_OFFSET;
+    if (chooseSegment()) {
+      oldPtr += IFLASH_SIZE;
+    }
+    else {
+      addr += IFLASH_SIZE;
+      newPtr += IFLASH_SIZE;
+    }
+
+    FCTL2 = FWKEY + FSSEL1 + FN2;
+    FCTL3 = FWKEY;
+    FCTL1 = FWKEY + ERASE;
+    *newPtr = 0;
+    FCTL1 = FWKEY + WRT;
+    
+    for ( i = 0; i < IFLASH_SIZE-1; i++, newPtr++, oldPtr++ ) {
+      if ((uint16_t)newPtr < (uint16_t)addr || (uint16_t)addr+size <= (uint16_t)newPtr)
+	*newPtr = *oldPtr;
+      else
+	*newPtr = *bufPtr++;
+    }
+    version = *oldPtr + 1;
+    if (version == IFLASH_INVALID_VNUM)
+      version++;
+    *newPtr = version;
+    
+    FCTL1 = FWKEY;
+    FCTL3 = FWKEY + LOCK;
+
+    return SUCCESS;
+
+  }
+
+  command error_t InternalFlash.read(void* addr, void* buf, uint16_t size) {
+
+    addr += IFLASH_OFFSET;
+    if (chooseSegment())
+      addr += IFLASH_SIZE;
+
+    memcpy(buf, addr, size);
+
+    return SUCCESS;
+
+  }
+
+}
+--- parser
+45:    code = "\n" + code.replaceAll("\r\n", "\n") + "\n";
+50:      code = matcher.replaceFirst("\n".repeat(newLines));
+53:    code = Pattern.compile("//.*\n").matcher(code).replaceAll("\n");
+59:      code = matcher2.replaceFirst(";");
+74:      code6 = Pattern.compile("log\\.testOK\\(\\)").matcher(code6).replaceAll("throw new TestOK()");
+75:      timeoutCode = Pattern.compile("log\\.testFailed\\(\\)").matcher(code6).replaceAll("throw new TestFailed()");
+77:      code = matcher3.replaceFirst(";");
+86:      code = matcher4.replaceFirst("YIELD(); WAIT_UNTIL(" + matcher4.group(1) + ")");
+92:      code = matcher5.replaceFirst("while (!(" + matcher5.group(1) + ")) { " + " YIELD(); " + "}");
+95:    code = Pattern.compile("log\\.testOK\\(\\)").matcher(code).replaceAll("throw new TestOK()");
+96:    code = Pattern.compile("log\\.testFailed\\(\\)").matcher(code).replaceAll("throw new TestFailed()");
+97:    code = Pattern.compile("log\\.generateMessage\\(").matcher(code).replaceAll("log.generateMsg(mote, ");
+105:     function TestFailed(msg, name, line) {
+114:     function TestOK(msg, name, line) {
+123:     function Shutdown(msg, name, line) {
+133:     function GENERATE_MSG(time, msg) {
+137:     function YIELD() {
+143:         if (timeout_function != null) { timeout_function(); }
+151:     function write(mote, msg) {
+152:       mote.getInterfaces().getLog().writeString(msg);
+154:     timeout_function = null;
+155:     function run() {
+public class ScriptMote {
+
+  public Mote mote;
+  public int id;
+  public String lastMsg;  
+
+  public void setMoteMsg(Mote mote, String msg) {
+    this.mote = mote;
+    if (mote != null) {
+      id = mote.getID();
+    } else {
+      id = -1;
+    }
+    lastMsg = msg;
+  }
+
+  public void write(String data) {
+    if (mote == null) return;
+    mote.getInterfaces().getSerialPort().writeString(data);
+  }
+}
+      if (pluginClass.isInstance(p)) {
+        list.add(pluginClass.cast(p));
+      }
+    }
+    return list;
+  }
+
+  public Plugin[] getStartedPlugins() {
+    List<Plugin> l = mySimulation == null ? Collections.emptyList() : mySimulation.startedPlugins;
+    return l.toArray(new Plugin[0]);
+  }
+
+  public static JMenu createMotePluginsSubmenu(Class<? extends Plugin> pluginClass) {
+    return gui.createMotePluginsSubmenu(pluginClass);
+  }
+
+  /**
+   * Return a mote plugins submenu for given mote.
+   *
+   * @param mote Mote
+   * @return Mote plugins menu

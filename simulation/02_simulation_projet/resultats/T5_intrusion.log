@@ -1,0 +1,1513 @@
+Random seed: 123456
+L 4338.9 2 BOOT thermique T1 machine M1 (Decoupe) seuil=85.0 C
+L 4352.8 6 BOOT comptage C2 poste 2 flash vierge, compteur=0
+L 4451.3 4 BOOT thermique T3 machine M3 (Four) seuil=220.0 C
+L 4475.3 1 BOOT passerelle GW noeud 1 (racine CTP)
+L 4479.3 1 PRET passerelle racine
+L 4503.9 7 BOOT comptage C3 poste 3 flash vierge, compteur=0
+L 4659.0 10 BOOT intrusion P3 zone 3 heure usine 17:00 (jour : desarmee)
+L 4811.0 9 BOOT intrusion P2 zone 2 heure usine 17:00 (jour : desarmee)
+L 4817.2 5 BOOT comptage C1 poste 1 flash vierge, compteur=0
+L 5002.1 3 BOOT thermique T2 machine M2 (Presse) seuil=90.0 C
+L 5820.8 5 PARENT aucun->1 etx=20
+L 6007.2 3 PARENT aucun->7 etx=26
+L 6178.5 8 PARENT aucun->2 etx=26
+L 6182.0 8 DETECTION heure=17:02 heures ouvrees : pas d'alerte
+L 6342.8 2 PARENT aucun->1 etx=15
+L 6356.3 6 PARENT aucun->1 etx=15
+L 6455.0 4 PARENT aucun->1 etx=15
+L 6508.1 7 PARENT aucun->1 etx=15
+L 6537.0 6 PIECE n=1
+L 6662.2 10 PARENT aucun->6 etx=25
+L 6814.2 9 PARENT aucun->2 etx=25
+L 7006.1 3 PARENT 7->1 etx=10
+L 7885.3 5 PIECE n=1
+L 8181.0 8 DETECTION heure=17:04 heures ouvrees : pas d'alerte
+L 9675.4 7 PIECE n=1
+L 10181.0 8 DETECTION heure=17:06 heures ouvrees : pas d'alerte
+L 10494.8 3 PUB seq=1 type=1 etat=0 val=299 cpt=0 attente=1
+L 10525.9 1 RX src=3 seq=1 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512006,"temperature_c":29.9,"production_count":0,"status":"OK"}
+L 11145.4 6 PUB seq=1 type=2 etat=0 val=2 cpt=1 attente=1
+L 11173.5 1 RX src=6 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512006,"production_count":1,"cadence_ppm":2,"status":"OK"}
+L 12366.1 6 PIECE n=2
+L 12772.1 7 PIECE n=2
+L 13066.9 5 PIECE n=2
+L 13919.0 8 PUB seq=1 type=3 etat=3 val=1029 cpt=3 attente=1
+L 13960.6 1 RX src=8 seq=1 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512009,"presence":false,"detections":3,"heure":"17:09","status":"VEILLE"}
+L 14500.6 7 PUB seq=1 type=2 etat=0 val=4 cpt=2 attente=1
+L 14527.8 2 PUB seq=1 type=1 etat=0 val=347 cpt=0 attente=1
+L 14530.7 1 RX src=7 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512010,"production_count":2,"cadence_ppm":4,"status":"OK"}
+L 14554.9 1 RX src=2 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512010,"temperature_c":34.7,"production_count":0,"status":"OK"}
+L 14645.9 10 PUB seq=1 type=3 etat=3 val=1029 cpt=0 attente=1
+L 14681.1 1 RX src=10 seq=1 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512010,"presence":false,"detections":0,"heure":"17:09","status":"VEILLE"}
+L 16627.4 5 PIECE n=3
+L 18145.2 7 PIECE n=3
+L 18326.1 6 PIECE n=3
+L 18533.7 5 PUB seq=1 type=2 etat=0 val=6 cpt=3 attente=1
+L 18560.3 1 RX src=5 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512014,"production_count":3,"cadence_ppm":6,"status":"OK"}
+L 18835.4 5 PIECE n=4
+L 19242.6 4 PUB seq=1 type=1 etat=0 val=739 cpt=0 attente=1
+L 19266.3 1 RX src=4 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512014,"temperature_c":73.9,"production_count":2,"status":"OK"}
+L 19624.0 9 PUB seq=1 type=3 etat=3 val=1034 cpt=0 attente=1
+L 19658.7 1 RX src=9 seq=1 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512015,"presence":false,"detections":0,"heure":"17:14","status":"VEILLE"}
+L 20715.5 7 PIECE n=4
+L 21594.2 5 PIECE n=5
+L 22387.6 6 PIECE n=4
+L 24093.4 7 PIECE n=5
+L 24664.7 10 DETECTION heure=17:20 heures ouvrees : pas d'alerte
+L 26276.3 6 PIECE n=5
+L 27333.5 5 PIECE n=6
+L 27412.7 7 PIECE n=6
+L 30181.0 8 DETECTION heure=17:26 heures ouvrees : pas d'alerte
+L 30637.6 6 PIECE n=6
+L 30664.7 10 DETECTION heure=17:26 heures ouvrees : pas d'alerte
+L 31493.7 5 PIECE n=7
+L 31784.8 7 PIECE n=7
+L 33236.2 6 PIECE n=7
+CMD 34175.3 noeud 9 <- P
+L 34176.7 9 SCENARIO presence devant le capteur
+L 34179.3 9 DETECTION heure=17:29 heures ouvrees : pas d'alerte
+L 35401.9 5 PIECE n=8
+L 35524.1 7 PIECE n=8
+L 36642.5 6 PIECE n=8
+L 39174.3 5 PIECE n=9
+L 39206.7 7 PIECE n=9
+L 40494.7 3 PUB seq=2 type=1 etat=0 val=519 cpt=0 attente=1
+L 40522.9 1 RX src=3 seq=2 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512036,"temperature_c":51.9,"production_count":1,"status":"OK"}
+L 40774.3 6 PIECE n=9
+L 41145.6 6 PUB seq=2 type=2 etat=0 val=16 cpt=9 attente=1
+L 41172.0 1 RX src=6 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512036,"production_count":9,"cadence_ppm":16,"status":"OK"}
+L 41500.8 5 PIECE n=10
+L 43284.4 6 PIECE n=10
+L 43918.9 8 PUB seq=2 type=3 etat=3 val=1059 cpt=4 attente=1
+L 43960.4 1 RX src=8 seq=2 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512039,"presence":false,"detections":4,"heure":"17:39","status":"VEILLE"}
+L 44264.6 7 PIECE n=10
+L 44501.1 7 PUB seq=2 type=2 etat=0 val=16 cpt=10 attente=1
+L 44526.1 1 RX src=7 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512040,"production_count":10,"cadence_ppm":16,"status":"OK"}
+L 44527.8 2 PUB seq=2 type=1 etat=0 val=505 cpt=0 attente=1
+L 44555.2 1 RX src=2 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512040,"temperature_c":50.5,"production_count":3,"status":"OK"}
+L 44645.8 10 PUB seq=2 type=3 etat=3 val=1059 cpt=2 attente=1
+L 44676.5 1 RX src=10 seq=2 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512040,"presence":false,"detections":2,"heure":"17:39","status":"VEILLE"}
+L 46609.3 7 PIECE n=11
+L 46993.9 5 PIECE n=11
+L 47491.4 6 PIECE n=11
+L 48534.2 5 PUB seq=2 type=2 etat=0 val=16 cpt=11 attente=1
+L 48560.2 1 RX src=5 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512044,"production_count":11,"cadence_ppm":16,"status":"OK"}
+L 49178.5 5 PIECE n=12
+L 49242.8 4 PUB seq=2 type=1 etat=0 val=1330 cpt=0 attente=1
+L 49271.2 1 RX src=4 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512044,"temperature_c":133.0,"production_count":10,"status":"OK"}
+L 49624.0 9 PUB seq=2 type=3 etat=3 val=1064 cpt=1 attente=1
+L 49660.8 1 RX src=9 seq=2 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512045,"presence":false,"detections":1,"heure":"17:44","status":"VEILLE"}
+L 51226.5 7 PIECE n=12
+L 51719.9 6 PIECE n=12
+L 52492.0 5 PIECE n=13
+L 56804.6 7 PIECE n=13
+L 57264.8 6 PIECE n=13
+L 57596.5 5 PIECE n=14
+L 59429.9 6 PIECE n=14
+L 60540.0 7 PIECE n=14
+L 63031.0 5 PIECE n=15
+L 63373.2 6 PIECE n=15
+L 64180.1 8 HORLOGE 18:00 mode nuit : surveillance armee
+L 64483.4 1 STAT src=2 T1 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64488.7 1 STAT src=3 T2 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64494.1 1 STAT src=4 T3 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64499.4 1 STAT src=5 C1 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64504.7 1 STAT src=6 C2 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64510.0 1 STAT src=7 C3 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 64515.4 1 STAT src=8 P1 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 64520.7 1 STAT src=9 P2 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 64526.3 1 STAT src=10 P3 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 64663.8 10 HORLOGE 18:00 mode nuit : surveillance armee
+L 64815.8 9 HORLOGE 18:00 mode nuit : surveillance armee
+L 65118.1 7 PIECE n=15
+L 66773.2 5 PIECE n=16
+L 68104.7 6 PIECE n=16
+L 69107.2 5 PIECE n=17
+L 69267.5 7 PIECE n=16
+L 70494.7 3 PUB seq=3 type=1 etat=0 val=634 cpt=0 attente=1
+L 70526.3 1 RX src=3 seq=3 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512066,"temperature_c":63.4,"production_count":9,"status":"OK"}
+L 71145.9 6 PUB seq=3 type=2 etat=0 val=14 cpt=16 attente=1
+L 71169.5 1 RX src=6 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512066,"production_count":16,"cadence_ppm":14,"status":"OK"}
+L 71274.6 6 PIECE n=17
+L 71299.6 5 PIECE n=18
+L 72125.9 7 PIECE n=17
+L 73918.9 8 PUB seq=3 type=3 etat=4 val=1089 cpt=4 attente=1
+L 73963.8 1 RX src=8 seq=3 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512069,"presence":false,"detections":4,"heure":"18:09","status":"ARME"}
+L 74501.1 7 PUB seq=3 type=2 etat=0 val=14 cpt=17 attente=1
+L 74524.4 1 RX src=7 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512070,"production_count":17,"cadence_ppm":14,"status":"OK"}
+L 74527.8 2 PUB seq=3 type=1 etat=0 val=584 cpt=0 attente=1
+L 74553.7 1 RX src=2 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512070,"temperature_c":58.4,"production_count":11,"status":"OK"}
+L 74645.8 10 PUB seq=3 type=3 etat=4 val=1089 cpt=2 attente=1
+L 74683.6 1 RX src=10 seq=3 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512070,"presence":false,"detections":2,"heure":"18:09","status":"ARME"}
+L 74902.5 6 PIECE n=18
+L 75019.5 7 PIECE n=18
+L 76088.7 5 PIECE n=19
+L 77122.3 6 PIECE n=19
+L 78534.2 5 PUB seq=3 type=2 etat=0 val=16 cpt=19 attente=1
+L 78562.0 1 RX src=5 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512074,"production_count":19,"cadence_ppm":16,"status":"OK"}
+L 79242.8 4 PUB seq=3 type=1 etat=0 val=1605 cpt=0 attente=1
+L 79266.4 1 RX src=4 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512074,"temperature_c":160.5,"production_count":17,"status":"OK"}
+L 79624.0 9 PUB seq=3 type=3 etat=4 val=1094 cpt=1 attente=1
+L 79662.9 1 RX src=9 seq=3 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512075,"presence":false,"detections":1,"heure":"18:14","status":"ARME"}
+L 79832.0 5 PIECE n=20
+L 80006.8 7 PIECE n=19
+L 80842.0 6 PIECE n=20
+L 82477.3 5 PIECE n=21
+L 83840.0 6 PIECE n=21
+L 84080.0 7 PIECE n=20
+L 86045.1 6 PIECE n=22
+L 87025.2 5 PIECE n=22
+L 87878.8 7 PIECE n=21
+L 88428.9 6 PIECE n=23
+L 90210.7 5 PIECE n=23
+L 93292.9 7 PIECE n=22
+L 93734.6 6 PIECE n=24
+L 95156.0 5 PIECE n=24
+L 96892.5 7 PIECE n=23
+L 97832.8 5 PIECE n=25
+L 98077.3 6 PIECE n=25
+L 99827.1 7 PIECE n=24
+L 100494.7 3 PUB seq=4 type=1 etat=0 val=679 cpt=0 attente=1
+L 100526.0 1 RX src=3 seq=4 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512096,"temperature_c":67.9,"production_count":16,"status":"OK"}
+L 101145.9 6 PUB seq=4 type=2 etat=0 val=18 cpt=25 attente=1
+L 101169.6 1 RX src=6 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512096,"production_count":25,"cadence_ppm":18,"status":"OK"}
+L 102766.8 6 PIECE n=26
+L 103222.5 5 PIECE n=26
+L 103918.9 8 PUB seq=4 type=3 etat=4 val=1119 cpt=4 attente=1
+L 103953.9 1 RX src=8 seq=4 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512099,"presence":false,"detections":4,"heure":"18:39","status":"ARME"}
+L 104501.1 7 PUB seq=4 type=2 etat=0 val=14 cpt=24 attente=1
+L 104527.8 2 PUB seq=4 type=1 etat=0 val=624 cpt=0 attente=1
+L 104531.5 1 RX src=7 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512100,"production_count":24,"cadence_ppm":14,"status":"OK"}
+L 104553.3 1 RX src=2 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512100,"temperature_c":62.4,"production_count":19,"status":"OK"}
+L 104645.8 10 PUB seq=4 type=3 etat=4 val=1119 cpt=2 attente=1
+L 104681.3 1 RX src=10 seq=4 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512100,"presence":false,"detections":2,"heure":"18:39","status":"ARME"}
+L 105236.2 7 PIECE n=25
+L 106333.8 5 PIECE n=27
+L 107500.2 6 PIECE n=27
+L 108534.2 5 PUB seq=4 type=2 etat=0 val=16 cpt=27 attente=1
+L 108557.0 1 RX src=5 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512104,"production_count":27,"cadence_ppm":16,"status":"OK"}
+L 108782.0 5 PIECE n=28
+L 108818.3 7 PIECE n=26
+L 109242.9 4 PUB seq=4 type=1 etat=0 val=1727 cpt=0 attente=1
+L 109269.1 1 RX src=4 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512104,"temperature_c":172.7,"production_count":24,"status":"OK"}
+L 109624.0 9 PUB seq=4 type=3 etat=4 val=1124 cpt=1 attente=1
+L 109665.6 1 RX src=9 seq=4 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512105,"presence":false,"detections":1,"heure":"18:44","status":"ARME"}
+L 111001.1 6 PIECE n=28
+L 112040.8 5 PIECE n=29
+L 113251.9 7 PIECE n=27
+L 115372.3 6 PIECE n=29
+L 117553.5 5 PIECE n=30
+L 118760.7 7 PIECE n=28
+L 120223.8 6 PIECE n=30
+L 120804.5 5 PIECE n=31
+L 122453.1 7 PIECE n=29
+L 122878.1 6 PIECE n=31
+L 123595.5 5 PIECE n=32
+CMD 124175.3 noeud 8 <- P
+L 124176.7 8 SCENARIO presence devant le capteur
+L 124179.8 8 INTRUSION heure=19:00 hors heures ouvrees -> alerte + buzzer
+L 124184.1 8 PUB seq=5 type=3 etat=5 val=1140 cpt=5 attente=1
+L 124224.4 1 RX src=8 seq=5 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512119,"presence":true,"detections":5,"heure":"19:00","status":"INTRUSION"}
+L 124227.3 1 ALERTE INTRUSION ZONE_01 heure=19:00 src=8 seq=5
+L 124483.6 1 STAT src=2 T1 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124489.0 1 STAT src=3 T2 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124494.3 1 STAT src=4 T3 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124499.6 1 STAT src=5 C1 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124505.0 1 STAT src=6 C2 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124510.3 1 STAT src=7 C3 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 124515.6 1 STAT src=8 P1 recus=5 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 124520.9 1 STAT src=9 P2 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 124526.5 1 STAT src=10 P3 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 124609.3 7 PIECE n=30
+L 125896.3 5 PIECE n=33
+L 128647.6 6 PIECE n=32
+L 129489.0 5 PIECE n=34
+L 130408.1 7 PIECE n=31
+L 130494.7 3 PUB seq=5 type=1 etat=0 val=711 cpt=0 attente=1
+L 130524.3 1 RX src=3 seq=5 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512126,"temperature_c":71.1,"production_count":25,"status":"OK"}
+L 130854.7 6 PIECE n=33
+L 131145.9 6 PUB seq=5 type=2 etat=0 val=16 cpt=33 attente=1
+L 131173.2 1 RX src=6 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512126,"production_count":33,"cadence_ppm":16,"status":"OK"}
+L 133227.3 5 PIECE n=35
+L 133873.0 7 PIECE n=32
+L 133918.9 8 PUB seq=6 type=3 etat=4 val=1149 cpt=5 attente=1
+L 133962.8 1 RX src=8 seq=6 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512129,"presence":false,"detections":5,"heure":"19:09","status":"ARME"}
+L 134501.1 7 PUB seq=5 type=2 etat=0 val=16 cpt=32 attente=1
+L 134527.8 2 PUB seq=5 type=1 etat=0 val=627 cpt=0 attente=1
+L 134530.0 1 RX src=7 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512130,"production_count":32,"cadence_ppm":16,"status":"OK"}
+L 134557.3 1 RX src=2 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512130,"temperature_c":62.7,"production_count":27,"status":"OK"}
+L 134645.8 10 PUB seq=5 type=3 etat=4 val=1149 cpt=2 attente=1
+L 134682.3 1 RX src=10 seq=5 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512130,"presence":false,"detections":2,"heure":"19:09","status":"ARME"}
+L 135361.1 5 PIECE n=36
+L 135582.2 6 PIECE n=34
+L 136876.9 7 PIECE n=33
+L 137660.0 5 PIECE n=37
+L 138534.2 5 PUB seq=5 type=2 etat=0 val=20 cpt=37 attente=1
+L 138557.4 1 RX src=5 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512134,"production_count":37,"cadence_ppm":20,"status":"OK"}
+L 138882.0 6 PIECE n=35
+CMD 139175.3 noeud 9 <- P
+L 139176.7 9 SCENARIO presence devant le capteur
+L 139179.8 9 INTRUSION heure=19:14 hors heures ouvrees -> alerte + buzzer
+L 139184.1 9 PUB seq=5 type=3 etat=5 val=1154 cpt=2 attente=1
+L 139226.8 1 RX src=9 seq=5 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512134,"presence":true,"detections":2,"heure":"19:14","status":"INTRUSION"}
+L 139229.7 1 ALERTE INTRUSION ZONE_02 heure=19:14 src=9 seq=5
+L 139242.8 4 PUB seq=5 type=1 etat=0 val=1782 cpt=0 attente=1
+L 139269.6 1 RX src=4 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512134,"temperature_c":178.2,"production_count":32,"status":"OK"}
+L 139624.0 9 PUB seq=6 type=3 etat=4 val=1154 cpt=2 attente=1
+L 139662.0 1 RX src=9 seq=6 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512135,"presence":false,"detections":2,"heure":"19:14","status":"ARME"}
+L 140318.3 7 PIECE n=34
+L 141504.7 5 PIECE n=38
+L 142717.0 6 PIECE n=36
+L 144372.0 7 PIECE n=35
+L 144829.9 5 PIECE n=39
+L 147367.6 6 PIECE n=37
+L 148234.3 7 PIECE n=36
+L 149333.8 5 PIECE n=40
+L 152725.8 6 PIECE n=38
+L 153142.5 7 PIECE n=37
+CMD 154175.3 noeud 10 <- P
+L 154176.7 10 SCENARIO presence devant le capteur
+L 154179.8 10 INTRUSION heure=19:29 hors heures ouvrees -> alerte + buzzer
+L 154184.1 10 PUB seq=6 type=3 etat=5 val=1169 cpt=3 attente=1
+L 154226.3 1 RX src=10 seq=6 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512149,"presence":true,"detections":3,"heure":"19:29","status":"INTRUSION"}
+L 154229.4 1 ALERTE INTRUSION ZONE_03 heure=19:29 src=10 seq=6
+L 154909.0 5 PIECE n=41
+L 155684.8 6 PIECE n=39
+L 157501.9 7 PIECE n=38
+L 158680.9 6 PIECE n=40
+L 159980.4 7 PIECE n=39
+L 160067.2 5 PIECE n=42
+L 160494.7 3 PUB seq=6 type=1 etat=0 val=716 cpt=0 attente=1
+L 160523.2 1 RX src=3 seq=6 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512156,"temperature_c":71.6,"production_count":33,"status":"OK"}
+L 161145.9 6 PUB seq=6 type=2 etat=0 val=14 cpt=40 attente=1
+L 161177.3 1 RX src=6 seq=6 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512156,"production_count":40,"cadence_ppm":14,"status":"OK"}
+L 162637.6 7 PIECE n=40
+L 162709.2 6 PIECE n=41
+L 163918.9 8 PUB seq=7 type=3 etat=4 val=1179 cpt=5 attente=1
+L 163956.3 1 RX src=8 seq=7 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512159,"presence":false,"detections":5,"heure":"19:39","status":"ARME"}
+L 164501.1 7 PUB seq=6 type=2 etat=0 val=16 cpt=40 attente=1
+L 164525.2 1 RX src=7 seq=6 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512160,"production_count":40,"cadence_ppm":16,"status":"OK"}
+L 164527.8 2 PUB seq=6 type=1 etat=0 val=634 cpt=0 attente=1
+L 164556.6 1 RX src=2 seq=6 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512160,"temperature_c":63.4,"production_count":37,"status":"OK"}
+L 164645.8 10 PUB seq=7 type=3 etat=4 val=1179 cpt=3 attente=1
+L 164677.4 1 RX src=10 seq=7 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512160,"presence":false,"detections":3,"heure":"19:39","status":"ARME"}
+L 165122.8 5 PIECE n=43
+L 165412.3 6 PIECE n=42
+L 168045.8 7 PIECE n=41
+L 168534.2 5 PUB seq=6 type=2 etat=0 val=12 cpt=43 attente=1
+L 168565.4 1 RX src=5 seq=6 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512164,"production_count":43,"cadence_ppm":12,"status":"OK"}
+L 168672.6 5 PIECE n=44
+L 168844.9 6 PIECE n=43
+L 169242.8 4 PUB seq=6 type=1 etat=0 val=1813 cpt=0 attente=1
+L 169275.4 1 RX src=4 seq=6 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512164,"temperature_c":181.3,"production_count":40,"status":"OK"}
+L 169624.0 9 PUB seq=7 type=3 etat=4 val=1184 cpt=2 attente=1
+L 169662.5 1 RX src=9 seq=7 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512165,"presence":false,"detections":2,"heure":"19:44","status":"ARME"}
+L 170358.3 7 PIECE n=42
+L 172893.5 7 PIECE n=43
+L 173204.3 6 PIECE n=44
+L 173937.3 5 PIECE n=45
+L 176575.0 5 PIECE n=46
+L 176961.1 6 PIECE n=45
+L 177667.9 7 PIECE n=44
+L 180909.1 7 PIECE n=45
+L 181829.9 5 PIECE n=47
+L 182647.6 6 PIECE n=46
+L 184483.4 1 STAT src=2 T1 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184488.7 1 STAT src=3 T2 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184494.1 1 STAT src=4 T3 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184499.4 1 STAT src=5 C1 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184504.7 1 STAT src=6 C2 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184510.0 1 STAT src=7 C3 recus=6 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 184515.4 1 STAT src=8 P1 recus=7 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 184520.7 1 STAT src=9 P2 recus=7 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 184526.3 1 STAT src=10 P3 recus=7 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 184820.1 5 PIECE n=48
+L 185529.5 6 PIECE n=47
+L 186720.6 7 PIECE n=46
+L 187994.9 5 PIECE n=49
+L 190390.6 7 PIECE n=47
+L 190494.7 3 PUB seq=7 type=1 etat=0 val=733 cpt=0 attente=1
+L 190524.4 1 RX src=3 seq=7 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512186,"temperature_c":73.3,"production_count":40,"status":"OK"}
+L 190641.4 5 PIECE n=50
+L 190932.8 6 PIECE n=48
+L 191145.9 6 PUB seq=7 type=2 etat=0 val=16 cpt=48 attente=1
+L 191172.4 1 RX src=6 seq=7 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512186,"production_count":48,"cadence_ppm":16,"status":"OK"}
+L 193918.9 8 PUB seq=8 type=3 etat=4 val=1209 cpt=5 attente=1
+L 193954.1 1 RX src=8 seq=8 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512189,"presence":false,"detections":5,"heure":"20:09","status":"ARME"}
+L 194501.1 7 PUB seq=7 type=2 etat=0 val=14 cpt=47 attente=1
+L 194527.8 2 PUB seq=7 type=1 etat=0 val=650 cpt=0 attente=1
+L 194530.4 1 RX src=7 seq=7 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512190,"production_count":47,"cadence_ppm":14,"status":"OK"}
+L 194555.6 1 RX src=2 seq=7 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512190,"temperature_c":65.0,"production_count":43,"status":"OK"}
+L 194645.8 10 PUB seq=8 type=3 etat=4 val=1209 cpt=3 attente=1
+L 194680.9 1 RX src=10 seq=8 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512190,"presence":false,"detections":3,"heure":"20:09","status":"ARME"}
+L 194784.1 7 PIECE n=48
+L 195010.9 6 PIECE n=49
+L 195562.3 5 PIECE n=51
+L 198508.0 6 PIECE n=50
+L 198534.2 5 PUB seq=7 type=2 etat=0 val=16 cpt=51 attente=1
+L 198563.1 1 RX src=5 seq=7 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512194,"production_count":51,"cadence_ppm":16,"status":"OK"}
+L 199185.3 5 PIECE n=52
+L 199242.8 4 PUB seq=7 type=1 etat=0 val=1824 cpt=0 attente=1
+L 199270.5 1 RX src=4 seq=7 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512194,"temperature_c":182.4,"production_count":47,"status":"OK"}
+L 199299.7 7 PIECE n=49
+L 199624.0 9 PUB seq=8 type=3 etat=4 val=1214 cpt=2 attente=1
+L 199663.2 1 RX src=9 seq=8 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512195,"presence":false,"detections":2,"heure":"20:14","status":"ARME"}
+L 202627.9 7 PIECE n=50
+L 203509.0 6 PIECE n=51
+L 205078.9 5 PIECE n=53
+L 207642.5 7 PIECE n=51
+L 208752.1 6 PIECE n=52
+L 209188.3 5 PIECE n=54
+L 210135.7 7 PIECE n=52
+L 213339.8 7 PIECE n=53
+L 213786.9 5 PIECE n=55
+L 214419.1 6 PIECE n=53
+L 215769.5 7 PIECE n=54
+L 217434.8 6 PIECE n=54
+L 218686.3 5 PIECE n=56
+L 220494.7 3 PUB seq=8 type=1 etat=0 val=737 cpt=0 attente=1
+L 220519.9 1 RX src=3 seq=8 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512216,"temperature_c":73.7,"production_count":48,"status":"OK"}
+L 220985.5 6 PIECE n=55
+L 221145.9 6 PUB seq=8 type=2 etat=0 val=14 cpt=55 attente=1
+L 221172.1 1 RX src=6 seq=8 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512216,"production_count":55,"cadence_ppm":14,"status":"OK"}
+L 221614.2 7 PIECE n=55
+L 222802.5 5 PIECE n=57
+L 223918.9 8 PUB seq=9 type=3 etat=4 val=1239 cpt=5 attente=1
+L 223961.7 1 RX src=8 seq=9 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512219,"presence":false,"detections":5,"heure":"20:39","status":"ARME"}
+L 224501.1 7 PUB seq=8 type=2 etat=0 val=16 cpt=55 attente=1
+L 224527.8 2 PUB seq=8 type=1 etat=0 val=654 cpt=0 attente=1
+L 224528.6 1 RX src=7 seq=8 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512220,"production_count":55,"cadence_ppm":16,"status":"OK"}
+L 224556.9 1 RX src=2 seq=8 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512220,"temperature_c":65.4,"production_count":51,"status":"OK"}
+L 224645.8 10 PUB seq=9 type=3 etat=4 val=1239 cpt=3 attente=1
+L 224687.8 1 RX src=10 seq=9 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512220,"presence":false,"detections":3,"heure":"20:39","status":"ARME"}
+L 225193.2 5 PIECE n=58
+L 226392.5 7 PIECE n=56
+L 226824.4 6 PIECE n=56
+L 228534.2 5 PUB seq=8 type=2 etat=0 val=14 cpt=58 attente=1
+L 228563.5 1 RX src=5 seq=8 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512224,"production_count":58,"cadence_ppm":14,"status":"OK"}
+L 229242.9 4 PUB seq=8 type=1 etat=0 val=1851 cpt=0 attente=1
+L 229268.9 1 RX src=4 seq=8 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512224,"temperature_c":185.1,"production_count":55,"status":"OK"}
+L 229624.0 9 PUB seq=9 type=3 etat=4 val=1244 cpt=2 attente=1
+L 229662.1 1 RX src=9 seq=9 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512225,"presence":false,"detections":2,"heure":"20:44","status":"ARME"}
+L 230145.3 5 PIECE n=59
+L 230509.7 7 PIECE n=57
+L 231363.5 6 PIECE n=57
+L 234378.1 6 PIECE n=58
+L 234378.7 5 PIECE n=60
+L 235302.7 7 PIECE n=58
+L 237614.4 6 PIECE n=59
+L 238131.8 7 PIECE n=59
+L 239971.5 5 PIECE n=61
+L 240312.7 6 PIECE n=60
+L 242988.2 7 PIECE n=60
+L 244430.5 5 PIECE n=62
+L 244483.7 1 STAT src=2 T1 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244489.0 1 STAT src=3 T2 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244494.3 1 STAT src=4 T3 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244499.6 1 STAT src=5 C1 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244505.0 1 STAT src=6 C2 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244510.3 1 STAT src=7 C3 recus=8 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 244515.6 1 STAT src=8 P1 recus=9 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 244520.9 1 STAT src=9 P2 recus=9 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 244526.5 1 STAT src=10 P3 recus=9 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 245578.3 6 PIECE n=61
+L 248423.6 5 PIECE n=63
+L 248563.7 6 PIECE n=62
+L 248939.4 7 PIECE n=61
+L 250494.7 3 PUB seq=9 type=1 etat=0 val=740 cpt=0 attente=1
+L 250519.4 1 RX src=3 seq=9 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512246,"temperature_c":74.0,"production_count":55,"status":"OK"}
+L 251145.9 6 PUB seq=9 type=2 etat=0 val=14 cpt=62 attente=1
+L 251174.9 1 RX src=6 seq=9 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512246,"production_count":62,"cadence_ppm":14,"status":"OK"}
+L 251621.3 6 PIECE n=63
+L 251679.6 7 PIECE n=62
+L 253781.0 5 PIECE n=64
+L 253919.2 8 PUB seq=10 type=3 etat=4 val=1269 cpt=5 attente=1
+L 253954.5 1 RX src=8 seq=10 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512249,"presence":false,"detections":5,"heure":"21:09","status":"ARME"}
+L 254501.1 7 PUB seq=9 type=2 etat=0 val=14 cpt=62 attente=1
+L 254527.8 2 PUB seq=9 type=1 etat=0 val=650 cpt=0 attente=1
+L 254532.3 1 RX src=7 seq=9 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512250,"production_count":62,"cadence_ppm":14,"status":"OK"}
+L 254557.1 1 RX src=2 seq=9 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512250,"temperature_c":65.0,"production_count":58,"status":"OK"}
+L 254646.1 10 PUB seq=10 type=3 etat=4 val=1269 cpt=3 attente=1
+L 254682.3 1 RX src=10 seq=10 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512250,"presence":false,"detections":3,"heure":"21:09","status":"ARME"}
+L 257062.4 7 PIECE n=63
+L 257135.9 6 PIECE n=64
+L 257186.3 5 PIECE n=65
+L 258534.2 5 PUB seq=9 type=2 etat=0 val=14 cpt=65 attente=1
+L 258564.7 1 RX src=5 seq=9 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512254,"production_count":65,"cadence_ppm":14,"status":"OK"}
+L 259242.8 4 PUB seq=9 type=1 etat=0 val=1851 cpt=0 attente=1
+L 259266.7 1 RX src=4 seq=9 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512254,"temperature_c":185.1,"production_count":62,"status":"OK"}
+L 259624.3 9 PUB seq=10 type=3 etat=4 val=1274 cpt=2 attente=1
+L 259660.7 1 RX src=9 seq=10 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512255,"presence":false,"detections":2,"heure":"21:14","status":"ARME"}
+L 261100.4 5 PIECE n=66
+L 261372.3 6 PIECE n=65
+L 262462.8 7 PIECE n=64
+L 264927.9 6 PIECE n=66
+L 265168.7 5 PIECE n=67
+L 267312.3 5 PIECE n=68
+L 267918.9 7 PIECE n=65
+L 269721.9 6 PIECE n=67
+L 271582.9 7 PIECE n=66
+L 272028.5 6 PIECE n=68
+L 272119.9 5 PIECE n=69
+L 274565.4 7 PIECE n=67
+L 274628.1 6 PIECE n=69
+L 275302.5 5 PIECE n=70
+L 278481.4 7 PIECE n=68
+L 278683.8 6 PIECE n=70
+L 280495.0 3 PUB seq=10 type=1 etat=0 val=733 cpt=0 attente=1
+L 280521.1 1 RX src=3 seq=10 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512276,"temperature_c":73.3,"production_count":62,"status":"OK"}
+L 280983.2 5 PIECE n=71
+L 281146.2 6 PUB seq=10 type=2 etat=0 val=16 cpt=70 attente=1
+L 281177.6 1 RX src=6 seq=10 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512276,"production_count":70,"cadence_ppm":16,"status":"OK"}
+L 281709.2 6 PIECE n=71
+L 282169.0 7 PIECE n=69
+L 283919.2 8 PUB seq=11 type=3 etat=4 val=1299 cpt=5 attente=1
+L 283953.7 1 RX src=8 seq=11 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512279,"presence":false,"detections":5,"heure":"21:39","status":"ARME"}
+L 284338.1 6 PIECE n=72
+L 284501.4 7 PUB seq=10 type=2 etat=0 val=14 cpt=69 attente=1
+L 284527.6 1 RX src=7 seq=10 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512280,"production_count":69,"cadence_ppm":14,"status":"OK"}
+L 284528.1 2 PUB seq=10 type=1 etat=0 val=645 cpt=0 attente=1
+L 284555.4 1 RX src=2 seq=10 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512280,"temperature_c":64.5,"production_count":65,"status":"OK"}
+L 284646.1 10 PUB seq=11 type=3 etat=4 val=1299 cpt=3 attente=1
+L 284657.0 5 PIECE n=72
+L 284691.6 1 RX src=10 seq=11 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512280,"presence":false,"detections":3,"heure":"21:39","status":"ARME"}
+L 287092.0 6 PIECE n=73
+L 287590.8 7 PIECE n=70
+L 288534.5 5 PUB seq=10 type=2 etat=0 val=14 cpt=72 attente=1
+L 288566.4 1 RX src=5 seq=10 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512284,"production_count":72,"cadence_ppm":14,"status":"OK"}
+L 289243.1 4 PUB seq=10 type=1 etat=0 val=1857 cpt=0 attente=1
+L 289275.5 1 RX src=4 seq=10 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512284,"temperature_c":185.7,"production_count":69,"status":"OK"}
+L 289624.3 9 PUB seq=11 type=3 etat=4 val=1304 cpt=2 attente=1
+L 289668.7 1 RX src=9 seq=11 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512285,"presence":false,"detections":2,"heure":"21:44","status":"ARME"}
+L 290243.0 5 PIECE n=73
+L 290434.8 6 PIECE n=74
+L 291832.0 7 PIECE n=71
+L 292900.6 6 PIECE n=75
+L 294725.5 7 PIECE n=72
+L 294868.9 5 PIECE n=74
+L 295989.4 6 PIECE n=76
+L 297215.8 7 PIECE n=73
+L 299472.8 6 PIECE n=77
+L 300039.8 5 PIECE n=75
+L 301153.3 7 PIECE n=74
+L 301513.9 6 PIECE n=78
+L 302607.2 5 PIECE n=76
+L 304483.7 1 STAT src=2 T1 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304489.3 1 STAT src=3 T2 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304494.9 1 STAT src=4 T3 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304500.5 1 STAT src=5 C1 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304506.2 1 STAT src=6 C2 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304511.8 1 STAT src=7 C3 recus=10 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 304517.4 1 STAT src=8 P1 recus=11 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 304523.0 1 STAT src=9 P2 recus=11 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 304528.9 1 STAT src=10 P3 recus=11 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 305100.5 7 PIECE n=75
+L 305190.6 6 PIECE n=79
+L 307120.9 5 PIECE n=77
+L 307567.3 7 PIECE n=76
+L 307657.5 6 PIECE n=80
+L 309953.3 6 PIECE n=81
+L 310224.5 7 PIECE n=77
+L 310495.0 3 PUB seq=11 type=1 etat=0 val=729 cpt=0 attente=1
+L 310518.8 1 RX src=3 seq=11 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512306,"temperature_c":72.9,"production_count":70,"status":"OK"}
+L 311146.2 6 PUB seq=11 type=2 etat=0 val=22 cpt=81 attente=1
+L 311169.7 1 RX src=6 seq=11 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512306,"production_count":81,"cadence_ppm":22,"status":"OK"}
+L 312220.5 5 PIECE n=78
+L 313745.3 6 PIECE n=82
+L 313919.2 8 PUB seq=12 type=3 etat=4 val=1329 cpt=5 attente=1
+L 313958.0 1 RX src=8 seq=12 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512309,"presence":false,"detections":5,"heure":"22:09","status":"ARME"}
+L 314293.9 7 PIECE n=78
+L 314501.4 7 PUB seq=11 type=2 etat=0 val=18 cpt=78 attente=1
+L 314528.1 2 PUB seq=11 type=1 etat=0 val=644 cpt=0 attente=1
+L 314532.4 1 RX src=7 seq=11 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512310,"production_count":78,"cadence_ppm":18,"status":"OK"}
+L 314553.2 1 RX src=2 seq=11 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512310,"temperature_c":64.4,"production_count":72,"status":"OK"}
+L 314646.1 10 PUB seq=12 type=3 etat=4 val=1329 cpt=3 attente=1
+L 314690.1 1 RX src=10 seq=12 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512310,"presence":false,"detections":3,"heure":"22:09","status":"ARME"}
+L 317282.1 7 PIECE n=79
+L 317649.2 5 PIECE n=79
+L 318534.5 5 PUB seq=11 type=2 etat=0 val=14 cpt=79 attente=1
+L 318565.7 1 RX src=5 seq=11 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512314,"production_count":79,"cadence_ppm":14,"status":"OK"}
+L 318576.4 6 PIECE n=83
+L 319243.1 4 PUB seq=11 type=1 etat=0 val=1850 cpt=0 attente=1
+L 319271.9 1 RX src=4 seq=11 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512314,"temperature_c":185.0,"production_count":78,"status":"OK"}
+L 319624.3 9 PUB seq=12 type=3 etat=4 val=1334 cpt=2 attente=1
+L 319663.8 1 RX src=9 seq=12 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512315,"presence":false,"detections":2,"heure":"22:14","status":"ARME"}
+L 320505.8 7 PIECE n=80
+L 321118.3 6 PIECE n=84
+L 321437.3 5 PIECE n=80
+L 324062.3 5 PIECE n=81
+L 324580.0 7 PIECE n=81
+L 325460.1 6 PIECE n=85
+L 326612.1 5 PIECE n=82
+L 329238.5 6 PIECE n=86
+L 329973.6 7 PIECE n=82
+L 332533.0 5 PIECE n=83
+L 333536.1 7 PIECE n=83
+L 334891.8 6 PIECE n=87
+L 338269.3 5 PIECE n=84
+L 338821.2 7 PIECE n=84
+L 339265.8 6 PIECE n=88
+L 340495.0 3 PUB seq=12 type=1 etat=0 val=734 cpt=0 attente=1
+L 340519.2 1 RX src=3 seq=12 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512336,"temperature_c":73.4,"production_count":81,"status":"OK"}
+L 341146.2 6 PUB seq=12 type=2 etat=0 val=14 cpt=88 attente=1
+L 341171.5 1 RX src=6 seq=12 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512336,"production_count":88,"cadence_ppm":14,"status":"OK"}
+L 341838.1 6 PIECE n=89
+L 342404.1 5 PIECE n=85
+L 343919.2 8 PUB seq=13 type=3 etat=4 val=1359 cpt=5 attente=1
+L 343956.8 1 RX src=8 seq=13 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512339,"presence":false,"detections":5,"heure":"22:39","status":"ARME"}
+L 344240.2 7 PIECE n=85
+L 344501.4 7 PUB seq=12 type=2 etat=0 val=14 cpt=85 attente=1
+L 344528.1 2 PUB seq=12 type=1 etat=0 val=655 cpt=0 attente=1
+L 344530.8 1 RX src=7 seq=12 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512340,"production_count":85,"cadence_ppm":14,"status":"OK"}
+L 344557.1 1 RX src=2 seq=12 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512340,"temperature_c":65.5,"production_count":79,"status":"OK"}
+L 344646.1 10 PUB seq=13 type=3 etat=4 val=1359 cpt=3 attente=1
+L 344687.2 1 RX src=10 seq=13 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512340,"presence":false,"detections":3,"heure":"22:39","status":"ARME"}
+L 347115.0 5 PIECE n=86
+L 347338.8 7 PIECE n=86
+L 347514.8 6 PIECE n=90
+L 348534.5 5 PUB seq=12 type=2 etat=0 val=14 cpt=86 attente=1
+L 348558.3 1 RX src=5 seq=12 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512344,"production_count":86,"cadence_ppm":14,"status":"OK"}
+L 349243.1 4 PUB seq=12 type=1 etat=0 val=1853 cpt=0 attente=1
+L 349275.9 1 RX src=4 seq=12 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512344,"temperature_c":185.3,"production_count":85,"status":"OK"}
+L 349624.2 9 PUB seq=13 type=3 etat=4 val=1364 cpt=2 attente=1
+L 349657.1 1 RX src=9 seq=13 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512345,"presence":false,"detections":2,"heure":"22:44","status":"ARME"}
+L 349776.6 6 PIECE n=91
+L 350592.7 7 PIECE n=87
+L 352025.2 5 PIECE n=87
+L 353180.6 7 PIECE n=88
+L 355757.0 6 PIECE n=92
+L 356207.8 5 PIECE n=88
+L 358113.2 7 PIECE n=89
+L 359149.2 5 PIECE n=89
+L 360871.0 7 PIECE n=90
+L 361067.6 6 PIECE n=93
+L 362180.5 5 PIECE n=90
+L 364395.7 6 PIECE n=94
+L 364483.9 1 STAT src=2 T1 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364489.6 1 STAT src=3 T2 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364495.2 1 STAT src=4 T3 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364500.8 1 STAT src=5 C1 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364506.4 1 STAT src=6 C2 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364512.0 1 STAT src=7 C3 recus=12 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 364517.6 1 STAT src=8 P1 recus=13 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 364523.2 1 STAT src=9 P2 recus=13 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 364529.1 1 STAT src=10 P3 recus=13 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 365569.3 7 PIECE n=91
+L 367187.3 5 PIECE n=91
+L 367720.6 7 PIECE n=92
+L 368822.5 6 PIECE n=95
+L 370495.0 3 PUB seq=13 type=1 etat=0 val=727 cpt=0 attente=1
+L 370526.7 1 RX src=3 seq=13 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512366,"temperature_c":72.7,"production_count":88,"status":"OK"}
+L 370812.3 5 PIECE n=92
+L 371146.2 6 PUB seq=13 type=2 etat=0 val=14 cpt=95 attente=1
+L 371172.4 1 RX src=6 seq=13 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512366,"production_count":95,"cadence_ppm":14,"status":"OK"}
+L 372099.5 7 PIECE n=93
+L 373919.2 8 PUB seq=14 type=3 etat=4 val=1389 cpt=5 attente=1
+L 373955.8 1 RX src=8 seq=14 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512369,"presence":false,"detections":5,"heure":"23:09","status":"ARME"}
+L 374019.7 6 PIECE n=96
+L 374330.9 5 PIECE n=93
+L 374501.4 7 PUB seq=13 type=2 etat=0 val=16 cpt=93 attente=1
+L 374525.9 1 RX src=7 seq=13 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512370,"production_count":93,"cadence_ppm":16,"status":"OK"}
+L 374528.1 2 PUB seq=13 type=1 etat=0 val=657 cpt=0 attente=1
+L 374553.6 1 RX src=2 seq=13 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512370,"temperature_c":65.7,"production_count":86,"status":"OK"}
+L 374646.1 10 PUB seq=14 type=3 etat=4 val=1389 cpt=3 attente=1
+L 374685.2 1 RX src=10 seq=14 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512370,"presence":false,"detections":3,"heure":"23:09","status":"ARME"}
+L 376462.1 6 PIECE n=97
+L 377238.2 7 PIECE n=94
+L 378369.9 5 PIECE n=94
+L 378534.5 5 PUB seq=13 type=2 etat=0 val=16 cpt=94 attente=1
+L 378562.2 1 RX src=5 seq=13 sauts=1 parent=1 age=4 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512374,"production_count":94,"cadence_ppm":16,"status":"OK"}
+L 379243.1 4 PUB seq=13 type=1 etat=0 val=1863 cpt=0 attente=1
+L 379273.8 1 RX src=4 seq=13 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512374,"temperature_c":186.3,"production_count":93,"status":"OK"}
+L 379624.3 9 PUB seq=14 type=3 etat=4 val=1394 cpt=2 attente=1
+L 379664.2 1 RX src=9 seq=14 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512375,"presence":false,"detections":2,"heure":"23:14","status":"ARME"}
+L 381349.4 5 PIECE n=95
+L 381544.9 7 PIECE n=95
+L 381765.8 6 PIECE n=98
+L 383610.2 5 PIECE n=96
+L 384583.2 6 PIECE n=99
+L 386463.8 7 PIECE n=96
+L 386693.8 6 PIECE n=100
+L 387205.9 5 PIECE n=97
+L 388761.6 7 PIECE n=97
+L 389618.0 5 PIECE n=98
+L 391406.7 6 PIECE n=101
+L 392244.9 5 PIECE n=99
+L 394136.7 7 PIECE n=98
+L 396006.9 5 PIECE n=100
+L 397064.0 6 PIECE n=102
+L 397989.2 7 PIECE n=99
+L 399596.8 5 PIECE n=101
+L 400495.0 3 PUB seq=14 type=1 etat=0 val=726 cpt=0 attente=1
+L 400522.5 1 RX src=3 seq=14 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512396,"temperature_c":72.6,"production_count":95,"status":"OK"}
+L 401146.5 6 PUB seq=14 type=2 etat=0 val=14 cpt=102 attente=1
+L 401177.8 1 RX src=6 seq=14 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512396,"production_count":102,"cadence_ppm":14,"status":"OK"}
+L 402575.7 6 PIECE n=103
+L 402987.5 7 PIECE n=100
+L 403919.2 8 PUB seq=15 type=3 etat=4 val=1419 cpt=5 attente=1
+L 403961.5 1 RX src=8 seq=15 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512399,"presence":false,"detections":5,"heure":"23:39","status":"ARME"}
+L 404207.1 5 PIECE n=102
+L 404501.7 7 PUB seq=14 type=2 etat=0 val=14 cpt=100 attente=1
+L 404528.1 2 PUB seq=14 type=1 etat=0 val=651 cpt=0 attente=1
+L 404533.7 1 RX src=7 seq=14 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512400,"production_count":100,"cadence_ppm":14,"status":"OK"}
+L 404555.5 1 RX src=2 seq=14 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512400,"temperature_c":65.1,"production_count":94,"status":"OK"}
+L 404646.1 10 PUB seq=15 type=3 etat=4 val=1419 cpt=3 attente=1
+L 404682.2 1 RX src=10 seq=15 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512400,"presence":false,"detections":3,"heure":"23:39","status":"ARME"}
+L 406404.8 6 PIECE n=104
+L 406909.4 7 PIECE n=101
+L 406991.3 5 PIECE n=103
+L 408534.8 5 PUB seq=14 type=2 etat=0 val=18 cpt=103 attente=1
+L 408558.4 1 RX src=5 seq=14 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512404,"production_count":103,"cadence_ppm":18,"status":"OK"}
+L 409072.5 7 PIECE n=102
+L 409243.1 4 PUB seq=14 type=1 etat=0 val=1861 cpt=0 attente=1
+L 409275.2 1 RX src=4 seq=14 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512404,"temperature_c":186.1,"production_count":100,"status":"OK"}
+L 409624.3 9 PUB seq=15 type=3 etat=4 val=1424 cpt=2 attente=1
+L 409656.8 1 RX src=9 seq=15 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512405,"presence":false,"detections":2,"heure":"23:44","status":"ARME"}
+L 410116.7 6 PIECE n=105
+L 412059.7 5 PIECE n=104
+L 413755.4 6 PIECE n=106
+L 413918.2 7 PIECE n=103
+L 414531.3 5 PIECE n=105
+L 418089.0 5 PIECE n=106
+L 418633.0 7 PIECE n=104
+L 418826.6 6 PIECE n=107
+L 422447.4 5 PIECE n=107
+L 423347.2 6 PIECE n=108
+L 423977.8 7 PIECE n=105
+L 424483.7 1 STAT src=2 T1 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424489.3 1 STAT src=3 T2 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424494.9 1 STAT src=4 T3 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424500.5 1 STAT src=5 C1 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424506.2 1 STAT src=6 C2 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424511.8 1 STAT src=7 C3 recus=14 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 424517.4 1 STAT src=8 P1 recus=15 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 424523.0 1 STAT src=9 P2 recus=15 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 424528.9 1 STAT src=10 P3 recus=15 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 426371.2 5 PIECE n=108
+L 427013.2 6 PIECE n=109
+L 429182.8 7 PIECE n=106
+L 429773.9 6 PIECE n=110
+L 430495.0 3 PUB seq=15 type=1 etat=0 val=733 cpt=0 attente=1
+L 430520.1 1 RX src=3 seq=15 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512426,"temperature_c":73.3,"production_count":102,"status":"OK"}
+L 431125.1 5 PIECE n=109
+L 431146.5 6 PUB seq=15 type=2 etat=0 val=16 cpt=110 attente=1
+L 431173.4 1 RX src=6 seq=15 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512426,"production_count":110,"cadence_ppm":16,"status":"OK"}
+L 431879.1 7 PIECE n=107
+L 432606.9 6 PIECE n=111
+L 433918.3 8 PUB seq=16 type=3 etat=4 val=9 cpt=5 attente=1
+L 433962.0 1 RX src=8 seq=16 sauts=2 parent=2 age=3 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512429,"presence":false,"detections":5,"heure":"00:09","status":"ARME"}
+L 434019.6 5 PIECE n=110
+L 434501.7 7 PUB seq=15 type=2 etat=0 val=14 cpt=107 attente=1
+L 434525.3 1 RX src=7 seq=15 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512430,"production_count":107,"cadence_ppm":14,"status":"OK"}
+L 434528.1 2 PUB seq=15 type=1 etat=0 val=662 cpt=0 attente=1
+L 434552.7 1 RX src=2 seq=15 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512430,"temperature_c":66.2,"production_count":103,"status":"OK"}
+L 434645.2 10 PUB seq=16 type=3 etat=4 val=9 cpt=3 attente=1
+L 434677.0 6 PIECE n=112
+L 434679.0 1 RX src=10 seq=16 sauts=2 parent=6 age=4 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512430,"presence":false,"detections":3,"heure":"00:09","status":"ARME"}
+L 436245.3 7 PIECE n=108
+L 437123.5 6 PIECE n=113
+L 438534.8 5 PUB seq=15 type=2 etat=0 val=14 cpt=110 attente=1
+L 438565.1 1 RX src=5 seq=15 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512434,"production_count":110,"cadence_ppm":14,"status":"OK"}
+L 438853.6 5 PIECE n=111
+L 439243.1 4 PUB seq=15 type=1 etat=0 val=1864 cpt=0 attente=1
+L 439274.4 1 RX src=4 seq=15 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512434,"temperature_c":186.4,"production_count":107,"status":"OK"}
+L 439341.0 7 PIECE n=109
+L 439623.7 9 PUB seq=16 type=3 etat=4 val=14 cpt=2 attente=1
+L 439657.8 1 RX src=9 seq=16 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512435,"presence":false,"detections":2,"heure":"00:14","status":"ARME"}
+L 441428.0 7 PIECE n=110
+L 442103.0 6 PIECE n=114
+L 444440.5 5 PIECE n=112
+L 444539.3 7 PIECE n=111
+L 447753.1 7 PIECE n=112
+L 447839.3 6 PIECE n=115
+L 449871.2 5 PIECE n=113
+L 452834.5 6 PIECE n=116
+L 453396.7 7 PIECE n=113
+L 455329.2 5 PIECE n=114
+L 458266.1 6 PIECE n=117
+L 458346.8 5 PIECE n=115
+L 458507.1 7 PIECE n=114
+L 460495.0 3 PUB seq=16 type=1 etat=0 val=738 cpt=0 attente=1
+L 460526.6 1 RX src=3 seq=16 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512456,"temperature_c":73.8,"production_count":110,"status":"OK"}
+L 461146.5 6 PUB seq=16 type=2 etat=0 val=14 cpt=117 attente=1
+L 461176.7 1 RX src=6 seq=16 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512456,"production_count":117,"cadence_ppm":14,"status":"OK"}
+L 462309.1 6 PIECE n=118
+L 462955.3 7 PIECE n=115
+L 463350.7 5 PIECE n=116
+L 463918.6 8 PUB seq=17 type=3 etat=4 val=39 cpt=5 attente=1
+L 463960.1 1 RX src=8 seq=17 sauts=2 parent=2 age=3 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512459,"presence":false,"detections":5,"heure":"00:39","status":"ARME"}
+L 464488.7 6 PIECE n=119
+L 464501.7 7 PUB seq=16 type=2 etat=0 val=16 cpt=115 attente=1
+L 464528.1 2 PUB seq=16 type=1 etat=0 val=656 cpt=0 attente=1
+L 464531.8 1 RX src=7 seq=16 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512460,"production_count":115,"cadence_ppm":16,"status":"OK"}
+L 464555.8 1 RX src=2 seq=16 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512460,"temperature_c":65.6,"production_count":110,"status":"OK"}
+L 464645.5 10 PUB seq=17 type=3 etat=4 val=39 cpt=3 attente=1
+L 464689.2 1 RX src=10 seq=17 sauts=2 parent=6 age=4 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512460,"presence":false,"detections":3,"heure":"00:39","status":"ARME"}
+L 466410.4 7 PIECE n=116
+L 466999.5 6 PIECE n=120
+L 468534.8 5 PUB seq=16 type=2 etat=0 val=12 cpt=116 attente=1
+L 468564.0 1 RX src=5 seq=16 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512464,"production_count":116,"cadence_ppm":12,"status":"OK"}
+L 468601.7 5 PIECE n=117
+L 469243.1 4 PUB seq=16 type=1 etat=0 val=1878 cpt=0 attente=1
+L 469271.7 1 RX src=4 seq=16 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512464,"temperature_c":187.8,"production_count":115,"status":"OK"}
+L 469623.7 9 PUB seq=17 type=3 etat=4 val=44 cpt=2 attente=1
+L 469639.8 6 PIECE n=121
+L 469662.3 1 RX src=9 seq=17 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512465,"presence":false,"detections":2,"heure":"00:44","status":"ARME"}
+L 470558.8 7 PIECE n=117
+L 472924.3 6 PIECE n=122
+L 472925.9 5 PIECE n=118
+L 474480.7 7 PIECE n=118
+L 476662.6 6 PIECE n=123
+L 478148.5 5 PIECE n=119
+L 478801.0 7 PIECE n=119
+L 481201.4 7 PIECE n=120
+L 482012.2 6 PIECE n=124
+L 483354.6 5 PIECE n=120
+L 484483.9 1 STAT src=2 T1 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484489.6 1 STAT src=3 T2 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484495.2 1 STAT src=4 T3 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484496.6 6 PIECE n=125
+L 484500.8 1 STAT src=5 C1 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484506.4 1 STAT src=6 C2 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484512.0 1 STAT src=7 C3 recus=16 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 484517.6 1 STAT src=8 P1 recus=17 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 484523.2 1 STAT src=9 P2 recus=17 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 484529.1 1 STAT src=10 P3 recus=17 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 485659.5 7 PIECE n=121
+L 486574.3 5 PIECE n=121
+L 487076.6 6 PIECE n=126
+L 487760.0 7 PIECE n=122
+L 490495.0 3 PUB seq=17 type=1 etat=0 val=742 cpt=0 attente=1
+L 490525.3 1 RX src=3 seq=17 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512486,"temperature_c":74.2,"production_count":117,"status":"OK"}
+L 490870.6 6 PIECE n=127
+L 491146.5 6 PUB seq=17 type=2 etat=0 val=20 cpt=127 attente=1
+L 491170.4 1 RX src=6 seq=17 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512486,"production_count":127,"cadence_ppm":20,"status":"OK"}
+L 491390.8 7 PIECE n=123
+L 492238.4 5 PIECE n=122
+L 493918.6 8 PUB seq=18 type=3 etat=4 val=69 cpt=5 attente=1
+L 493957.2 1 RX src=8 seq=18 sauts=2 parent=2 age=3 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512489,"presence":false,"detections":5,"heure":"01:09","status":"ARME"}
+L 494501.7 7 PUB seq=17 type=2 etat=0 val=16 cpt=123 attente=1
+L 494528.1 2 PUB seq=17 type=1 etat=0 val=656 cpt=0 attente=1
+L 494530.4 1 RX src=7 seq=17 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512490,"production_count":123,"cadence_ppm":16,"status":"OK"}
+L 494557.7 1 RX src=2 seq=17 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512490,"temperature_c":65.6,"production_count":116,"status":"OK"}
+L 494645.5 10 PUB seq=18 type=3 etat=4 val=69 cpt=3 attente=1
+L 494679.3 1 RX src=10 seq=18 sauts=2 parent=6 age=4 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512490,"presence":false,"detections":3,"heure":"01:09","status":"ARME"}
+L 496282.4 7 PIECE n=124
+L 496521.1 5 PIECE n=123
+L 496771.0 6 PIECE n=128
+L 498534.8 5 PUB seq=17 type=2 etat=0 val=14 cpt=123 attente=1
+L 498566.4 1 RX src=5 seq=17 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512494,"production_count":123,"cadence_ppm":14,"status":"OK"}
+L 499243.1 4 PUB seq=17 type=1 etat=0 val=1885 cpt=0 attente=1
+L 499273.0 1 RX src=4 seq=17 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512494,"temperature_c":188.5,"production_count":123,"status":"OK"}
+L 499623.7 9 PUB seq=18 type=3 etat=4 val=74 cpt=2 attente=1
+L 499655.8 1 RX src=9 seq=18 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512495,"presence":false,"detections":2,"heure":"01:14","status":"ARME"}
+L 500493.3 5 PIECE n=124
+L 501372.3 7 PIECE n=125
+L 501464.3 6 PIECE n=129
+L 503254.0 5 PIECE n=125
+L 505597.1 6 PIECE n=130
+L 505781.3 5 PIECE n=126
+L 506159.4 7 PIECE n=126
+L 509267.8 7 PIECE n=127
+L 509292.5 6 PIECE n=131
+L 510359.5 5 PIECE n=127
+L 512749.1 5 PIECE n=128
+L 512953.6 6 PIECE n=132
+L 514370.3 7 PIECE n=128
+L 515062.6 5 PIECE n=129
+L 517048.3 6 PIECE n=133
+L 517629.1 7 PIECE n=129
+L 520457.5 6 PIECE n=134
+L 520495.0 3 PUB seq=18 type=1 etat=0 val=743 cpt=0 attente=1
+L 520525.9 1 RX src=3 seq=18 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512516,"temperature_c":74.3,"production_count":127,"status":"OK"}
+L 520546.0 5 PIECE n=130
+L 521146.5 6 PUB seq=18 type=2 etat=0 val=14 cpt=134 attente=1
+L 521177.1 1 RX src=6 seq=18 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512516,"production_count":134,"cadence_ppm":14,"status":"OK"}
+L 521645.7 7 PIECE n=130
+L 523918.6 8 PUB seq=19 type=3 etat=4 val=99 cpt=5 attente=1
+L 523950.4 1 RX src=8 seq=19 sauts=2 parent=2 age=3 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512519,"presence":false,"detections":5,"heure":"01:39","status":"ARME"}
+L 524501.7 7 PUB seq=18 type=2 etat=0 val=14 cpt=130 attente=1
+L 524525.7 1 RX src=7 seq=18 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512520,"production_count":130,"cadence_ppm":14,"status":"OK"}
+L 524528.1 2 PUB seq=18 type=1 etat=0 val=654 cpt=0 attente=1
+L 524553.7 1 RX src=2 seq=18 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512520,"temperature_c":65.4,"production_count":123,"status":"OK"}
+L 524645.5 10 PUB seq=19 type=3 etat=4 val=99 cpt=3 attente=1
+L 524682.7 1 RX src=10 seq=19 sauts=2 parent=6 age=4 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512520,"presence":false,"detections":3,"heure":"01:39","status":"ARME"}
+L 525077.2 5 PIECE n=131
+L 526381.3 6 PIECE n=135
+L 526528.5 7 PIECE n=131
+L 528534.8 5 PUB seq=18 type=2 etat=0 val=16 cpt=131 attente=1
+L 528563.4 1 RX src=5 seq=18 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512524,"production_count":131,"cadence_ppm":16,"status":"OK"}
+L 529243.1 4 PUB seq=18 type=1 etat=0 val=1884 cpt=0 attente=1
+L 529267.4 1 RX src=4 seq=18 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512524,"temperature_c":188.4,"production_count":130,"status":"OK"}
+L 529510.2 6 PIECE n=136
+L 529624.0 9 PUB seq=19 type=3 etat=4 val=104 cpt=2 attente=1
+L 529659.8 1 RX src=9 seq=19 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512525,"presence":false,"detections":2,"heure":"01:44","status":"ARME"}
+L 530366.3 5 PIECE n=132
+L 531714.1 7 PIECE n=132
+L 535092.9 5 PIECE n=133
+L 535133.3 6 PIECE n=137
+L 537189.7 7 PIECE n=133
+L 537984.9 6 PIECE n=138
+L 539865.3 5 PIECE n=134
+L 540282.7 6 PIECE n=139
+L 540776.6 7 PIECE n=134
+L 544312.7 7 PIECE n=135
+L 544483.7 1 STAT src=2 T1 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544489.3 1 STAT src=3 T2 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544494.9 1 STAT src=4 T3 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544500.5 1 STAT src=5 C1 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544506.2 1 STAT src=6 C2 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544511.8 1 STAT src=7 C3 recus=18 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 544517.4 1 STAT src=8 P1 recus=19 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 544523.0 1 STAT src=9 P2 recus=19 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 544528.9 1 STAT src=10 P3 recus=19 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 544692.8 6 PIECE n=140
+L 545039.2 5 PIECE n=135
+L 547017.1 6 PIECE n=141
+L 547103.6 5 PIECE n=136
+L 548365.5 7 PIECE n=136
+L 550461.4 6 PIECE n=142
+L 550495.0 3 PUB seq=19 type=1 etat=0 val=756 cpt=0 attente=1
+L 550523.7 1 RX src=3 seq=19 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512546,"temperature_c":75.6,"production_count":134,"status":"OK"}
+L 551060.8 7 PIECE n=137
+L 551146.5 6 PUB seq=19 type=2 etat=0 val=16 cpt=142 attente=1
+L 551171.8 1 RX src=6 seq=19 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512546,"production_count":142,"cadence_ppm":16,"status":"OK"}
+L 551180.7 5 PIECE n=137
+L 553918.9 8 PUB seq=20 type=3 etat=4 val=129 cpt=5 attente=1
+L 553960.2 1 RX src=8 seq=20 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512549,"presence":false,"detections":5,"heure":"02:09","status":"ARME"}
+L 554324.7 6 PIECE n=143
+L 554501.7 7 PUB seq=19 type=2 etat=0 val=14 cpt=137 attente=1
+L 554526.8 1 RX src=7 seq=19 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512550,"production_count":137,"cadence_ppm":14,"status":"OK"}
+L 554528.1 2 PUB seq=19 type=1 etat=0 val=649 cpt=0 attente=1
+L 554557.1 1 RX src=2 seq=19 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512550,"temperature_c":64.9,"production_count":131,"status":"OK"}
+L 554645.8 10 PUB seq=20 type=3 etat=4 val=129 cpt=3 attente=1
+L 554681.4 1 RX src=10 seq=20 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512550,"presence":false,"detections":3,"heure":"02:09","status":"ARME"}
+L 555412.3 7 PIECE n=138
+L 555659.3 5 PIECE n=138
+L 557737.8 6 PIECE n=144
+L 557839.1 7 PIECE n=139
+L 558534.8 5 PUB seq=19 type=2 etat=0 val=14 cpt=138 attente=1
+L 558566.1 1 RX src=5 seq=19 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512554,"production_count":138,"cadence_ppm":14,"status":"OK"}
+L 559243.1 4 PUB seq=19 type=1 etat=0 val=1879 cpt=0 attente=1
+L 559267.5 1 RX src=4 seq=19 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512554,"temperature_c":187.9,"production_count":137,"status":"OK"}
+L 559624.0 9 PUB seq=20 type=3 etat=4 val=134 cpt=2 attente=1
+L 559659.2 1 RX src=9 seq=20 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512555,"presence":false,"detections":2,"heure":"02:14","status":"ARME"}
+L 560813.0 6 PIECE n=145
+L 561273.7 7 PIECE n=140
+L 561382.9 5 PIECE n=139
+L 563525.6 7 PIECE n=141
+L 563824.7 6 PIECE n=146
+L 566765.8 7 PIECE n=142
+L 567307.7 5 PIECE n=140
+L 568182.1 6 PIECE n=147
+L 570671.1 7 PIECE n=143
+L 570688.6 5 PIECE n=141
+L 573232.5 5 PIECE n=142
+L 573326.6 6 PIECE n=148
+L 575594.8 5 PIECE n=143
+L 576382.1 7 PIECE n=144
+L 576697.7 6 PIECE n=149
+L 580489.3 5 PIECE n=144
+L 580495.0 3 PUB seq=20 type=1 etat=0 val=751 cpt=0 attente=1
+L 580521.1 1 RX src=3 seq=20 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512576,"temperature_c":75.1,"production_count":142,"status":"OK"}
+L 581146.5 6 PUB seq=20 type=2 etat=0 val=14 cpt=149 attente=1
+L 581170.5 1 RX src=6 seq=20 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512576,"production_count":149,"cadence_ppm":14,"status":"OK"}
+L 581738.5 7 PIECE n=145
+L 582333.5 6 PIECE n=150
+L 583918.9 8 PUB seq=21 type=3 etat=4 val=159 cpt=5 attente=1
+L 583950.0 1 RX src=8 seq=21 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512579,"presence":false,"detections":5,"heure":"02:39","status":"ARME"}
+L 584501.7 7 PUB seq=20 type=2 etat=0 val=16 cpt=145 attente=1
+L 584517.8 6 PIECE n=151
+L 584525.0 1 RX src=7 seq=20 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512580,"production_count":145,"cadence_ppm":16,"status":"OK"}
+L 584528.1 2 PUB seq=20 type=1 etat=0 val=635 cpt=0 attente=1
+L 584552.1 1 RX src=2 seq=20 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512580,"temperature_c":63.5,"production_count":138,"status":"OK"}
+L 584645.8 10 PUB seq=21 type=3 etat=4 val=159 cpt=3 attente=1
+L 584685.6 1 RX src=10 seq=21 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512580,"presence":false,"detections":3,"heure":"02:39","status":"ARME"}
+L 584982.6 7 PIECE n=146
+L 585027.4 5 PIECE n=145
+L 586897.9 6 PIECE n=152
+L 588073.3 5 PIECE n=146
+L 588420.1 7 PIECE n=147
+L 588534.8 5 PUB seq=20 type=2 etat=0 val=16 cpt=146 attente=1
+L 588558.6 1 RX src=5 seq=20 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512584,"production_count":146,"cadence_ppm":16,"status":"OK"}
+L 589243.1 4 PUB seq=20 type=1 etat=0 val=1874 cpt=0 attente=1
+L 589271.9 1 RX src=4 seq=20 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512584,"temperature_c":187.4,"production_count":145,"status":"OK"}
+L 589624.0 9 PUB seq=21 type=3 etat=4 val=164 cpt=2 attente=1
+L 589665.7 1 RX src=9 seq=21 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512585,"presence":false,"detections":2,"heure":"02:44","status":"ARME"}
+L 590270.6 5 PIECE n=147
+L 592088.4 6 PIECE n=153
+L 593070.5 7 PIECE n=148
+L 593929.8 5 PIECE n=148
+L 596085.2 7 PIECE n=149
+L 597233.5 5 PIECE n=149
+L 597833.5 6 PIECE n=154
+L 601236.6 7 PIECE n=150
+L 601649.9 6 PIECE n=155
+L 602516.7 5 PIECE n=150
+L 604483.9 1 STAT src=2 T1 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604489.6 1 STAT src=3 T2 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604495.2 1 STAT src=4 T3 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604500.8 1 STAT src=5 C1 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604506.4 1 STAT src=6 C2 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604512.0 1 STAT src=7 C3 recus=20 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 604517.6 1 STAT src=8 P1 recus=21 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 604523.2 1 STAT src=9 P2 recus=21 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 604529.1 1 STAT src=10 P3 recus=21 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 606278.5 7 PIECE n=151
+L 607624.5 6 PIECE n=156
+L 608092.9 5 PIECE n=151
+L 608705.3 7 PIECE n=152
+L 609826.7 6 PIECE n=157
+L 610495.0 3 PUB seq=21 type=1 etat=0 val=743 cpt=0 attente=1
+L 610523.1 1 RX src=3 seq=21 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512606,"temperature_c":74.3,"production_count":149,"status":"OK"}
+L 611146.5 6 PUB seq=21 type=2 etat=0 val=16 cpt=157 attente=1
+L 611178.7 1 RX src=6 seq=21 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512606,"production_count":157,"cadence_ppm":16,"status":"OK"}
+L 612561.7 7 PIECE n=153
+L 613409.7 6 PIECE n=158
+L 613694.4 5 PIECE n=152
+L 613918.9 8 PUB seq=22 type=3 etat=4 val=189 cpt=5 attente=1
+L 613962.2 1 RX src=8 seq=22 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512609,"presence":false,"detections":5,"heure":"03:09","status":"ARME"}
+L 614501.7 7 PUB seq=21 type=2 etat=0 val=16 cpt=153 attente=1
+L 614528.1 2 PUB seq=21 type=1 etat=0 val=650 cpt=0 attente=1
+L 614532.1 1 RX src=7 seq=21 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512610,"production_count":153,"cadence_ppm":16,"status":"OK"}
+L 614559.1 1 RX src=2 seq=21 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512610,"temperature_c":65.0,"production_count":146,"status":"OK"}
+L 614645.8 10 PUB seq=22 type=3 etat=4 val=189 cpt=3 attente=1
+L 614681.4 1 RX src=10 seq=22 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512610,"presence":false,"detections":3,"heure":"03:09","status":"ARME"}
+L 615988.5 7 PIECE n=154
+L 617275.9 6 PIECE n=159
+L 617872.2 5 PIECE n=153
+L 618534.8 5 PUB seq=21 type=2 etat=0 val=14 cpt=153 attente=1
+L 618559.9 1 RX src=5 seq=21 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512614,"production_count":153,"cadence_ppm":14,"status":"OK"}
+L 619243.1 4 PUB seq=21 type=1 etat=0 val=1870 cpt=0 attente=1
+L 619268.9 1 RX src=4 seq=21 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512614,"temperature_c":187.0,"production_count":153,"status":"OK"}
+L 619341.0 7 PIECE n=155
+L 619624.0 9 PUB seq=22 type=3 etat=4 val=194 cpt=2 attente=1
+L 619661.1 1 RX src=9 seq=22 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512615,"presence":false,"detections":2,"heure":"03:14","status":"ARME"}
+L 621020.0 6 PIECE n=160
+L 622107.5 5 PIECE n=154
+L 622781.5 7 PIECE n=156
+L 624362.8 6 PIECE n=161
+L 626332.1 5 PIECE n=155
+L 626904.5 7 PIECE n=157
+L 628719.2 6 PIECE n=162
+L 630725.7 5 PIECE n=156
+L 632192.6 7 PIECE n=158
+L 634005.4 6 PIECE n=163
+L 635658.4 5 PIECE n=157
+L 638100.8 7 PIECE n=159
+L 638844.2 6 PIECE n=164
+L 640375.1 5 PIECE n=158
+L 640495.0 3 PUB seq=22 type=1 etat=0 val=728 cpt=0 attente=1
+L 640519.9 1 RX src=3 seq=22 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512636,"temperature_c":72.8,"production_count":157,"status":"OK"}
+L 641146.5 6 PUB seq=22 type=2 etat=0 val=14 cpt=164 attente=1
+L 641174.2 1 RX src=6 seq=22 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512636,"production_count":164,"cadence_ppm":14,"status":"OK"}
+L 642130.1 7 PIECE n=160
+L 643097.2 6 PIECE n=165
+L 643918.9 8 PUB seq=23 type=3 etat=4 val=219 cpt=5 attente=1
+L 643957.8 1 RX src=8 seq=23 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512639,"presence":false,"detections":5,"heure":"03:39","status":"ARME"}
+L 644501.7 7 PUB seq=22 type=2 etat=0 val=14 cpt=160 attente=1
+L 644528.1 2 PUB seq=22 type=1 etat=0 val=648 cpt=0 attente=1
+L 644531.9 1 RX src=7 seq=22 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512640,"production_count":160,"cadence_ppm":14,"status":"OK"}
+L 644552.7 1 RX src=2 seq=22 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512640,"temperature_c":64.8,"production_count":153,"status":"OK"}
+L 644601.8 7 PIECE n=161
+L 644645.8 10 PUB seq=23 type=3 etat=4 val=219 cpt=3 attente=1
+L 644682.3 1 RX src=10 seq=23 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512640,"presence":false,"detections":3,"heure":"03:39","status":"ARME"}
+L 645332.1 5 PIECE n=159
+L 646423.3 6 PIECE n=166
+L 647929.9 7 PIECE n=162
+L 648534.8 5 PUB seq=22 type=2 etat=0 val=12 cpt=159 attente=1
+L 648565.9 1 RX src=5 seq=22 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512644,"production_count":159,"cadence_ppm":12,"status":"OK"}
+L 649243.1 4 PUB seq=22 type=1 etat=0 val=1869 cpt=0 attente=1
+L 649275.3 1 RX src=4 seq=22 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512644,"temperature_c":186.9,"production_count":160,"status":"OK"}
+L 649624.0 9 PUB seq=23 type=3 etat=4 val=224 cpt=2 attente=1
+L 649660.1 1 RX src=9 seq=23 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512645,"presence":false,"detections":2,"heure":"03:44","status":"ARME"}
+L 649677.2 6 PIECE n=167
+L 650778.4 5 PIECE n=160
+L 650876.2 7 PIECE n=163
+L 652621.6 6 PIECE n=168
+L 653451.2 5 PIECE n=161
+L 654757.3 6 PIECE n=169
+L 655803.9 7 PIECE n=164
+L 657796.0 5 PIECE n=162
+L 658080.3 7 PIECE n=165
+L 660082.5 6 PIECE n=170
+L 660363.4 5 PIECE n=163
+L 661036.4 7 PIECE n=166
+L 663197.3 5 PIECE n=164
+L 663340.3 6 PIECE n=171
+L 664373.3 7 PIECE n=167
+L 664483.7 1 STAT src=2 T1 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664489.3 1 STAT src=3 T2 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664494.9 1 STAT src=4 T3 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664500.5 1 STAT src=5 C1 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664506.2 1 STAT src=6 C2 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664511.8 1 STAT src=7 C3 recus=22 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 664517.4 1 STAT src=8 P1 recus=23 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 664523.0 1 STAT src=9 P2 recus=23 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 664528.9 1 STAT src=10 P3 recus=23 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 665718.8 5 PIECE n=165
+L 666787.6 6 PIECE n=172
+L 669519.0 7 PIECE n=168
+L 669619.2 5 PIECE n=166
+L 670495.0 3 PUB seq=23 type=1 etat=0 val=725 cpt=0 attente=1
+L 670525.7 1 RX src=3 seq=23 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512666,"temperature_c":72.5,"production_count":164,"status":"OK"}
+L 671146.5 6 PUB seq=23 type=2 etat=0 val=16 cpt=172 attente=1
+L 671176.0 1 RX src=6 seq=23 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512666,"production_count":172,"cadence_ppm":16,"status":"OK"}
+L 671588.4 6 PIECE n=173
+L 673918.9 8 PUB seq=24 type=3 etat=4 val=249 cpt=5 attente=1
+L 673957.8 1 RX src=8 seq=24 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512669,"presence":false,"detections":5,"heure":"04:09","status":"ARME"}
+L 674394.6 5 PIECE n=167
+L 674501.7 7 PUB seq=23 type=2 etat=0 val=16 cpt=168 attente=1
+L 674528.1 2 PUB seq=23 type=1 etat=0 val=647 cpt=0 attente=1
+L 674530.4 1 RX src=7 seq=23 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512670,"production_count":168,"cadence_ppm":16,"status":"OK"}
+L 674553.0 1 RX src=2 seq=23 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512670,"temperature_c":64.7,"production_count":159,"status":"OK"}
+L 674645.8 10 PUB seq=24 type=3 etat=4 val=249 cpt=3 attente=1
+L 674679.4 1 RX src=10 seq=24 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512670,"presence":false,"detections":3,"heure":"04:09","status":"ARME"}
+L 675151.6 7 PIECE n=169
+L 676624.5 6 PIECE n=174
+L 677877.0 5 PIECE n=168
+L 678534.8 5 PUB seq=23 type=2 etat=0 val=18 cpt=168 attente=1
+L 678567.0 1 RX src=5 seq=23 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512674,"production_count":168,"cadence_ppm":18,"status":"OK"}
+L 679243.1 4 PUB seq=23 type=1 etat=0 val=1878 cpt=0 attente=1
+L 679268.2 1 RX src=4 seq=23 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512674,"temperature_c":187.8,"production_count":168,"status":"OK"}
+L 679624.0 9 PUB seq=24 type=3 etat=4 val=254 cpt=2 attente=1
+L 679666.5 1 RX src=9 seq=24 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512675,"presence":false,"detections":2,"heure":"04:14","status":"ARME"}
+L 680155.8 6 PIECE n=175
+L 680360.6 7 PIECE n=170
+L 681705.2 5 PIECE n=169
+L 683661.7 6 PIECE n=176
+L 684099.8 7 PIECE n=171
+L 686008.3 6 PIECE n=177
+L 686031.3 5 PIECE n=170
+L 687664.4 7 PIECE n=172
+L 689999.1 5 PIECE n=171
+L 690695.8 6 PIECE n=178
+L 692347.9 7 PIECE n=173
+L 692465.9 5 PIECE n=172
+L 694718.2 6 PIECE n=179
+L 694793.2 7 PIECE n=174
+L 696652.5 5 PIECE n=173
+L 699492.4 7 PIECE n=175
+L 699657.4 5 PIECE n=174
+L 700495.0 3 PUB seq=24 type=1 etat=0 val=725 cpt=0 attente=1
+L 700520.9 1 RX src=3 seq=24 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512696,"temperature_c":72.5,"production_count":172,"status":"OK"}
+L 700545.4 6 PIECE n=180
+L 701146.5 6 PUB seq=24 type=2 etat=0 val=16 cpt=180 attente=1
+L 701174.9 1 RX src=6 seq=24 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512696,"production_count":180,"cadence_ppm":16,"status":"OK"}
+L 702626.0 5 PIECE n=175
+L 703382.3 6 PIECE n=181
+L 703830.3 7 PIECE n=176
+L 703918.9 8 PUB seq=25 type=3 etat=4 val=279 cpt=5 attente=1
+L 703955.4 1 RX src=8 seq=25 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512699,"presence":false,"detections":5,"heure":"04:39","status":"ARME"}
+L 704501.7 7 PUB seq=24 type=2 etat=0 val=16 cpt=176 attente=1
+L 704525.7 1 RX src=7 seq=24 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512700,"production_count":176,"cadence_ppm":16,"status":"OK"}
+L 704528.1 2 PUB seq=24 type=1 etat=0 val=644 cpt=0 attente=1
+L 704558.0 1 RX src=2 seq=24 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512700,"temperature_c":64.4,"production_count":168,"status":"OK"}
+L 704645.8 10 PUB seq=25 type=3 etat=4 val=279 cpt=3 attente=1
+L 704692.0 1 RX src=10 seq=25 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512700,"presence":false,"detections":3,"heure":"04:39","status":"ARME"}
+L 705869.6 6 PIECE n=182
+L 706721.8 5 PIECE n=176
+L 708192.9 6 PIECE n=183
+L 708406.5 7 PIECE n=177
+L 708534.8 5 PUB seq=24 type=2 etat=0 val=16 cpt=176 attente=1
+L 708563.5 1 RX src=5 seq=24 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512704,"production_count":176,"cadence_ppm":16,"status":"OK"}
+L 709243.1 4 PUB seq=24 type=1 etat=0 val=1878 cpt=0 attente=1
+L 709267.2 1 RX src=4 seq=24 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512704,"temperature_c":187.8,"production_count":176,"status":"OK"}
+L 709624.0 9 PUB seq=25 type=3 etat=4 val=284 cpt=2 attente=1
+L 709659.5 1 RX src=9 seq=25 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512705,"presence":false,"detections":2,"heure":"04:44","status":"ARME"}
+L 710831.3 7 PIECE n=178
+L 711436.6 5 PIECE n=177
+L 712468.2 6 PIECE n=184
+L 713432.8 7 PIECE n=179
+L 714369.2 5 PIECE n=178
+L 717634.3 6 PIECE n=185
+L 717914.3 7 PIECE n=180
+L 718592.8 5 PIECE n=179
+L 721485.6 7 PIECE n=181
+L 721735.8 6 PIECE n=186
+L 722148.5 5 PIECE n=180
+L 724483.9 1 STAT src=2 T1 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724489.6 1 STAT src=3 T2 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724495.2 1 STAT src=4 T3 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724500.8 1 STAT src=5 C1 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724506.4 1 STAT src=6 C2 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724512.0 1 STAT src=7 C3 recus=24 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 724517.6 1 STAT src=8 P1 recus=25 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 724523.2 1 STAT src=9 P2 recus=25 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 724529.1 1 STAT src=10 P3 recus=25 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 726583.2 7 PIECE n=182
+L 727613.8 6 PIECE n=187
+L 728006.9 5 PIECE n=181
+L 729698.5 7 PIECE n=183
+L 729747.5 6 PIECE n=188
+L 730495.0 3 PUB seq=25 type=1 etat=0 val=733 cpt=0 attente=1
+L 730519.7 1 RX src=3 seq=25 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512726,"temperature_c":73.3,"production_count":180,"status":"OK"}
+L 731146.5 6 PUB seq=25 type=2 etat=0 val=16 cpt=188 attente=1
+L 731172.2 1 RX src=6 seq=25 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512726,"production_count":188,"cadence_ppm":16,"status":"OK"}
+L 731230.6 5 PIECE n=182
+L 732656.5 7 PIECE n=184
+L 733916.5 6 PIECE n=189
+L 733918.9 8 PUB seq=26 type=3 etat=4 val=309 cpt=5 attente=1
+L 733954.6 1 RX src=8 seq=26 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512729,"presence":false,"detections":5,"heure":"05:09","status":"ARME"}
+L 734501.7 7 PUB seq=25 type=2 etat=0 val=16 cpt=184 attente=1
+L 734528.1 2 PUB seq=25 type=1 etat=0 val=647 cpt=0 attente=1
+L 734530.5 1 RX src=7 seq=25 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512730,"production_count":184,"cadence_ppm":16,"status":"OK"}
+L 734558.0 1 RX src=2 seq=25 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512730,"temperature_c":64.7,"production_count":176,"status":"OK"}
+L 734645.8 10 PUB seq=26 type=3 etat=4 val=309 cpt=3 attente=1
+L 734687.2 1 RX src=10 seq=26 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512730,"presence":false,"detections":3,"heure":"05:09","status":"ARME"}
+L 735449.3 5 PIECE n=183
+L 737171.1 7 PIECE n=185
+L 737569.4 5 PIECE n=184
+L 737603.0 6 PIECE n=190
+L 738534.8 5 PUB seq=25 type=2 etat=0 val=16 cpt=184 attente=1
+L 738565.2 1 RX src=5 seq=25 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512734,"production_count":184,"cadence_ppm":16,"status":"OK"}
+L 739243.1 4 PUB seq=25 type=1 etat=0 val=1895 cpt=0 attente=1
+L 739267.3 1 RX src=4 seq=25 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512734,"temperature_c":189.5,"production_count":184,"status":"OK"}
+L 739624.0 9 PUB seq=26 type=3 etat=4 val=314 cpt=2 attente=1
+L 739658.4 6 PIECE n=191
+L 739663.2 1 RX src=9 seq=26 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512735,"presence":false,"detections":2,"heure":"05:14","status":"ARME"}
+L 740750.1 5 PIECE n=185
+L 741079.3 7 PIECE n=186
+L 744323.7 6 PIECE n=192
+L 746558.7 5 PIECE n=186
+L 747007.1 7 PIECE n=187
+L 749650.5 5 PIECE n=187
+L 750064.0 6 PIECE n=193
+L 750331.3 7 PIECE n=188
+L 752848.7 5 PIECE n=188
+L 753752.4 6 PIECE n=194
+L 755279.5 7 PIECE n=189
+L 756546.4 6 PIECE n=195
+L 756937.6 5 PIECE n=189
+L 759706.3 7 PIECE n=190
+L 759828.2 5 PIECE n=190
+L 760495.0 3 PUB seq=26 type=1 etat=0 val=735 cpt=0 attente=1
+L 760521.0 1 RX src=3 seq=26 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512756,"temperature_c":73.5,"production_count":188,"status":"OK"}
+L 761016.1 6 PIECE n=196
+L 761146.5 6 PUB seq=26 type=2 etat=0 val=16 cpt=196 attente=1
+L 761170.1 1 RX src=6 seq=26 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512756,"production_count":196,"cadence_ppm":16,"status":"OK"}
+L 761886.0 7 PIECE n=191
+L 762208.1 5 PIECE n=191
+L 763918.9 8 PUB seq=27 type=3 etat=4 val=339 cpt=5 attente=1
+L 763962.6 1 RX src=8 seq=27 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512759,"presence":false,"detections":5,"heure":"05:39","status":"ARME"}
+L 764160.6 6 PIECE n=197
+L 764501.7 7 PUB seq=26 type=2 etat=0 val=14 cpt=191 attente=1
+L 764528.1 2 PUB seq=26 type=1 etat=0 val=653 cpt=0 attente=1
+L 764531.2 1 RX src=7 seq=26 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512760,"production_count":191,"cadence_ppm":14,"status":"OK"}
+L 764554.4 1 RX src=2 seq=26 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512760,"temperature_c":65.3,"production_count":184,"status":"OK"}
+L 764645.8 10 PUB seq=27 type=3 etat=4 val=339 cpt=3 attente=1
+L 764679.3 1 RX src=10 seq=27 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512760,"presence":false,"detections":3,"heure":"05:39","status":"ARME"}
+L 766651.6 7 PIECE n=192
+L 767133.9 5 PIECE n=192
+L 768534.8 5 PUB seq=26 type=2 etat=0 val=16 cpt=192 attente=1
+L 768561.7 1 RX src=5 seq=26 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512764,"production_count":192,"cadence_ppm":16,"status":"OK"}
+L 769243.1 4 PUB seq=26 type=1 etat=0 val=1894 cpt=0 attente=1
+L 769274.1 1 RX src=4 seq=26 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512764,"temperature_c":189.4,"production_count":191,"status":"OK"}
+L 769624.0 9 PUB seq=27 type=3 etat=4 val=344 cpt=2 attente=1
+L 769662.2 1 RX src=9 seq=27 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512765,"presence":false,"detections":2,"heure":"05:44","status":"ARME"}
+L 769912.6 6 PIECE n=198
+L 771774.5 5 PIECE n=193
+L 772360.6 7 PIECE n=193
+L 772858.9 6 PIECE n=199
+L 775663.3 7 PIECE n=194
+L 775730.0 6 PIECE n=200
+L 777380.0 5 PIECE n=194
+L 780128.4 6 PIECE n=201
+L 780665.3 7 PIECE n=195
+L 782004.0 5 PIECE n=195
+L 784482.9 6 PIECE n=202
+L 784483.7 1 STAT src=2 T1 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784489.3 1 STAT src=3 T2 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784494.9 1 STAT src=4 T3 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784500.5 1 STAT src=5 C1 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784506.2 1 STAT src=6 C2 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784511.8 1 STAT src=7 C3 recus=26 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 784517.4 1 STAT src=8 P1 recus=27 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 784523.0 1 STAT src=9 P2 recus=27 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 784528.9 1 STAT src=10 P3 recus=27 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 785094.9 7 PIECE n=196
+L 787971.8 5 PIECE n=196
+L 788530.7 6 PIECE n=203
+L 788962.1 7 PIECE n=197
+L 790495.0 3 PUB seq=27 type=1 etat=0 val=735 cpt=0 attente=1
+L 790517.4 5 PIECE n=197
+L 790527.8 1 RX src=3 seq=27 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512786,"temperature_c":73.5,"production_count":196,"status":"OK"}
+L 791146.5 6 PUB seq=27 type=2 etat=0 val=14 cpt=203 attente=1
+L 791172.8 1 RX src=6 seq=27 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512786,"production_count":203,"cadence_ppm":14,"status":"OK"}
+L 793326.4 7 PIECE n=198
+L 793460.4 6 PIECE n=204
+L 793918.9 8 PUB seq=28 type=3 etat=4 val=369 cpt=5 attente=1
+L 793962.5 1 RX src=8 seq=28 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512789,"presence":false,"detections":5,"heure":"06:09","status":"ARME"}
+L 794478.6 5 PIECE n=198
+L 794501.7 7 PUB seq=27 type=2 etat=0 val=14 cpt=198 attente=1
+L 794525.5 1 RX src=7 seq=27 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512790,"production_count":198,"cadence_ppm":14,"status":"OK"}
+L 794528.1 2 PUB seq=27 type=1 etat=0 val=651 cpt=0 attente=1
+L 794556.7 1 RX src=2 seq=27 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512790,"temperature_c":65.1,"production_count":192,"status":"OK"}
+L 794645.8 10 PUB seq=28 type=3 etat=4 val=369 cpt=3 attente=1
+L 794680.9 1 RX src=10 seq=28 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512790,"presence":false,"detections":3,"heure":"06:09","status":"ARME"}
+L 796553.0 7 PIECE n=199
+L 798534.8 5 PUB seq=27 type=2 etat=0 val=12 cpt=198 attente=1
+L 798558.4 1 RX src=5 seq=27 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512794,"production_count":198,"cadence_ppm":12,"status":"OK"}
+L 798798.3 6 PIECE n=205
+L 799243.1 4 PUB seq=27 type=1 etat=0 val=1882 cpt=0 attente=1
+L 799271.2 1 RX src=4 seq=27 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512794,"temperature_c":188.2,"production_count":198,"status":"OK"}
+L 799277.4 5 PIECE n=199
+L 799624.0 9 PUB seq=28 type=3 etat=4 val=374 cpt=2 attente=1
+L 799667.9 1 RX src=9 seq=28 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512795,"presence":false,"detections":2,"heure":"06:14","status":"ARME"}
+L 801199.4 7 PIECE n=200
+L 801297.3 6 PIECE n=206
+L 802593.8 5 PIECE n=200
+L 804017.8 7 PIECE n=201
+L 805657.3 5 PIECE n=201
+L 806133.3 6 PIECE n=207
+L 808094.9 7 PIECE n=202
+L 808256.9 5 PIECE n=202
+L 809727.0 6 PIECE n=208
+L 810965.9 5 PIECE n=203
+L 813445.5 7 PIECE n=203
+L 814989.3 5 PIECE n=204
+L 815160.6 6 PIECE n=209
+L 816186.7 7 PIECE n=204
+L 817455.6 6 PIECE n=210
+L 818445.5 7 PIECE n=205
+L 819452.2 5 PIECE n=205
+L 820495.0 3 PUB seq=28 type=1 etat=0 val=744 cpt=0 attente=1
+L 820522.8 1 RX src=3 seq=28 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512816,"temperature_c":74.4,"production_count":203,"status":"OK"}
+L 821146.5 6 PUB seq=28 type=2 etat=0 val=14 cpt=210 attente=1
+L 821171.4 1 RX src=6 seq=28 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512816,"production_count":210,"cadence_ppm":14,"status":"OK"}
+L 822603.0 6 PIECE n=211
+L 823343.0 7 PIECE n=206
+L 823670.0 5 PIECE n=206
+L 823918.9 8 PUB seq=29 type=3 etat=4 val=399 cpt=5 attente=1
+L 823957.6 1 RX src=8 seq=29 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512819,"presence":false,"detections":5,"heure":"06:39","status":"ARME"}
+L 824501.7 7 PUB seq=28 type=2 etat=0 val=16 cpt=206 attente=1
+L 824528.1 2 PUB seq=28 type=1 etat=0 val=654 cpt=0 attente=1
+L 824531.8 1 RX src=7 seq=28 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512820,"production_count":206,"cadence_ppm":16,"status":"OK"}
+L 824552.0 1 RX src=2 seq=28 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512820,"temperature_c":65.4,"production_count":198,"status":"OK"}
+L 824645.8 10 PUB seq=29 type=3 etat=4 val=399 cpt=3 attente=1
+L 824681.3 1 RX src=10 seq=29 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512820,"presence":false,"detections":3,"heure":"06:39","status":"ARME"}
+L 825738.5 7 PIECE n=207
+L 825838.4 6 PIECE n=212
+L 828230.9 6 PIECE n=213
+L 828534.8 5 PUB seq=28 type=2 etat=0 val=16 cpt=206 attente=1
+L 828564.0 1 RX src=5 seq=28 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512824,"production_count":206,"cadence_ppm":16,"status":"OK"}
+L 829054.8 5 PIECE n=207
+L 829243.1 4 PUB seq=28 type=1 etat=0 val=1874 cpt=0 attente=1
+L 829276.0 1 RX src=4 seq=28 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512824,"temperature_c":187.4,"production_count":206,"status":"OK"}
+L 829624.0 9 PUB seq=29 type=3 etat=4 val=404 cpt=2 attente=1
+L 829661.6 1 RX src=9 seq=29 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512825,"presence":false,"detections":2,"heure":"06:44","status":"ARME"}
+L 829848.9 7 PIECE n=208
+L 831486.4 5 PIECE n=208
+L 833270.0 6 PIECE n=214
+L 834415.3 7 PIECE n=209
+L 834445.4 5 PIECE n=209
+L 835994.6 6 PIECE n=215
+L 837539.1 5 PIECE n=210
+L 838777.6 7 PIECE n=210
+L 838862.8 6 PIECE n=216
+L 840559.7 5 PIECE n=211
+L 842550.3 6 PIECE n=217
+L 843513.9 7 PIECE n=211
+L 843815.5 5 PIECE n=212
+L 844483.9 1 STAT src=2 T1 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844489.6 1 STAT src=3 T2 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844495.2 1 STAT src=4 T3 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844500.8 1 STAT src=5 C1 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844506.4 1 STAT src=6 C2 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844512.0 1 STAT src=7 C3 recus=28 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 844517.6 1 STAT src=8 P1 recus=29 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 844523.2 1 STAT src=9 P2 recus=29 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 844529.1 1 STAT src=10 P3 recus=29 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 845932.7 5 PIECE n=213
+L 847963.5 6 PIECE n=218
+L 848464.1 7 PIECE n=212
+L 850495.0 3 PUB seq=29 type=1 etat=0 val=747 cpt=0 attente=1
+L 850520.5 1 RX src=3 seq=29 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512846,"temperature_c":74.7,"production_count":210,"status":"OK"}
+L 851146.5 6 PUB seq=29 type=2 etat=0 val=16 cpt=218 attente=1
+L 851176.6 1 RX src=6 seq=29 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512846,"production_count":218,"cadence_ppm":16,"status":"OK"}
+L 851475.8 7 PIECE n=213
+L 851558.7 5 PIECE n=214
+L 852023.9 6 PIECE n=219
+L 853918.9 8 PUB seq=30 type=3 etat=4 val=429 cpt=5 attente=1
+L 853957.7 1 RX src=8 seq=30 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512849,"presence":false,"detections":5,"heure":"07:09","status":"ARME"}
+L 854501.7 7 PUB seq=29 type=2 etat=0 val=14 cpt=213 attente=1
+L 854527.0 1 RX src=7 seq=29 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512850,"production_count":213,"cadence_ppm":14,"status":"OK"}
+L 854528.1 2 PUB seq=29 type=1 etat=0 val=667 cpt=0 attente=1
+L 854555.8 1 RX src=2 seq=29 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512850,"temperature_c":66.7,"production_count":206,"status":"OK"}
+L 854645.8 10 PUB seq=30 type=3 etat=4 val=429 cpt=3 attente=1
+L 854683.7 1 RX src=10 seq=30 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512850,"presence":false,"detections":3,"heure":"07:09","status":"ARME"}
+L 855317.6 7 PIECE n=214
+L 856230.9 6 PIECE n=220
+L 857439.5 5 PIECE n=215
+L 858534.8 5 PUB seq=29 type=2 etat=0 val=18 cpt=215 attente=1
+L 858564.7 1 RX src=5 seq=29 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512854,"production_count":215,"cadence_ppm":18,"status":"OK"}
+L 859243.1 4 PUB seq=29 type=1 etat=0 val=1870 cpt=0 attente=1
+L 859267.5 1 RX src=4 seq=29 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512854,"temperature_c":187.0,"production_count":213,"status":"OK"}
+L 859624.0 9 PUB seq=30 type=3 etat=4 val=434 cpt=2 attente=1
+L 859666.7 1 RX src=9 seq=30 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512855,"presence":false,"detections":2,"heure":"07:14","status":"ARME"}
+L 859765.8 7 PIECE n=215
+L 860859.9 6 PIECE n=221
+L 861955.3 7 PIECE n=216
+L 862326.3 5 PIECE n=216
+L 863931.1 6 PIECE n=222
+L 867017.8 7 PIECE n=217
+L 867145.0 6 PIECE n=223
+L 867566.5 5 PIECE n=217
+L 870880.0 5 PIECE n=218
+L 872259.0 7 PIECE n=218
+L 872884.3 6 PIECE n=224
+L 876693.4 5 PIECE n=219
+L 876825.4 7 PIECE n=219
+L 878588.4 6 PIECE n=225
+L 880079.2 5 PIECE n=220
+L 880495.0 3 PUB seq=30 type=1 etat=0 val=735 cpt=0 attente=1
+L 880521.5 1 RX src=3 seq=30 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512876,"temperature_c":73.5,"production_count":218,"status":"OK"}
+L 880788.3 7 PIECE n=220
+L 881146.5 6 PUB seq=30 type=2 etat=0 val=14 cpt=225 attente=1
+L 881170.7 1 RX src=6 seq=30 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512876,"production_count":225,"cadence_ppm":14,"status":"OK"}
+L 881478.0 6 PIECE n=226
+L 882551.8 5 PIECE n=221
+L 883918.9 8 PUB seq=31 type=3 etat=4 val=459 cpt=5 attente=1
+L 883958.1 1 RX src=8 seq=31 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512879,"presence":false,"detections":5,"heure":"07:39","status":"ARME"}
+L 884501.7 7 PUB seq=30 type=2 etat=0 val=14 cpt=220 attente=1
+L 884526.7 1 RX src=7 seq=30 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512880,"production_count":220,"cadence_ppm":14,"status":"OK"}
+L 884528.1 2 PUB seq=30 type=1 etat=0 val=668 cpt=0 attente=1
+L 884554.7 1 RX src=2 seq=30 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512880,"temperature_c":66.8,"production_count":215,"status":"OK"}
+L 884645.8 10 PUB seq=31 type=3 etat=4 val=459 cpt=3 attente=1
+L 884684.6 1 RX src=10 seq=31 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512880,"presence":false,"detections":3,"heure":"07:39","status":"ARME"}
+L 884714.1 7 PIECE n=221
+L 885657.3 5 PIECE n=222
+L 885909.7 6 PIECE n=227
+L 887755.9 5 PIECE n=223
+L 888534.8 5 PUB seq=30 type=2 etat=0 val=16 cpt=223 attente=1
+L 888561.3 1 RX src=5 seq=30 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512884,"production_count":223,"cadence_ppm":16,"status":"OK"}
+L 888905.7 6 PIECE n=228
+L 889243.1 4 PUB seq=30 type=1 etat=0 val=1867 cpt=0 attente=1
+L 889267.2 1 RX src=4 seq=30 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512884,"temperature_c":186.7,"production_count":220,"status":"OK"}
+L 889624.0 9 PUB seq=31 type=3 etat=4 val=464 cpt=2 attente=1
+L 889658.6 1 RX src=9 seq=31 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512885,"presence":false,"detections":2,"heure":"07:44","status":"ARME"}
+L 890520.7 7 PIECE n=222
+L 892453.2 5 PIECE n=224
+L 892720.2 6 PIECE n=229
+L 895790.5 6 PIECE n=230
+L 895828.3 7 PIECE n=223
+L 897649.6 5 PIECE n=225
+L 898423.1 7 PIECE n=224
+L 900899.5 5 PIECE n=226
+L 901198.7 6 PIECE n=231
+L 902325.4 7 PIECE n=225
+L 904180.2 8 HORLOGE 08:00 mode jour : surveillance desarmee
+L 904396.0 6 PIECE n=232
+L 904483.7 1 STAT src=2 T1 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904489.3 1 STAT src=3 T2 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904494.9 1 STAT src=4 T3 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904500.5 1 STAT src=5 C1 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904506.2 1 STAT src=6 C2 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904511.8 1 STAT src=7 C3 recus=30 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
+L 904517.4 1 STAT src=8 P1 recus=31 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 904523.0 1 STAT src=9 P2 recus=31 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
+L 904528.9 1 STAT src=10 P3 recus=31 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=6
+L 904664.0 10 HORLOGE 08:00 mode jour : surveillance desarmee
+L 904815.9 9 HORLOGE 08:00 mode jour : surveillance desarmee
+L 904917.2 7 PIECE n=226
+L 905032.3 5 PIECE n=227
+L 906664.7 10 DETECTION heure=08:02 heures ouvrees : pas d'alerte
+L 907138.2 6 PIECE n=233
+L 907238.4 5 PIECE n=228
+L 908181.0 8 DETECTION heure=08:04 heures ouvrees : pas d'alerte
+L 909725.1 6 PIECE n=234
+L 910291.2 7 PIECE n=227
+L 910495.0 3 PUB seq=31 type=1 etat=0 val=734 cpt=0 attente=1
+L 910520.4 1 RX src=3 seq=31 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512906,"temperature_c":73.4,"production_count":225,"status":"OK"}
+L 911146.5 6 PUB seq=31 type=2 etat=0 val=18 cpt=234 attente=1
+L 911172.0 1 RX src=6 seq=31 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512906,"production_count":234,"cadence_ppm":18,"status":"OK"}
+L 911798.9 5 PIECE n=229
+L 912664.7 10 DETECTION heure=08:08 heures ouvrees : pas d'alerte
+L 913918.9 8 PUB seq=32 type=3 etat=3 val=489 cpt=6 attente=1
+L 913954.4 1 RX src=8 seq=32 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512909,"presence":false,"detections":6,"heure":"08:09","status":"VEILLE"}
+L 913961.2 7 PIECE n=228
+L 914501.7 7 PUB seq=31 type=2 etat=0 val=16 cpt=228 attente=1
+L 914528.1 2 PUB seq=31 type=1 etat=0 val=671 cpt=0 attente=1
+L 914533.4 1 RX src=7 seq=31 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512910,"production_count":228,"cadence_ppm":16,"status":"OK"}
+L 914556.6 1 RX src=2 seq=31 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512910,"temperature_c":67.1,"production_count":223,"status":"OK"}
+L 914645.8 10 PUB seq=32 type=3 etat=3 val=489 cpt=5 attente=1
+L 914688.9 1 RX src=10 seq=32 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512910,"presence":false,"detections":5,"heure":"08:09","status":"VEILLE"}
+L 915351.1 6 PIECE n=235
+L 916291.1 5 PIECE n=230
+L 917137.9 7 PIECE n=229
+L 918273.9 6 PIECE n=236
+L 918534.8 5 PUB seq=31 type=2 etat=0 val=14 cpt=230 attente=1
+L 918561.9 1 RX src=5 seq=31 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512914,"production_count":230,"cadence_ppm":14,"status":"OK"}
+L 918603.6 5 PIECE n=231
+L 919243.1 4 PUB seq=31 type=1 etat=0 val=1859 cpt=0 attente=1
+L 919273.5 1 RX src=4 seq=31 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512914,"temperature_c":185.9,"production_count":228,"status":"OK"}
+L 919624.0 9 PUB seq=32 type=3 etat=3 val=494 cpt=2 attente=1
+L 919655.5 1 RX src=9 seq=32 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512915,"presence":false,"detections":2,"heure":"08:14","status":"VEILLE"}
+L 920816.7 9 DETECTION heure=08:16 heures ouvrees : pas d'alerte
+L 922113.5 7 PIECE n=230
+L 923928.2 6 PIECE n=237
+L 924181.0 8 DETECTION heure=08:20 heures ouvrees : pas d'alerte
+L 924368.3 5 PIECE n=232
+L 927417.5 6 PIECE n=238
+L 927720.9 7 PIECE n=231
+L 928228.6 5 PIECE n=233
+L 928816.7 9 DETECTION heure=08:24 heures ouvrees : pas d'alerte
+L 931745.2 5 PIECE n=234
+L 932862.8 6 PIECE n=239
+L 933041.2 7 PIECE n=232
+L 934072.3 5 PIECE n=235
+CMD 934175.3 noeud 10 <- P
+L 934176.7 10 SCENARIO presence devant le capteur
+L 934179.3 10 DETECTION heure=08:29 heures ouvrees : pas d'alerte
+L 937339.3 6 PIECE n=240
+L 938181.0 8 DETECTION heure=08:34 heures ouvrees : pas d'alerte
+L 938248.1 5 PIECE n=236
+L 938974.8 7 PIECE n=233
+L 940495.0 3 PUB seq=32 type=1 etat=0 val=743 cpt=0 attente=1
+L 940521.4 1 RX src=3 seq=32 sauts=1 parent=1 age=3 diff=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512936,"temperature_c":74.3,"production_count":234,"status":"OK"}
+L 940816.7 9 DETECTION heure=08:36 heures ouvrees : pas d'alerte
+L 941146.5 6 PUB seq=32 type=2 etat=0 val=12 cpt=240 attente=1
+L 941177.5 1 RX src=6 seq=32 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_02 {"node_id":"POSTE_02","timestamp":1792512936,"production_count":240,"cadence_ppm":12,"status":"OK"}
+L 941913.6 6 PIECE n=241
+L 943583.2 7 PIECE n=234
+L 943918.9 8 PUB seq=33 type=3 etat=3 val=519 cpt=8 attente=1
+L 943953.9 5 PIECE n=237
+L 943957.2 1 RX src=8 seq=33 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512939,"presence":false,"detections":8,"heure":"08:39","status":"VEILLE"}
+L 944501.7 7 PUB seq=32 type=2 etat=0 val=12 cpt=234 attente=1
+L 944528.1 2 PUB seq=32 type=1 etat=0 val=670 cpt=0 attente=1
+L 944528.5 1 RX src=7 seq=32 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_03 {"node_id":"POSTE_03","timestamp":1792512940,"production_count":234,"cadence_ppm":12,"status":"OK"}
+L 944552.7 1 RX src=2 seq=32 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512940,"temperature_c":67.0,"production_count":230,"status":"OK"}
+L 944645.8 10 PUB seq=33 type=3 etat=3 val=519 cpt=6 attente=1
+L 944678.6 1 RX src=10 seq=33 sauts=2 parent=6 age=5 diff=0 | factory/security/ZONE_03 {"node_id":"ZONE_03","timestamp":1792512940,"presence":false,"detections":6,"heure":"08:39","status":"VEILLE"}
+L 946054.9 7 PIECE n=235
+L 946447.3 5 PIECE n=238
+L 947691.9 6 PIECE n=242
+L 948534.8 5 PUB seq=32 type=2 etat=0 val=16 cpt=238 attente=1
+L 948559.6 1 RX src=5 seq=32 sauts=1 parent=1 age=5 diff=0 | factory/production/POSTE_01 {"node_id":"POSTE_01","timestamp":1792512944,"production_count":238,"cadence_ppm":16,"status":"OK"}
+L 948626.2 7 PIECE n=236
+L 948816.7 9 DETECTION heure=08:44 heures ouvrees : pas d'alerte
+L 949243.1 4 PUB seq=32 type=1 etat=0 val=1855 cpt=0 attente=1
+L 949271.3 1 RX src=4 seq=32 sauts=1 parent=1 age=5 diff=0 | factory/machines/MACHINE_03 {"node_id":"MACHINE_03","timestamp":1792512944,"temperature_c":185.5,"production_count":234,"status":"OK"}
+L 949624.0 9 PUB seq=33 type=3 etat=3 val=524 cpt=6 attente=1
+L 949660.5 1 RX src=9 seq=33 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_02 {"node_id":"ZONE_02","timestamp":1792512945,"presence":false,"detections":6,"heure":"08:44","status":"VEILLE"}
+L 950664.7 10 DETECTION heure=08:46 heures ouvrees : pas d'alerte
+L 951037.2 5 PIECE n=239
+L 952434.1 6 PIECE n=243
+L 954133.0 7 PIECE n=237
+L 954816.7 9 DETECTION heure=08:50 heures ouvrees : pas d'alerte
+L 955817.9 6 PIECE n=244
+L 956845.8 5 PIECE n=240
+L 959477.0 6 PIECE n=245
+L 959656.6 7 PIECE n=238
+L 961848.9 7 PIECE n=239
+L 962747.2 5 PIECE n=241
+L 963960.4 6 PIECE n=246
+MESURE T5_latence_ZONE_01=51.95 ms
+MESURE T5_latence_ZONE_02=54.39 ms
+MESURE T5_latence_ZONE_03=54.11 ms
+VERDICT T5 OK alertes de nuit : ZONE_01=0.05 s ZONE_02=0.05 s ZONE_03=0.05 s (exigence < 5 s, buzzer local actif)
+VERDICT T5_pas_alerte_de_jour OK 0 alerte(s) pendant les heures ouvrees (presences a 17h30 et 08h30)
+FIN SUCCES a t=964.2 s
+TEST OK
+Test ended at simulation time: 964175304

@@ -1,0 +1,20 @@
+# Réglages communs aux 4 applications (inclus par chaque Makefile).
+# -I : dossiers où nesC cherche les composants (notre dossier commun + CTP de TinyOS)
+CFLAGS += -I../commun
+CFLAGS += -I$(TINYOS_OS_DIR)/lib/net -I$(TINYOS_OS_DIR)/lib/net/ctp -I$(TINYOS_OS_DIR)/lib/net/4bitle
+# Charge utile radio portée à 48 octets (notre rapport + en-tête CTP > 28 octets par défaut)
+CFLAGS += -DTOSH_DATA_LENGTH=48
+
+# make telosb LPL=1 : écoute basse consommation (la radio dort, se réveille toutes les LPL_MS ms)
+# make telosb LPL=1 LPL_MS=2048 : réveil toutes les 2 s (moins d'énergie, plus de latence)
+LPL_MS ?= 512
+ifdef LPL
+CFLAGS += -DLOW_POWER_LISTENING -DLPL_DEF_LOCAL_WAKEUP=$(LPL_MS) -DLPL_DEF_REMOTE_WAKEUP=$(LPL_MS) -DDELAY_AFTER_RECEIVE=20
+endif
+# make telosb CLE=0x12345678 : autre clé d'authentification (nœud « intrus » du test ENF6)
+ifdef CLE
+CFLAGS += -DCLE_RESEAU=$(CLE)
+endif
+
+TINYOS_ROOT_DIR ?= $(HOME)/tinyos-main
+include $(TINYOS_ROOT_DIR)/Makefile.include

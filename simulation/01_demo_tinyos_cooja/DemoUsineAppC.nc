@@ -8,7 +8,7 @@
 configuration DemoUsineAppC {}
 implementation {
   components MainC;                          /* démarrage de la carte */
-  components DemoUsineC as App;              /* notre code (DemoUsineC.nc) */
+  components DemoUsineC as App;              /* (DemoUsineC.nc) */
   components LedsC;                          /* les 3 LED de la carte */
   components new TimerMilliC() as Minuterie; /* une minuterie en millisecondes */
   components ActiveMessageC;                 /* la radio CC2420 */
