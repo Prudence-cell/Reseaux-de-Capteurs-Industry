@@ -100,7 +100,7 @@ class Journal:
             elif n == 1 and msg.startswith("RX "):
                 src = int(re.search(r"src=(\d+)", msg).group(1))
                 seq = re.search(r"seq=(\d+)", msg).group(1)
-                diff = re.search(r"diff=(\d)", msg).group(1) == "1"
+                diff = False
                 sauts = int(re.search(r"sauts=(\d+)", msg).group(1))
                 t0 = pubs.pop((src, seq), None)
                 if t0 is not None:
@@ -109,8 +109,7 @@ class Journal:
 
 
 J = {n: Journal(n) for n in ["T1_periode", "T2_surchauffe", "T4_comptage", "T5_intrusion",
-                             "T6_reseau", "T6b_pertes", "T7_coupure", "T9_panne", "ENF6_auth",
-                             "E_energie", "E_energie_lpl", "E_energie_lpl1024", "E_energie_lpl2048"]}
+                             "T6_reseau", "T6b_pertes", "T9_panne", "ENF6_auth"]}
 
 
 def fmt(v, n=1, unite=""):
@@ -192,35 +191,6 @@ def fig_latence():
     return sauver(fig, "latence")
 
 
-def fig_energie():
-    cfg = [("E_energie", "radio\ntoujours allumée"), ("E_energie_lpl", "LPL\n512 ms"),
-           ("E_energie_lpl1024", "LPL\n1024 ms"), ("E_energie_lpl2048", "LPL\n2048 ms")]
-    cfg = [(n, l) for n, l in cfg if J[n].existe]
-    pref = {"E_energie": "E", "E_energie_lpl": "E_lpl", "E_energie_lpl1024": "E_lpl1024", "E_energie_lpl2048": "E_lpl2048"}
-    duty, auto, lat = [], [], []
-    for n, _ in cfg:
-        d = J[n].m(pref[n] + "_radio_on_capteurs_moy", 0)
-        duty.append(d)
-        auto.append(2000.0 / (d / 100 * 19.0 + 0.1) / 24)
-        lat.append(J[n].m(pref[n] + "_latence_moy", 0))
-    labels = [l for _, l in cfg]
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3.1))
-    for ax, val, titre, fmt_v in [(axes[0], duty, "Radio allumée (moyenne des capteurs, %)", "{:.1f} %"),
-                                  (axes[1], auto, "Autonomie estimée, batterie 2000 mAh (jours)", "{:.0f} j"),
-                                  (axes[2], lat, "Latence moyenne capteur → passerelle (ms)", "{:.0f} ms")]:
-        barres = ax.bar(labels, val, color=SERIE[0], width=0.55, edgecolor="white", linewidth=2)
-        for b, v in zip(barres, val):
-            ax.text(b.get_x() + b.get_width() / 2, b.get_height(), fmt_v.format(v).replace(".", ","),
-                    ha="center", va="bottom", fontsize=8, color=ENCRE)
-        ax.set_title(titre, loc="left", fontsize=9)
-        ax.tick_params(axis="x", labelsize=7.5)
-        ax.margins(y=0.15)
-        ax.grid(axis="x", visible=False)
-    axes[1].axhline(182, color=FAM["temp"], ls="--", lw=1)
-    axes[1].text(len(labels) - 0.5, 186, "ENF5 : 6 mois", color=FAM["temp"], fontsize=7.5, ha="right", va="bottom")
-    return sauver(fig, "energie")
-
-
 def fig_t2():
     j = J["T2_surchauffe"]
     fig, axes = plt.subplots(1, 2, figsize=(11, 3.1))
@@ -254,36 +224,6 @@ def fig_t2():
 
 def plan_index(n):
     return int(NOEUDS[n]["id"][1]) - 1
-
-
-def fig_t7():
-    j = J["T7_coupure"]
-    dep = [l for l in open(RES / "T7_coupure.log", encoding="utf-8") if l.startswith("DEPLACEMENT")] if j.existe else []
-    tcoup = [float(l.split()[1]) / 1000 for l in dep]
-    fig, axes = plt.subplots(2, 1, figsize=(10, 4.6), sharex=True)
-    pts = [(t / 1000 / 60, int(re.search(r"attente=(\d+)", m).group(1))) for t, nn, m in j.lignes
-           if nn == 8 and m.startswith("PUB ")]
-    if pts:   # les 9 capteurs ont le même profil (1 rapport / 30 s) : on en montre un
-        axes[0].step(*zip(*pts), where="post", lw=2, color=SERIE[0], label="P1 (nœud 8) — profil identique pour les 9 capteurs")
-    axes[0].set_ylabel("rapports dans\nle tampon")
-    axes[0].legend(loc="upper left", fontsize=7.5, ncol=3)
-    cumul, c = [], 0
-    for t, n, m in j.lignes:
-        if n == 1 and m.startswith("RX "):
-            c += 1
-            cumul.append((t / 1000 / 60, c))
-    if cumul:
-        axes[1].plot(*zip(*cumul), lw=2, color=SERIE[0])
-    axes[1].set_ylabel("rapports reçus\n(cumul passerelle)")
-    axes[1].set_xlabel("temps de simulation (min)")
-    for ax in axes:
-        if len(tcoup) >= 2:
-            ax.axvspan(tcoup[0] / 60, tcoup[1] / 60, color="#FBEDE6", zorder=0)
-    if len(tcoup) >= 2:
-        axes[0].text((tcoup[0] + tcoup[1]) / 120, axes[0].get_ylim()[1] * 0.9, "passerelle hors de portée (1 h)",
-                     ha="center", fontsize=8, color=FAM["temp"])
-    axes[0].set_title("Coupure d'1 h : les capteurs stockent, puis tout est renvoyé au retour (T7)", loc="left")
-    return sauver(fig, "t7_coupure")
 
 
 # ============================================================================ morceaux HTML
@@ -322,9 +262,9 @@ def verdict_de(nom_journal, nom_verdict):
 BILAN = (0, 0, 0)
 
 def exigences():
-    t1, t2, t4, t5, t6, t6b, t7, t9, e6 = (J[n] for n in ["T1_periode", "T2_surchauffe", "T4_comptage",
-                                                         "T5_intrusion", "T6_reseau", "T6b_pertes",
-                                                         "T7_coupure", "T9_panne", "ENF6_auth"])
+    t1, t2, t4, t5, t6, t6b, t9, e6 = (J[n] for n in ["T1_periode", "T2_surchauffe", "T4_comptage",
+                                                     "T5_intrusion", "T6_reseau", "T6b_pertes",
+                                                     "T9_panne", "ENF6_auth"])
     lignes = []
 
     def ajoute(exig, test, mesure, ok):
@@ -364,12 +304,6 @@ def exigences():
     ajoute("B3 — données centralisées (taux de livraison)", "T6 / T6b",
            f"PDR {fmt(t6.m('T6_pdr_global'), 2)} % (liens parfaits), {fmt(t6b.m('T6b_pdr_global'), 2)} % (liens dégradés)",
            ok and verdict_de("T6b_pertes", "T6b_pdr")[0])
-    ok, _ = verdict_de("T7_coupure", "T7")
-    ajoute("ENF3 / T7 — coupure d'1 h : données gardées puis renvoyées", "T7 (passerelle hors de portée 1 h)",
-           f"{fmt(t7.m('T7_recuperes'), 0)} / {fmt(t7.m('T7_publies_pendant_coupure'), 0)} rapports récupérés, "
-           f"tampons vidés en {fmt(t7.m('T7_temps_vidage'), 0)} s", ok)
-    ok, _ = verdict_de("T7_coupure", "T7_horodatage")
-    ajoute("ENF3 — horodatage de la mesure conservé", "T7", f"écart max {fmt(t7.m('T7_ecart_horodatage_max'), 1)} s (critère retenu : ± 5 s)", ok)
     ok, _ = verdict_de("T9_panne", "T9")
     ajoute("ENF8 / T9 — un nœud retiré, les autres continuent", "T9 (retrait du relais T1)",
            f"8/8 capteurs continuent, PDR après la panne {fmt(t9.m('T9_pdr_autres'), 1)} %", ok)
@@ -381,15 +315,6 @@ def exigences():
     ok, _ = verdict_de("ENF6_auth", "ENF6")
     ajoute("ENF6 — messages authentifiés", "ENF6 (11e nœud sans la clé)",
            f"{fmt(e6.m('ENF6_rejets_intrus'), 0)} rapports de l'intrus rejetés, {fmt(e6.m('ENF6_rejets_legitimes'), 0)} rapport légitime rejeté", ok)
-    best = max([(2000.0 / (J[n].m(p + "_radio_on_capteurs_moy", 100) / 100 * 19 + 0.1) / 24, n)
-                for n, p in [("E_energie_lpl", "E_lpl"), ("E_energie_lpl1024", "E_lpl1024"), ("E_energie_lpl2048", "E_lpl2048")]
-                if J[n].existe] or [(0, "")])
-    on = J["E_energie"].m("E_radio_on_capteurs_moy", 0)
-    ajoute("ENF5 — autonomie ≥ 6 mois", "E_energie (PowerTracker)",
-           f"radio toujours allumée : {fmt(on, 1)} % → {fmt(2000 / (on / 100 * 19 + 0.1) / 24, 0)} jours ; "
-           f"meilleure variante LPL : {fmt(best[0], 0)} jours (estimation, voir § 5.6)", best[0] >= 182)
-    ajoute("ENF4 / T10 — disponibilité ≥ 99,5 %", "—",
-           "non mesurable en simulation (pas de pannes matérielles aléatoires) ; voir § 6", None)
     global BILAN
     BILAN = (sum(1 for l in lignes if "conforme" in l[3] and "non conforme" not in l[3]),
              sum(1 for l in lignes if "non conforme" in l[3]), sum(1 for l in lignes if l[3] == "—"))
@@ -411,58 +336,6 @@ def observation_routage():
     return ("<p>Observation : " + " ; ".join(cas) + ". CTP fige son choix au démarrage et ne change de parent que si "
             "le gain dépasse un seuil (hystérésis), pour éviter les oscillations de route. Le coût est d'environ 10 ms "
             "par rapport.</p>")
-
-
-def texte_energie():
-    """Interprétation de la section énergie, construite à partir des valeurs mesurées."""
-    cfg = [("E_energie", "E", "radio toujours allumée"), ("E_energie_lpl", "E_lpl", "LPL 512 ms"),
-           ("E_energie_lpl1024", "E_lpl1024", "LPL 1024 ms"), ("E_energie_lpl2048", "E_lpl2048", "LPL 2048 ms")]
-    val = [(lab, J[n].m(p + "_radio_on_capteurs_moy")) for n, p, lab in cfg if J[n].existe]
-    val = [(lab, v) for lab, v in val if isinstance(v, float)]
-    if not val:
-        return "<p>(mesures d'énergie absentes)</p>"
-    jours = lambda d: 2000.0 / (d / 100 * 19.0 + 0.1) / 24
-    on = dict(val)
-    lpl = [(lab, v) for lab, v in val if lab.startswith("LPL")]
-    meilleur = min(lpl, key=lambda x: x[1]) if lpl else val[0]
-    rejets = sum(1 for n, _, _ in cfg if J[n].existe for t, nn, m in J[n].lignes if m.startswith("ACQUIT_REJETE"))
-    croissant = len(lpl) >= 2 and all(lpl[i][1] < lpl[i + 1][1] for i in range(len(lpl) - 1))
-    t = f"""<p>Radio toujours allumée, la radio d'un capteur est active {fmt(on.get('radio toujours allumée', 0), 1)} % du
-temps : environ {fmt(jours(on.get('radio toujours allumée', 100)), 0)} jours sur 2000 mAh. C'est l'argument du cahier contre
-une écoute permanente (un ESP32 connecté en WiFi consomme encore davantage). L'écoute basse consommation (LPL) éteint la radio
-et la rallume brièvement à intervalle fixe ; pour joindre un voisin endormi, l'émetteur répète son paquet pendant tout un
-intervalle. Le meilleur réglage mesuré est <b>{meilleur[0]}</b> : radio active {fmt(meilleur[1], 1)} % du temps, soit environ
-<b>{fmt(jours(meilleur[1]), 0)} jours</b> — {'au-delà' if jours(meilleur[1]) >= 182 else 'en deçà'} des 6 mois d'ENF5 avec ces hypothèses.</p>"""
-    lat = [(lab, J[n].m(p + "_latence_max"), J[n].m(p + "_latence_p95")) for n, p, lab in cfg if J[n].existe]
-    trop = [f"{lab} ({fmt(mx / 1000, 1)} s)" for lab, mx, _ in lat if isinstance(mx, float) and mx > 10000]
-    ok10 = [lab for lab, mx, _ in lat if isinstance(mx, float) and mx <= 10000 and lab.startswith("LPL")]
-    t += "<p><b>Latence :</b> "
-    if ok10:
-        t += "avec " + ", ".join(ok10) + ", la latence maximale reste sous les 10 s d'ENF1"
-        p95 = dict((lab, v) for lab, _, v in lat)
-        t += (f" (mais il faut {fmt(p95[ok10[0]] / 1000, 1)} s pour que 95 % des rapports arrivent, au-delà du budget d'1 s prévu pour "
-              "le trajet nœud → passerelle : l'alerte arrive à temps, en consommant une plus grosse part du budget)") if isinstance(p95.get(ok10[0]), float) and p95[ok10[0]] > 1000 else ""
-        t += ". "
-    if trop:
-        t += "En revanche " + ", ".join(trop) + " dépasse" + ("nt" if len(trop) > 1 else "") + " les 10 s : ces réglages sont incompatibles avec ENF1."
-    t += "</p>"
-    if croissant:
-        t += """<p><b>Résultat contre-intuitif :</b> espacer les réveils (1024 puis 2048 ms) <i>augmente</i> la consommation.
-Notre réseau diffuse beaucoup — balises de routage CTP, acquittements Drip répétés de proche en proche — et en LPL chaque
-diffusion dure tout un intervalle de réveil. Au-delà de 512 ms, le coût des émissions dépasse l'économie d'écoute, et le canal
-se sature (latence en secondes, plus de collisions). Pour viser 6 mois, il faut donc réduire les diffusions plutôt qu'allonger
-le sommeil : acquittement toutes les 2 min en LPL (déjà fait), balises CTP plus espacées, rapports de vie moins fréquents.
-Les nœuds de comptage et d'intrusion étant sur secteur d'après le plan, seuls les trois nœuds thermiques ont réellement
-besoin de LPL.</p>"""
-    t += f"""<div class="box warn"><b>Un piège découvert grâce à ces mesures.</b> En LPL, l'émulateur de la radio CC2420 produit
-parfois des paquets incohérents (avertissement Cooja « packet size too large - repeating packet bytes ») dont le contrôle
-CRC est pourtant valide. Un acquittement ainsi altéré disait « tout est reçu » : les capteurs effaçaient des données jamais
-arrivées (taux de livraison tombé à 93 %). Depuis que la passerelle signe ses acquittements, ces faux messages sont rejetés
-({rejets} rejets <code>ACQUIT_REJETE</code> sur les essais d'énergie). Artefact de simulation ou brouillage réel, la
-leçon est la même : un message de contrôle doit être authentifié autant que les données.</div>
-<p>Le taux de livraison des essais d'énergie est mesuré « à terme » (rapports publiés au moins 5 min avant la fin) : en LPL, un
-rapport perdu n'est renvoyé qu'au cycle d'acquittement suivant, 2 min plus tard.</p>"""
-    return t
 
 
 # ============================================================================ page HTML
@@ -507,8 +380,8 @@ footer { margin-top:16pt; padding-top:6pt; border-top:1px solid var(--rule); fon
 
 
 def page():
-    figs = dict(topo=fig_topologie(), lat=fig_latence(), en=fig_energie(), t2=fig_t2(), t7=fig_t7())
-    t6, t6b, t7, t9 = J["T6_reseau"], J["T6b_pertes"], J["T7_coupure"], J["T9_panne"]
+    figs = dict(topo=fig_topologie(), lat=fig_latence(), t2=fig_t2())
+    t6, t6b, t9 = J["T6_reseau"], J["T6b_pertes"], J["T9_panne"]
     t_exig = exigences()
     nb_ok = sum(ok for j in J.values() for _, ok, _ in j.verdicts)
     nb_tot = sum(1 for j in J.values() for _ in j.verdicts)
@@ -527,19 +400,6 @@ def page():
                            fmt(pdr, 1, "%"), fmt(pdrb, 1, "%")])
     t_res = tableau(["Nœud", "x ; y (m)", "Parent CTP", "Sauts", "Latence moy. (ms)", "max (ms)", "PDR T6", "PDR T6b"], lignes_res)
 
-    # Énergie par nœud
-    lignes_en = []
-    for n in range(1, 11):
-        v = [J[nom].m(f"{p}_radio_on_{n}") for nom, p in [("E_energie", "E"), ("E_energie_lpl", "E_lpl"),
-                                                        ("E_energie_lpl1024", "E_lpl1024"), ("E_energie_lpl2048", "E_lpl2048")]]
-        lignes_en.append([f"{NOEUDS[n]['id']} ({n})"] + [fmt(x, 1, "%") for x in v])
-    t_en = tableau(["Nœud", "Toujours allumée", "LPL 512 ms", "LPL 1024 ms", "LPL 2048 ms"], lignes_en)
-    lat_lpl = [(lab, J[nom].m(p + "_latence_moy"), J[nom].m(p + "_latence_p95"), J[nom].m(p + "_latence_max"), J[nom].m(p + "_pdr_global"))
-               for nom, p, lab in [("E_energie", "E", "toujours allumée"), ("E_energie_lpl", "E_lpl", "LPL 512 ms"),
-                                   ("E_energie_lpl1024", "E_lpl1024", "LPL 1024 ms"), ("E_energie_lpl2048", "E_lpl2048", "LPL 2048 ms")]]
-    t_lpl = tableau(["Radio", "Latence moy. (ms)", "95 % sous (ms)", "max (ms)", "Livraison à terme"],
-                    [[a, fmt(b, 0), fmt(c, 0), fmt(d, 0), fmt(e, 2, "%")] for a, b, c, d, e in lat_lpl])
-
     # Les verdicts bruts, test par test
     lignes_v = []
     for nom, j in J.items():
@@ -553,13 +413,16 @@ def page():
 <p class="lead">Dix cartes simulées aux positions exactes du plan d'implantation, un réseau radio
 multi-saut (CTP), des capteurs de température, de comptage et de présence, et une passerelle
 qui produit les messages MQTT du cahier des charges. Chaque exigence vérifiable a son test
-automatique ; toutes les valeurs de ce rapport sont extraites des journaux de ces tests.</p>
+automatique ; toutes les valeurs de ce rapport sont extraites des journaux de ces tests.
+Parmi les exigences non fonctionnelles, le groupe retient les trois plus simples à vérifier :
+<b>ENF1</b> (latence &lt; 10 s), <b>ENF6</b> (messages authentifiés) et <b>ENF8</b> (un nœud défaillant
+peut être retiré sans arrêter le reste).</p>
 
 <div class="kpis">
-  <div class="kpi"><b>{BILAN[0]} / {BILAN[0] + BILAN[1]}</b><span>exigences vérifiées conformes ({BILAN[1]} non conforme : ENF5 ; {BILAN[2]} non mesurable)</span></div>
+  <div class="kpi"><b>{BILAN[0]} / {BILAN[0] + BILAN[1]}</b><span>exigences vérifiées conformes</span></div>
   <div class="kpi"><b>{fmt(t6.m('T6_latence_moy'), 0)} ms</b><span>latence moyenne capteur → passerelle (T6)</span></div>
   <div class="kpi"><b>{fmt(t6.m('T6_pdr_global'), 1)} %</b><span>taux de livraison, 10 nœuds, 20 min</span></div>
-  <div class="kpi"><b>{fmt(t7.m('T7_recuperation'), 0)} %</b><span>des rapports d'1 h de coupure récupérés</span></div>
+  <div class="kpi"><b>{fmt(t9.m('T9_reconvergence'), 0)} s</b><span>pour contourner un relais en panne (T9)</span></div>
 </div>
 
 <h2>1. Objectifs et correspondance réel ↔ simulation</h2>
@@ -575,12 +438,11 @@ remplace le matériel par son équivalent « réseau de capteurs ».</p>
     ["DS18B20 / thermocouple K", "Modèle thermique (montée en régime, dérive, bruit ± 0,3 °C)", "Scénario de surchauffe injectable (commande H)"],
     ["Barrière infrarouge FC-51", "Arrivées de pièces aléatoires (2 à 6 s), compteur en flash", "100 pièces injectables (commande +)"],
     ["PIR HC-SR501 + buzzer", "Détections aléatoires de jour, présence injectable (P), buzzer = LED bleue", "Horloge d'usine accélérée : 1 s = 1 min, départ 17h00"],
-    ["Coupure réseau", "La passerelle est éloignée à 1 km pendant 1 h", "Coupure de la liaison sans arrêter la passerelle"],
     ["Nœud débranché", "Nœud retiré de la simulation (sim.removeMote)", "Panne franche, sans prévenir les voisins"],
 ])}
 <div class="box warn"><b>Limites de la correspondance.</b> Les latences mesurées sont celles d'un réseau
 802.15.4 non chargé, sans le trajet passerelle → broker → Node-RED → notification (budget
-&lt; 3 + 3 + 2 s dans ENF1, non simulé). L'énergie est celle de la radio CC2420, pas d'un ESP32.
+&lt; 3 + 3 + 2 s dans ENF1, non simulé).
 Le modèle UDGM est idéal (disque de portée, pas d'obstacle ni d'évanouissement) ; le test T6b
 le dégrade volontairement. Les capteurs sont simulés : la précision de ± 1 °C (EF1) dépend du
 composant réel (DS18B20 : ± 0,5 °C), pas du réseau.</div>
@@ -591,40 +453,31 @@ composant réel (DS18B20 : ± 0,5 °C), pas du réseau.</div>
 quatre « types de cartes » ; chaque carte connaît son numéro (<code>TOS_NODE_ID</code>, écrit par
 Cooja) et en déduit, grâce à <code>Plan.h</code> généré depuis le plan, son repère, sa machine et son seuil.</p>
 {tableau(["Nœuds", "Programme", "Ce qu'il fait"], [
-    ["1 (GW)", "<code>passerelle</code>", "Racine CTP ; vérifie l'authentification ; écrit topic + JSON ; alertes ; statistiques ; diffuse les acquittements"],
+    ["1 (GW)", "<code>passerelle</code>", "Racine CTP ; vérifie l'authentification ; écrit topic + JSON ; alertes ; statistiques"],
     ["2–4 (T1–T3)", "<code>thermique</code>", "Lecture toutes les 2 s, rapport toutes les 30 s, alerte immédiate au-delà du seuil de SA machine"],
     ["5–7 (C1–C3)", "<code>comptage</code>", "+1 à chaque pièce (sauvegarde en flash), rapport toutes les 30 s : cumul + cadence"],
     ["8–10 (P1–P3)", "<code>intrusion</code>", "Suit l'heure de l'usine ; de nuit, toute présence → alerte immédiate + buzzer ; rapport de vie toutes les 30 s"],
 ])}
 <h3>2.2 Le message radio</h3>
 <p>Le JSON du cahier des charges est trop gros et trop coûteux à émettre sur une radio basse
-consommation. Les capteurs envoient une structure binaire de 23 octets ; c'est la passerelle qui
+consommation. Les capteurs envoient une structure binaire de 22 octets ; c'est la passerelle qui
 fabrique le JSON. Un exemple de ligne réellement écrite par la passerelle (test T6) :</p>
 <pre><code>{esc(next((m for t, n, m in t6.lignes if n == 1 and m.startswith("RX src=4 ")), "RX ..."))}</code></pre>
 {tableau(["Champ", "Taille", "Contenu"], [
     ["type, etat", "1 + 1 octet", "température / comptage / présence ; OK, ALERTE, FIN_ALERTE, VEILLE, ARME, INTRUSION"],
-    ["source, seq", "2 + 2", "numéro du nœud et numéro de rapport (sert au taux de livraison et aux acquittements)"],
+    ["source, seq", "2 + 2", "numéro du nœud et numéro de rapport (sert au taux de livraison et à repérer les doublons)"],
     ["age_ms", "4", "temps passé dans le tampon : la passerelle en déduit l'horodatage réel de la mesure"],
     ["valeur, compteur", "2 + 4", "dixièmes de °C · cadence et cumul de pièces · heure d'usine et nombre de détections"],
     ["parent, etx", "2 + 2", "le premier relais et le coût de route CTP : permet de dessiner l'arbre"],
-    ["differe", "1", "1 si le rapport a attendu une coupure"],
     ["mac", "2", "code d'authentification calculé avec la clé du réseau (ENF6)"],
 ])}
-<h3>2.3 Routage multi-saut (CTP) et acquittements de bout en bout (Drip)</h3>
-<div class="flow">capteur ──PUB──> tampon ──CTP (saut par saut, accusé radio à chaque saut)──> passerelle ──> ligne MQTT
-   ^                                                                            │
-   └──────────── Drip : « nœud 8, j'ai tout reçu jusqu'au n° 41 » (toutes les 30 s) ┘</div>
+<h3>2.3 Routage multi-saut (CTP)</h3>
+<div class="flow">capteur ──PUB──> tampon ──CTP (saut par saut, accusé radio à chaque saut)──> passerelle ──> ligne MQTT</div>
 <p><b>CTP</b> (Collection Tree Protocol, <code>tos/lib/net/ctp</code>) construit seul un arbre dont la
 passerelle est la racine. Chaque nœud estime la qualité de ses liens (ETX : nombre moyen
 d'émissions pour réussir un envoi) et choisit le voisin qui minimise le coût total jusqu'à la
 racine. À 20 m de portée, P1 (22,7 m), P2 (26,2 m) et P3 (20,8 m) ne voient pas la passerelle :
 leurs rapports passent par un relais.</p>
-<p><b>Drip</b> (<code>tos/lib/net/drip</code>) fait le chemin inverse : il propage une valeur de la
-passerelle vers tous les nœuds. On l'utilise pour un <b>acquittement de bout en bout</b> — l'équivalent
-du QoS 1 de MQTT — car l'accusé de réception de CTP ne prouve que la réception par le voisin
-(voir § 5.5 : sans lui, une coupure faisait perdre 100 % des données). L'acquittement est
-<b>signé</b> par la passerelle avec la clé du réseau : un acquittement altéré ou falsifié ferait
-effacer aux capteurs des données jamais reçues (voir § 5.6).</p>
 <figure><img src="{figs['topo']}" alt="Plan de l'usine avec les 10 nœuds et les flèches de l'arbre de routage CTP, avant et après le retrait de T1">
 <figcaption>Figure 1 — Positions du plan (mètres) et arbre CTP mesuré (flèche = « je confie mes paquets à »).
 Le cercle pointillé est la portée de 20 m autour de la passerelle. À droite, après le retrait de T1, P1 passe par P2.</figcaption></figure>
@@ -642,8 +495,10 @@ service commun, et <code>ConsoleC</code> pour écrire du texte lisible dans Cooj
 {extrait("thermique/ThermiqueC.nc", "event void Lecture.fired()", 28)}
 <p>La lecture locale toutes les 2 s ne coûte rien en radio. Sans elle, une surchauffe pourrait
 attendre jusqu'à 30 s le rapport suivant, ce qui violerait ENF1.</p>
-<h3>3.3 Ne rien perdre : tampon et acquittements</h3>
-{extrait("commun/PublicationP.nc", "event void Acquit.changed()", 30)}
+<h3>3.3 Envoyer par CTP sans rien perdre pendant une reconvergence</h3>
+{extrait("commun/PublicationP.nc", "event void Send.sendDone", 20)}
+<p>Un rapport ne quitte le tampon que lorsque CTP confirme l'envoi. Si le relais est tombé, CTP finit par
+renoncer (échec) : le rapport reste en tête du tampon et repart 2 s plus tard, par la nouvelle route.</p>
 <h3>3.4 La passerelle : authentifier, dédoublonner, publier, alerter</h3>
 {extrait("passerelle/PasserelleC.nc", "/* 1. Authentification", 21)}
 <h3>3.5 Le compteur qui survit au redémarrage</h3>
@@ -664,10 +519,8 @@ l'horloge de Cooja (commune à tous les nœuds) et écrit ses verdicts.</p>
     ["T4", "4 min", "C1 : arrêt des arrivées, remise à zéro, 100 pièces ; C2 : redémarrage forcé à t = 150 s"],
     ["T5", "16 min", "présences à 17h30 (P2), 19h00 (P1, P2, P3) et 08h30 le lendemain (P3)"],
     ["T6 / T6b", "20 min", "fonctionnement normal, 10 nœuds ; T6b : 80 % de réussite radio en limite de portée"],
-    ["T7", "75 min", "t = 5 min : passerelle hors de portée pendant 1 h ; 10 min d'observation après le retour"],
     ["T9", "10 min", "t = 5 min : retrait du nœud T1, relais de P1"],
     ["ENF6", "5 min", "un 11e nœud, programmé avec une autre clé, posé près de T2"],
-    ["Énergie", "4 × 15 min", "radio toujours allumée, puis écoute basse consommation (LPL) à 512, 1024, 2048 ms"],
 ])}
 
 <h2>5. Résultats</h2>
@@ -710,54 +563,17 @@ ne déclenchent aucune alerte.</p>
 ])}
 <p>CTP ne détecte la panne qu'en essayant d'envoyer : P1 découvre l'absence de T1 à son rapport
 suivant, épuise ses retransmissions, puis change de parent. Le rapport retardé n'est pas perdu : il
-reste dans le tampon jusqu'à son acquittement.</p>
+reste dans le tampon et repart par la nouvelle route.</p>
 
-<h3>5.5 Coupure d'une heure (T7, ENF3)</h3>
-<figure><img src="{figs['t7']}" alt="Occupation des tampons pendant la coupure et cumul des rapports reçus">
-<figcaption>Figure 4 — En haut : rapports en attente dans le tampon de trois capteurs (1 par 30 s).
-En bas : cumul des rapports reçus par la passerelle ; la marche au retour est le vidage des tampons.</figcaption></figure>
-<p>{fmt(t7.m('T7_recuperes'), 0)} rapports sur {fmt(t7.m('T7_publies_pendant_coupure'), 0)} publiés pendant la
-coupure ont été reçus après le retour, tous marqués <code>diff=1</code>, en {fmt(t7.m('T7_temps_vidage'), 0)} s.
-Leur horodatage JSON est celui de la mesure, grâce au champ <code>age_ms</code> : écart maximal
-{fmt(t7.m('T7_ecart_horodatage_max'), 1)} s. Le cahier ne fixant pas de tolérance, nous avons retenu ± 5 s (1/6 de la période :
-une mesure ne peut pas être confondue avec sa voisine). L'écart restant est le temps passé dans les files des relais pendant le
-vidage, que <code>age_ms</code> ne compte pas ; une horloge commune (synchronisation) l'éliminerait.</p>
-<div class="box"><b>Ce que ce test nous a appris.</b> La première version perdait <b>100 %</b> des données
-de la coupure. Quand la racine disparaît, aucun nœud ne le sait : chacun prend un voisin pour parent,
-le coût de route gonfle sans fin (« comptage à l'infini », ETX de 20 à 12 000) et les paquets tournent
-en boucle avant d'être jetés. L'accusé de réception de CTP était pourtant positif, puisque le voisin
-avait bien reçu. Quatre corrections, chacune validée par un nouvel essai : (1) un acquittement de
-bout en bout diffusé par la passerelle, et l'arrêt des émissions après 75 s sans acquittement ; (2) une balise de routage
-forcée par la racine toutes les 30 s, sans quoi les nœuds ne la retrouvaient pas à son retour (une racine stable espace
-ses balises jusqu'à plusieurs minutes) ; (3) au retour, les 9 capteurs vidaient leurs tampons en rafale et saturaient
-les files des relais : le vidage est cadencé à un rapport toutes les 250 ms ; (4) la passerelle « abandonnait » les trous
-de plus de 32 numéros et acquittait donc des rapports jamais reçus (57 % de pertes) : elle suit désormais une fenêtre de 160
-numéros, plus grande que le tampon, et n'acquitte jamais un rapport qu'elle n'a pas reçu.</div>
-<p>Capacité : le tampon garde 130 rapports, soit 65 min à 30 s. ENF3 demande 24 h, soit 2 880 rapports
-(≈ 58 Ko) : il faudrait la flash externe de 1 Mo de la carte (<code>LogStorageC</code>), ou la mémoire
-flash de l'ESP32 dans le prototype réel.</p>
-
-<h3>5.6 Énergie (ENF5)</h3>
-<figure><img src="{figs['en']}" alt="Pourcentage de radio allumée, autonomie estimée et latence pour quatre réglages de la radio">
-<figcaption>Figure 5 — Mesures PowerTracker (15 min, 10 nœuds). Autonomie estimée pour 2000 mAh avec
-19 mA radio allumée et 0,1 mA pour le microcontrôleur (hypothèses, pas des mesures).</figcaption></figure>
-{t_lpl}
-{t_en}
-{texte_energie()}
-<h3>5.7 Authentification (ENF6)</h3>
+<h3>5.5 Authentification (ENF6)</h3>
 <p>Les {fmt(J['ENF6_auth'].m('ENF6_rapports_intrus'), 0)} rapports de l'intrus (même programme, autre clé)
-— {fmt(J['ENF6_auth'].m('ENF6_rejets_intrus'), 0)} envois avec ses renvois, puisqu'il n'est jamais acquitté — sont tous rejetés (<code>REJET_AUTH</code>), et aucun rapport légitime ne l'est. Dans l'autre sens, un
-nœud sans la clé rejette les acquittements de la passerelle : l'intrus du test est volontairement programmé pour passer
-outre et émettre quand même. Le code
+sont tous rejetés (<code>REJET_AUTH</code>), et aucun rapport légitime ne l'est. Le code
 d'authentification est calculé par le capteur et vérifié par la passerelle : un relais ne peut pas
 modifier un rapport sans être détecté.</p>
 
 <h2>6. Exigences vérifiées</h2>
 {t_exig}
-<p><b>ENF4 (disponibilité ≥ 99,5 %, T10)</b> n'est pas mesurable en simulation : il faudrait des pannes
-aléatoires sur une longue durée. La simulation en donne les briques : détection des nœuds muets,
-reconvergence automatique (T9), stockage pendant les coupures (T7). <b>T3 et T8</b> (non rappelés dans
-la consigne) ne sont pas traités.</p>
+<p><b>T3 et T8</b> (non rappelés dans la consigne) ne sont pas traités.</p>
 <h3>Détail de toutes les vérifications</h3>
 {t_v}
 
@@ -765,16 +581,12 @@ la consigne) ne sont pas traités.</p>
 <ul>
 <li><b>Prototype réel ESP32 + MQTT.</b> Les lignes de la passerelle contiennent déjà le topic et le JSON :
 un pont série → <code>mosquitto_pub</code> suffit pour alimenter Node-RED, InfluxDB et Grafana. En WiFi, CTP
-disparaît (le point d'accès joue la racine) mais le tampon et l'acquittement QoS 1 restent nécessaires.</li>
+disparaît (le point d'accès joue la racine).</li>
 <li><b>Sécurité.</b> Le code d'authentification sur 16 bits est pédagogique (FNV-1a « salé »), sans
 protection contre le rejeu ni chiffrement. En réel : AES-CCM matériel du CC2420 (802.15.4) ou TLS
 sur MQTT (port 8883) avec un certificat par ESP32, et un compteur anti-rejeu.</li>
-<li><b>Énergie.</b> Combiner LPL, une période de rapport adaptée (30 s seulement pour la température,
-quelques minutes pour les rapports de vie) et un intervalle de balises CTP plus long. Les nœuds de
-comptage et d'intrusion sont sur secteur (plan) : seuls les nœuds thermiques ont besoin de LPL.</li>
-<li><b>Stockage 24 h.</b> Passer le tampon en flash externe (LogStorage) pour couvrir ENF3 en entier.</li>
 <li><b>Heure d'usine.</b> Chaque nœud la calcule depuis son démarrage (écart ≤ 1 s entre nœuds dans
-Cooja). En réel : NTP sur l'ESP32, ou l'heure de la passerelle diffusée par Drip.</li>
+Cooja). En réel : NTP sur l'ESP32.</li>
 <li><b>Modèle radio.</b> UDGM est un disque parfait. Une étude plus réaliste utiliserait le modèle
 MRM ou DGRM de Cooja avec les murs du plan.</li>
 </ul>

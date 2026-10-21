@@ -8,12 +8,8 @@
  *   4. décide des ALERTES (B3) : surchauffe (seuil propre à chaque machine, EF2),
  *      intrusion hors heures (EF6), nœud muet (ENF8).
  * Toutes les 60 s elle écrit une ligne « STAT » par nœud.
- * Toutes les 30 s elle DIFFUSE (Drip) les acquittements : pour chaque nœud, le plus grand
- * numéro reçu sans trou. Les capteurs effacent alors ces rapports de leur tampon.
  *
  * Commande série (banc d'essai) : S = statistiques tout de suite.
- * (La coupure du test T7 se fait en ÉLOIGNANT la passerelle dans Cooja, pas en éteignant
- *  sa radio : arrêter la radio pendant une émission bloque la pile CC2420 de TinyOS.)
  */
 #include "Usine.h"
 
@@ -27,24 +23,14 @@ module PasserelleC {
     interface RootControl;
     interface Receive;
     interface CtpPacket;
-    interface CtpInfo;
     interface Timer<TMilli> as Stats;
     interface Timer<TMilli> as Supervision;
-    interface Timer<TMilli> as Acquitter;
-    interface StdControl as DisseminationControl;
-    interface DisseminationUpdate<acquit_t> as Acquit;
-#ifdef LOW_POWER_LISTENING
-    interface LowPowerListening;
-#endif
   }
 }
 implementation {
   /* Ce que la passerelle retient de chaque nœud */
   typedef struct {
-    uint16_t recus, doublons, redemarrages;
-    uint16_t contigu;          /* tous les seq <= contigu sont arrivés (c'est ce qu'on acquitte) */
-    uint8_t  vus[FENETRE_SUIVI / 8];  /* bit (seq % FENETRE_SUIVI) = ce seq est arrivé en avance */
-    uint16_t maxSeq;           /* plus grand seq reçu */
+    uint16_t recus, perdus, doublons, dernierSeq, redemarrages;
     uint32_t dernierRx;        /* instant du dernier message (ms, horloge de la passerelle) */
     uint32_t compteur;         /* dernier compteur de pièces connu (pour le JSON machine) */
     uint16_t parent;
@@ -52,69 +38,22 @@ implementation {
   } suivi_t;
 
   suivi_t suivi[MAX_ID + 1];
-  bool premierDemarrage = TRUE;
-  acquit_t acquit;
-
-  /* Diffuse les acquittements : « voici, pour chacun, jusqu'où j'ai tout reçu » */
-  void diffuserAcquits() {
-    uint8_t i;
-    acquit.battement++;
-    for (i = 0; i <= MAX_ID; i++) acquit.dernier[i] = suivi[i].contigu;
-    acquit.mac = macAcquit(&acquit, CLE_RESEAU);   /* signé, comme les rapports (ENF6) */
-    call Acquit.change(&acquit);
-  }
-  event void Acquitter.fired() {
-    diffuserAcquits();
-    /* Une racine stable espace ses balises CTP jusqu'à plusieurs minutes (Trickle).
-       Après une coupure, les nœuds ne la retrouveraient pas avant longtemps : on force
-       une balise toutes les 30 s (la passerelle est sur secteur, le coût est négligeable). */
-    call CtpInfo.triggerImmediateRouteUpdate();
-    call Acquitter.startOneShot(TICKS(ACQUIT_MS));
-  }
-
-  /* Fenêtre circulaire : un bit par numéro de séquence « en avance » sur contigu */
-  bool estVu(suivi_t *s, uint16_t seq) {
-    uint16_t b = seq % FENETRE_SUIVI;
-    return (s->vus[b / 8] >> (b % 8)) & 1;
-  }
-  void marquer(suivi_t *s, uint16_t seq, bool v) {
-    uint16_t b = seq % FENETRE_SUIVI;
-    if (v) s->vus[b / 8] |= (uint8_t)(1 << (b % 8));
-    else   s->vus[b / 8] &= (uint8_t)~(1 << (b % 8));
-  }
-
-  /* Nombre de rapports manquants (trous) entre contigu et maxSeq */
-  uint16_t manquants(suivi_t *s) {
-    uint16_t n = 0, i;
-    for (i = s->contigu + 1; i < s->maxSeq; i++)
-      if (!estVu(s, i)) n++;
-    return n;
-  }
 
   /* ---------------------------------------------------------------- démarrage */
   event void Boot.booted() {
     call Console.texte("BOOT passerelle GW noeud ");
     call Console.nombre(TOS_NODE_ID);
     call Console.texte(" (racine CTP)\n");
-#ifdef LOW_POWER_LISTENING
-    /* Alimentée sur secteur : elle écoute en permanence (réveil local = 0) */
-    call LowPowerListening.setLocalWakeupInterval(0);
-#endif
     call RadioControl.start();
   }
 
   event void RadioControl.startDone(error_t err) {
     if (err != SUCCESS) { call RadioControl.start(); return; }
-    if (premierDemarrage) {
-      premierDemarrage = FALSE;
-      call RoutingControl.start();
-      call RootControl.setRoot();              /* « je suis la racine de l'arbre » */
-      call DisseminationControl.start();
-      call Acquitter.startOneShot(TICKS(2000)); /* premier battement vite, puis toutes les 30 s */
-      call Stats.startPeriodic(TICKS(STATS_MS));
-      call Supervision.startPeriodic(TICKS(5000));
-      call Console.texte("PRET passerelle racine\n");
-    }
+    call RoutingControl.start();
+    call RootControl.setRoot();                /* « je suis la racine de l'arbre » */
+    call Stats.startPeriodic(TICKS(STATS_MS));
+    call Supervision.startPeriodic(TICKS(5000));
+    call Console.texte("PRET passerelle racine\n");
   }
 
   event void RadioControl.stopDone(error_t err) {}
@@ -205,27 +144,22 @@ implementation {
        à la racine (CtpForwardingEngineP). C'est donc directement le nombre de sauts. */
     sauts = call CtpPacket.getThl(msg);
 
-    /* 2. Suivi des numéros de séquence, avec trous possibles : un rapport perdu en route
-          sera renvoyé plus tard par le capteur, faute d'acquittement. */
-    if (s->vu && r->seq <= 2 && s->maxSeq > 4) {  /* le nœud a redémarré (seq repart de 1) */
-      s->redemarrages++;
-      call Console.texte("REDEMARRAGE src="); call Console.nombre(src);
-      call Console.texte(" ("); call Console.texte(REPERE[src]); call Console.texte(")\n");
-      s->contigu = 0; s->maxSeq = 0;
-      memset(s->vus, 0, sizeof(s->vus));
+    /* 2. Suivi des numéros de séquence : un trou = rapports perdus, un numéro déjà vu = doublon */
+    if (s->vu && r->seq <= s->dernierSeq) {
+      if (r->seq <= 2) {                         /* le nœud a redémarré (seq repart de 1) */
+        s->redemarrages++;
+        call Console.texte("REDEMARRAGE src="); call Console.nombre(src);
+        call Console.texte(" ("); call Console.texte(REPERE[src]); call Console.texte(")\n");
+        s->dernierSeq = r->seq - 1;
+      } else {
+        s->doublons++;
+        return msg;                              /* déjà reçu : on l'ignore */
+      }
     }
-    if (r->seq <= s->contigu) { s->doublons++; return msg; }        /* déjà reçu */
-    /* Trop en avance pour être suivi : on l'ignore SANS l'acquitter, le capteur le renverra.
-       (Règle d'or : ne jamais acquitter un rapport qu'on n'a pas reçu.) */
-    if (r->seq > s->contigu + FENETRE_SUIVI) return msg;
-    if (estVu(s, r->seq)) { s->doublons++; return msg; }   /* déjà reçu (en avance) */
-    marquer(s, r->seq, TRUE);
-    while (estVu(s, s->contigu + 1)) {                       /* on comble les trous */
-      s->contigu++;
-      marquer(s, s->contigu, FALSE);
-    }
-    if (r->seq > s->maxSeq) s->maxSeq = r->seq;
+    if (s->vu && r->seq > s->dernierSeq + 1) s->perdus += r->seq - s->dernierSeq - 1;
+    if (!s->vu && r->seq > 1) s->perdus += r->seq - 1;
     s->vu = 1;
+    s->dernierSeq = r->seq;
     s->recus++;
     s->dernierRx = maintenant;
     s->parent = r->parent;
@@ -245,7 +179,6 @@ implementation {
     call Console.texte(" sauts=");     call Console.nombre(sauts);
     call Console.texte(" parent=");    call Console.nombre(r->parent);
     call Console.texte(" age=");       call Console.nombre(r->age_ms);
-    call Console.texte(" diff=");      call Console.nombre(r->differe);
     call Console.texte(" | ");         ecrireTopic(src);
     call Console.car(' ');
     ecrireJson(r, EPOCH_DEBUT + (maintenant - r->age_ms) / 1000UL);
@@ -271,7 +204,7 @@ implementation {
         call Console.texte(" temp="); call Console.dixiemes(r->valeur);
         call Console.car('\n');
       }
-    } else if (r->type == TYPE_PRESENCE && r->etat == ETAT_INTRUSION && !r->differe) {
+    } else if (r->type == TYPE_PRESENCE && r->etat == ETAT_INTRUSION) {
       call Console.texte("ALERTE INTRUSION "); ecrireNodeId(src);
       call Console.texte(" heure="); call Console.heure((uint16_t)r->valeur);
       call Console.texte(" src=");   call Console.nombre(src);
@@ -305,9 +238,8 @@ implementation {
       call Console.texte("STAT src=");   call Console.nombre(i);
       call Console.car(' ');             call Console.texte(REPERE[i]);
       call Console.texte(" recus=");     call Console.nombre(s->recus);
-      call Console.texte(" manquants="); call Console.nombre(manquants(s));
+      call Console.texte(" perdus=");    call Console.nombre(s->perdus);
       call Console.texte(" doublons=");  call Console.nombre(s->doublons);
-      call Console.texte(" acquitte=");  call Console.nombre(s->contigu);
       call Console.texte(" sauts=");     call Console.nombre(s->sauts);
       call Console.texte(" parent=");    call Console.nombre(s->parent);
       call Console.texte(s->muet ? " MUET\n" : "\n");

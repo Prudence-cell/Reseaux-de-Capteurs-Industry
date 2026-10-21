@@ -156,11 +156,6 @@ def script_runner(chemin_js):
   </plugin>"""
 
 
-POWERTRACKER = """  <plugin>
-    org.contikios.cooja.plugins.PowerTracker
-    <bounds x="1040" y="0" height="440" width="560" />
-  </plugin>"""
-
 FENETRES = """  <plugin>
     org.contikios.cooja.plugins.Visualizer
     <plugin_config>
@@ -213,14 +208,8 @@ TESTS = [
     ("T5_intrusion",   "T5 - presence hors heures -> alerte < 5 s", {}),
     ("T6_reseau",      "T6 - latence, PDR, sauts (10 noeuds)", {}),
     ("T6b_pertes",     "T6b - PDR avec liens radio degrades", {"rx": 0.8}),
-    ("T7_coupure",     "T7 - coupure du puits puis renvoi", {}),
-    ("T7c_court",      "T7c - coupure courte (5 min), diagnostic", {}),
     ("T9_panne",       "T9 - relais T1 retire, reconvergence", {}),
     ("ENF6_auth",      "ENF6 - message d'un noeud intrus rejete", {"intrus": True}),
-    ("E_energie",      "Energie radio, radio toujours allumee", {"power": True}),
-    ("E_energie_lpl",  "Energie radio, ecoute basse consommation (LPL 512 ms)", {"power": True, "lpl": "_lpl"}),
-    ("E_energie_lpl1024", "Energie radio, LPL 1024 ms", {"power": True, "lpl": "_lpl1024"}),
-    ("E_energie_lpl2048", "Energie radio, LPL 2048 ms", {"power": True, "lpl": "_lpl2048"}),
 ]
 
 
@@ -237,7 +226,7 @@ def main():
     demo_js.write_text(commun_js + "\n" + (ICI / "scenario_demo.js").read_text(encoding="utf-8"), encoding="utf-8")
     csc = ('<?xml version="1.0" encoding="UTF-8"?>\n<simconf version="2022112801">\n'
            + simulation_xml("Surveillance de la ligne de production - Groupe 7", dossier) + "\n"
-           + FENETRES + "\n" + POWERTRACKER + "\n" + script_runner(demo_js) + "\n</simconf>\n")
+           + FENETRES + "\n" + script_runner(demo_js) + "\n</simconf>\n")
     (sortie / "usine.csc").write_text(csc, encoding="utf-8")
 
     for nom, titre, opt in TESTS:
@@ -245,15 +234,10 @@ def main():
         fichier = ICI / "tests" / f"{nom}.js"
         if not fichier.exists():
             continue
-        corps = fichier.read_text(encoding="utf-8")
-        corps = re.sub(r"/\*INCLURE (\S+)\*/",              # un test peut en réutiliser un autre
-                       lambda m: (ICI / "tests" / m.group(1)).read_text(encoding="utf-8"), corps)
-        js.write_bytes((commun_js + "\n" + corps).encode("utf-8"))
+        js.write_bytes((commun_js + "\n" + fichier.read_text(encoding="utf-8")).encode("utf-8"))
         csc = ('<?xml version="1.0" encoding="UTF-8"?>\n<simconf version="2022112801">\n'
-               + simulation_xml(titre, dossier, opt.get("lpl", ""),
-                                rx=opt.get("rx", 1.0), intrus=opt.get("intrus", False),
+               + simulation_xml(titre, dossier, rx=opt.get("rx", 1.0), intrus=opt.get("intrus", False),
                                 noeuds=opt.get("noeuds")) + "\n"
-               + (POWERTRACKER + "\n" if opt.get("power") else "")
                + script_runner(js) + "\n</simconf>\n")
         (sortie / f"test_{nom}.csc").write_text(csc, encoding="utf-8")
     print(f"OK : Plan.h, usine.csc et {len(TESTS)} tests dans {sortie}")

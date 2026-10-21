@@ -25,7 +25,7 @@
 #define LECTURE_MS      2000UL   /* lecture locale du capteur toutes les 2 s (coût radio nul) */
 #define SURVEILLANCE_MS 1000UL   /* contrôle du parent CTP chaque seconde */
 #define REESSAI_MS      2000UL   /* attente avant de réessayer un envoi échoué */
-#define CAPACITE_TAMPON 130      /* rapports gardés en mémoire si le réseau est coupé (≈ 65 min à 30 s) */
+#define CAPACITE_TAMPON 16       /* rapports en attente d'envoi (ex. pendant une reconvergence CTP) */
 
 /* Horloge d'usine ACCÉLÉRÉE (pour voir le jour et la nuit en quelques minutes) :
    1 s de simulation = ACCEL s d'usine. Avec 60 : 1 s = 1 min, 24 h = 24 min.
@@ -35,23 +35,6 @@
 #define OUVERTURE_MIN   (8 * 60)    /* 08h00 */
 #define FERMETURE_MIN   (18 * 60)   /* 18h00 */
 #define EPOCH_DEBUT     1792512000UL /* 2026-10-20 17:00:00 (UTC+1) : base des « timestamp » JSON */
-
-/* Acquittement de bout en bout (équivalent du QoS 1 de MQTT) :
-   la passerelle diffuse toutes les ACQUIT_MS le dernier numéro reçu « sans trou » de chaque nœud.
-   Un capteur qui n'entend plus aucun acquittement pendant HORS_LIGNE_MS se met en
-   stockage local (il arrête d'émettre) ; un rapport envoyé mais non acquitté au bout de
-   RENVOI_MS est renvoyé. */
-#ifndef ACQUIT_MS
-#define ACQUIT_MS       30000UL    /* LPL : 120 s (voir Makefile.commun) */
-#endif
-#define HORS_LIGNE_MS   (2 * ACQUIT_MS + 15000UL)
-/* Vidage du tampon après une coupure : un rapport toutes les 250 ms (et non en rafale),
-   sinon les 9 capteurs saturent ensemble les files d'attente des relais CTP. */
-#define RYTHME_VIDAGE_MS 250UL
-/* Passerelle : nombre de numéros suivis au-delà du dernier « reçu sans trou ».
-   Plus grand que le tampon des capteurs : on n'est jamais obligé d'abandonner un trou. */
-#define FENETRE_SUIVI   160
-#define RENVOI_MS       (ACQUIT_MS + 10000UL)
 
 /* Passerelle : un nœud est déclaré muet après 3 périodes sans nouvelles (+ marge) */
 #define SILENCE_MS      (3 * PERIODE_MS + 5000UL)
@@ -85,7 +68,7 @@ enum {
 
 /* ------------------------------------------------------------------ message radio
    nx_ = « network types » : TinyOS gère l'ordre des octets pour nous.
-   23 octets + 8 octets d'en-tête CTP : on dépasse les 28 octets par défaut,
+   22 octets + 8 octets d'en-tête CTP : on dépasse les 28 octets par défaut,
    d'où TOSH_DATA_LENGTH=48 dans les Makefiles. */
 typedef nx_struct rapport {
   nx_uint8_t  type;       /* TYPE_... */
@@ -97,19 +80,8 @@ typedef nx_struct rapport {
   nx_uint32_t compteur;   /* C : pièces cumulées · P : nombre de détections */
   nx_uint16_t parent;     /* parent CTP au moment de l'envoi (pour dessiner l'arbre) */
   nx_uint16_t etx;        /* coût de la route (ETX ×10) annoncé par CTP */
-  nx_uint8_t  differe;    /* 1 si le rapport a attendu dans le tampon (coupure réseau) */
   nx_uint16_t mac;        /* code d'authentification (ENF6) */
 } rapport_t;
-
-/* ------------------------------------------------------------------ acquittements (passerelle -> tous)
-   Diffusé avec Drip (tos/lib/net/drip) : chaque nœud garde la dernière version et la
-   répète à ses voisins (algorithme « Trickle »), donc elle atteint aussi les nœuds à 2-3 sauts. */
-enum { CLE_ACQUIT = 0x47 };
-typedef nx_struct acquit {
-  nx_uint16_t battement;            /* augmente à chaque diffusion : « la passerelle est vivante » */
-  nx_uint16_t dernier[MAX_ID + 1];  /* par nœud : plus grand seq reçu sans trou avant lui */
-  nx_uint16_t mac;                  /* signé par la passerelle : un faux acquittement ferait */
-} acquit_t;                         /* effacer des données jamais reçues ! */
 
 /* ------------------------------------------------------------------ authentification (ENF6)
    Code d'authentification de message (MAC) sur 16 bits, calculé avec une clé partagée
@@ -134,10 +106,6 @@ static inline uint16_t macOctets(const void *donnees, uint8_t n, uint32_t cle) {
 static inline uint16_t calculerMac(const rapport_t *r, uint32_t cle) {
   return macOctets(r, sizeof(rapport_t) - 2, cle);
 }
-static inline uint16_t macAcquit(const acquit_t *a, uint32_t cle) {
-  return macOctets(a, sizeof(acquit_t) - 2, cle);
-}
-
 /* Heure d'usine (en minutes depuis minuit) à partir de l'horloge locale du nœud (vraies ms) */
 static inline uint16_t heureUsine(uint32_t maintenant_ms) {
   uint32_t min = HEURE_DEBUT_MIN + (maintenant_ms / 1000UL) * ACCEL / 60UL;

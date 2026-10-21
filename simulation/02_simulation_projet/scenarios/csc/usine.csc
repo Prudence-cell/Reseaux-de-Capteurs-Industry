@@ -212,10 +212,6 @@
     <bounds x="520" y="440" height="300" width="520" />
   </plugin>
   <plugin>
-    org.contikios.cooja.plugins.PowerTracker
-    <bounds x="1040" y="0" height="440" width="560" />
-  </plugin>
-  <plugin>
     org.contikios.cooja.plugins.ScriptRunner
     <plugin_config>
       <scriptfile>/home/ethan/projets/02_simulation_projet/scenario_demo.js</scriptfile>

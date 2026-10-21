@@ -32,7 +32,7 @@ WiFi → radio **IEEE 802.15.4** (CC2420) ; portée réglée à **20 m** (modèl
 │   ├── Usine.h            paramètres (30 s, horloge d'usine...) + format du message radio
 │   ├── Plan.h             GÉNÉRÉ depuis le plan : repères, n° de machine, seuils
 │   ├── Console*.nc        écrire du texte lisible / recevoir des commandes (port série)
-│   ├── Publication*.nc    envoi fiable : tampon, CTP, acquittements de bout en bout
+│   ├── Publication*.nc    envoi des rapports par CTP (petit tampon, suivi du parent)
 │   ├── FlashInterneC.nc   mémoire flash interne (le compteur survit au redémarrage)
 │   └── Makefile.commun    options de compilation communes
 ├── passerelle/  thermique/  comptage/  intrusion/    une application (= un type de carte) chacune
@@ -80,18 +80,17 @@ Ce que fait le script :
 2. **Copie** les sources dans `~/projets/02_simulation_projet`.
 3. **Compile** chaque application : `make telosb` transforme le nesC en C, puis en binaire pour le
    microcontrôleur MSP430. Le binaire `build/telosb/main.exe` est renommé `passerelle.sky`, etc.
-4. Compile aussi les **variantes** : basse consommation (LPL, réveil radio toutes les 512, 1024
-   ou 2048 ms) et le nœud **intrus** (mauvaise clé, pour le test d'authentification).
+4. Compile aussi le nœud **intrus** (mauvaise clé, pour le test d'authentification ENF6).
 
 Pour ne recompiler qu'un rôle pendant une modification : `bash construire.sh thermique`.
 
 Le script affiche la taille de chaque programme. Une carte Sky a 48 Ko de mémoire programme (ROM)
-et 10 Ko de RAM : on en utilise environ 21 Ko et 4,5 Ko.
+et 10 Ko de RAM : on en utilise environ 20 Ko et 2,2 Ko.
 
 ## 5. Étape 2 — Lancer les tests automatiques (sans fenêtre)
 
 ```bash
-bash tester.sh                  # tous les tests (environ 20 min ; T7 simule à lui seul 75 min)
+bash tester.sh                  # tous les tests (environ 3 min)
 bash tester.sh T2_surchauffe    # un seul test
 ```
 
@@ -99,6 +98,9 @@ Chaque test démarre Cooja **sans fenêtre** (`--no-gui`) avec un script (plugin
 écoute ce que chaque carte écrit, injecte des événements au bon moment (« la sonde lit 95 °C »,
 « quelqu'un passe à 19h00 »...), mesure les délais avec l'horloge de Cooja, puis écrit des lignes
 `MESURE ...` et `VERDICT ... OK/ECHEC`. Le journal complet est copié dans `resultats/<test>.log`.
+
+Exigences non fonctionnelles retenues par le groupe : **ENF1** (latence < 10 s), **ENF6** (messages
+authentifiés) et **ENF8** (un nœud défaillant peut être retiré sans arrêter le reste).
 
 | Test | Exigence vérifiée | Ce que fait le script |
 |---|---|---|
@@ -108,10 +110,8 @@ Chaque test démarre Cooja **sans fenêtre** (`--no-gui`) avec un script (plugin
 | `T5_intrusion` | EF6 : présence hors heures → alerte < 5 s | présences à 17h30, 19h00 et 08h30 |
 | `T6_reseau` | ENF1 : latence < 10 s ; taux de livraison | 20 min de fonctionnement normal, 10 nœuds |
 | `T6b_pertes` | idem avec des liens radio dégradés | 20 % de pertes à la limite de portée |
-| `T7_coupure` | ENF3 : coupure 1 h → données gardées puis renvoyées | coupe la radio de la passerelle 1 h |
 | `T9_panne` | ENF8 : un nœud retiré, les autres continuent | retire le relais T1 de la simulation |
 | `ENF6_auth` | ENF6 : messages authentifiés | ajoute un 11e nœud sans la clé |
-| `E_energie*` | ENF5 : autonomie | temps radio allumée (plugin PowerTracker), 4 variantes |
 
 ## 6. Étape 3 — Regarder la simulation avec les fenêtres
 
@@ -138,9 +138,8 @@ Les fenêtres ouvertes :
   Cliquer sur un nœud montre sa portée. Les flèches montrent les paquets.
 - **Mote output** : tout ce qu'écrivent les cartes. Taper `ALERTE` dans le champ *Filter* pour ne
   voir que les alertes, ou `ID:1` pour ne voir que la passerelle.
-- **Radio messages** : chaque paquet radio (CTP données, balises de routage, Drip).
+- **Radio messages** : chaque paquet radio (données CTP et balises de routage).
 - **Timeline** : pour chaque nœud, quand sa radio écoute / émet (bleu/vert) et l'état des LED.
-- **PowerTracker** : le pourcentage de temps où la radio de chaque nœud est allumée.
 - **Simulation script editor** : le scénario de démonstration (on peut le modifier).
 
 ### Piloter la simulation soi-même
@@ -154,22 +153,21 @@ Clic droit sur un nœud → *Mote tools* → **Serial port** : on peut taper une
 | intrusion (8, 9, 10) | `P` | une présence devant le capteur |
 | passerelle (1) | `S` | statistiques tout de suite |
 
-Pour simuler une panne : clic droit sur un nœud → *Remove mote*. Pour simuler une coupure :
-faire glisser la passerelle (nœud 1) loin des autres dans la fenêtre Network, puis la ramener.
+Pour simuler une panne : clic droit sur un nœud → *Remove mote*.
 
 ## 7. Lire les lignes de la passerelle
 
 ```
-RX src=8 seq=12 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01",...}
+RX src=8 seq=12 sauts=2 parent=2 age=4 | factory/security/ZONE_01 {"node_id":"ZONE_01",...}
 ```
 
 - `src`, `seq` : qui a envoyé, et le numéro du rapport (sert au taux de livraison) ;
 - `sauts` : nombre de transmissions radio pour arriver (2 = un relais) ; `parent` : le premier relais ;
-- `age` : temps passé dans le tampon du capteur (ms) ; `diff=1` : rapport renvoyé après une coupure ;
+- `age` : temps passé dans le tampon du capteur (ms) ;
 - après `|` : le **topic MQTT** et le **JSON** exactement comme dans le cahier des charges.
 
 Autres lignes : `ALERTE SURCHAUFFE`, `ALERTE INTRUSION`, `ALERTE NOEUD_MUET`, `REJET_AUTH`,
-`STAT` (toutes les 60 s : reçus, manquants, doublons, sauts, parent de chaque nœud).
+`STAT` (toutes les 60 s : reçus, perdus, doublons, sauts, parent de chaque nœud).
 
 ## 8. Modifier la simulation
 
@@ -186,20 +184,13 @@ Autres lignes : `ALERTE SURCHAUFFE`, `ALERTE INTRUSION`, `ALERTE NOEUD_MUET`, `R
    Toutes les durées passent par `TICKS(ms)` (voir `Usine.h`).
 2. **Écrire en flash avec les interruptions actives fait planter le MSP430** (mspsim l'émule :
    « Got interrupt while flash controller blocks CPU »). L'écriture est dans un bloc `atomic`.
-3. **L'accusé de réception de CTP ne vaut que pour un saut.** Quand la passerelle se tait, les
-   nœuds se renvoient les paquets en boucle (« comptage à l'infini » de l'ETX) et les perdent.
-   D'où les acquittements de bout en bout diffusés par la passerelle (Drip).
-4. **Accusés de réception radio matériels.** Par défaut, TinyOS les envoie par logiciel ; la
-   passerelle, occupée à écrire sur le port série, en ratait. Option `CC2420_HW_ACKNOWLEDGEMENTS`.
-5. **Éteindre la radio par logiciel pendant une émission bloque la pile CC2420.** Le test de coupure
-   éloigne donc la passerelle à 1 km au lieu d'éteindre sa radio.
-6. **Ne jamais acquitter ce qu'on n'a pas reçu**, et **signer les acquittements** : en LPL, l'émulateur
-   CC2420 produit parfois des paquets altérés mais au CRC valide ; un faux acquittement faisait effacer
-   des données aux capteurs.
-7. Dans un script Cooja, `TIMEOUT(...)` doit contenir un **nombre écrit en clair**.
-8. Les scripts `.sh` doivent avoir des fins de ligne **Unix (LF)**, sinon bash refuse de les lire.
-9. `PrintfC` envoie du binaire : on écrit du texte brut avec `UartByte` (composant `ConsoleC`).
-10. Si un Cooja est déjà ouvert, `./gradlew run` reste bloqué : on lance Cooja directement avec
+3. **Accusés de réception radio matériels.** Par défaut, TinyOS les envoie par logiciel ; la
+   passerelle, occupée à écrire sur le port série, en ratait et l'arbre CTP devenait instable.
+   Option `CC2420_HW_ACKNOWLEDGEMENTS`.
+4. Dans un script Cooja, `TIMEOUT(...)` doit contenir un **nombre écrit en clair**.
+5. Les scripts `.sh` doivent avoir des fins de ligne **Unix (LF)**, sinon bash refuse de les lire.
+6. `PrintfC` envoie du binaire : on écrit du texte brut avec `UartByte` (composant `ConsoleC`).
+7. Si un Cooja est déjà ouvert, `./gradlew run` reste bloqué : on lance Cooja directement avec
    Java (`../outils/cooja.sh`).
 
 ## 10. Régénérer le rapport

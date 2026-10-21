@@ -48,7 +48,7 @@ function noter() {
     parents[src] = parseInt(champ(msg, "parent"));
     if (t0 !== undefined) {
       latences.push({src: src, seq: parseInt(seq), ms: maintenant() - t0,
-                     sauts: sauts[src], diff: parseInt(champ(msg, "diff"))});
+                     sauts: sauts[src], diff: 0});
       delete pubs[src + ":" + seq];
     }
   }

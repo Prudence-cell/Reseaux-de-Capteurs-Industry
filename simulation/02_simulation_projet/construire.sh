@@ -2,8 +2,8 @@
 # Compile les applications TinyOS pour la carte telosb (= « Sky » dans Cooja)
 # et génère les scénarios Cooja à partir du plan d'implantation.
 #
-# Usage (dans WSL) :  bash construire.sh                 → tout (4 rôles + variantes LPL + intrus)
-#                     bash construire.sh thermique       → seulement ce rôle (sans LPL)
+# Usage (dans WSL) :  bash construire.sh                 → tout (4 rôles + nœud intrus)
+#                     bash construire.sh thermique       → seulement ce rôle
 set -e
 SRC="$(cd "$(dirname "$0")" && pwd)"           # dossier Windows (/mnt/d/...) : espaces et accents
 DST="$HOME/projets/02_simulation_projet"       # copie de travail Linux : make y fonctionne
@@ -12,6 +12,9 @@ TOUT=$([ -z "$*" ] && echo 1 || echo 0)
 
 echo "=== 1. Plan d'implantation -> commun/Plan.h + scénarios .csc"
 mkdir -p "$DST"
+# On repart de zéro pour les fichiers générés (évite de relancer un ancien test ou firmware)
+rm -f "$DST"/test_*.csc "$DST"/test_*.js "$DST"/*.sky "$DST"/usine.csc
+[ "$TOUT" = 1 ] && rm -rf "$SRC/scenarios/csc" "$SRC/firmwares"
 python3 "$SRC/scenarios/generer_scenarios.py" "$DST" "$DST"
 
 echo "=== 2. Copie des sources vers $DST"
@@ -37,11 +40,9 @@ compiler() {   # compiler <dossier> <nom du .sky> [options make]
 echo "=== 3. Compilation nesC -> C -> binaire MSP430"
 for a in $APPS; do compiler "$a" "$a"; done
 if [ "$TOUT" = 1 ]; then
-  echo "=== 4. Variantes : écoute basse consommation (LPL) et nœud intrus (mauvaise clé)"
-  for a in $APPS; do compiler "$a" "${a}_lpl" LPL=1; done
-  for ms in 1024 2048; do for a in $APPS; do compiler "$a" "${a}_lpl$ms" LPL=1 LPL_MS=$ms; done; done
+  echo "=== 4. Variante : nœud intrus (mauvaise clé, test ENF6)"
   mkdir -p "$DST/intrus" && cp "$DST/thermique"/* "$DST/intrus"/ 2>/dev/null || true
-  compiler intrus intrus CLE=0x0BADC0DE INTRUS=1
+  compiler intrus intrus CLE=0x0BADC0DE
 fi
 
 mkdir -p "$SRC/firmwares"
