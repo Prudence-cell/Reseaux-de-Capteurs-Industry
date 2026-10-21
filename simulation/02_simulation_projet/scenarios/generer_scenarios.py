@@ -214,6 +214,7 @@ TESTS = [
     ("T6_reseau",      "T6 - latence, PDR, sauts (10 noeuds)", {}),
     ("T6b_pertes",     "T6b - PDR avec liens radio degrades", {"rx": 0.8}),
     ("T7_coupure",     "T7 - coupure du puits puis renvoi", {}),
+    ("T7c_court",      "T7c - coupure courte (5 min), diagnostic", {}),
     ("T9_panne",       "T9 - relais T1 retire, reconvergence", {}),
     ("ENF6_auth",      "ENF6 - message d'un noeud intrus rejete", {"intrus": True}),
     ("E_energie",      "Energie radio, radio toujours allumee", {"power": True}),

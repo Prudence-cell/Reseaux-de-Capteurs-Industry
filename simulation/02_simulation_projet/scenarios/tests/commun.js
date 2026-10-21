@@ -138,9 +138,10 @@ function bilanReseau(prefixe) {
   return tout;
 }
 
-/* Taux de livraison global (tous nœuds) sur les rapports publiés il y a plus de 10 s */
-function pdrGlobal() {
-  var limite = maintenant() - 10000, p = 0, r = 0;
+/* Taux de livraison global (tous nœuds) sur les rapports publiés il y a plus de « marge » ms
+   (10 s par défaut : les plus récents peuvent encore être en route) */
+function pdrGlobal(marge) {
+  var limite = maintenant() - (marge || 10000), p = 0, r = 0;
   for (var src in historique)
     for (var i = 0; i < historique[src].length; i++) {
       var e = historique[src][i];

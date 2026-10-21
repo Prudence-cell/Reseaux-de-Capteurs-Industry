@@ -1,13 +1,10 @@
 #!/bin/bash
-# Diagnostic d'un test : bash etat_test.sh T7_coupure
+# Diagnostic d'un test : bash etat_test.sh <test> [t_debut_ms] [t_fin_ms]
 D="$HOME/projets/02_simulation_projet/resultats/$1"
 L="$D/COOJA.testlog"
-echo "--- nombre de lignes par type après la coupure (t > 300 s)"
-awk '$1=="L" && $2>300000 {print $3, $4}' "$L" | sort | uniq -c | sort -rn | head -20
-echo "--- lignes autour de la coupure"
-awk '$1=="L" && $2>299000 && $2<330000' "$L" | head -40
-echo "--- dernières lignes"
-tail -15 "$L"
-echo "--- première alerte CC2420 dans console.log"
-grep -n -m2 "too large" "$D/console.log"
-grep -n "completed" "$D/console.log" | head -20
+A=${2:-0}; B=${3:-999999999}
+echo "--- types de lignes entre $A et $B ms"
+awk -v a=$A -v b=$B '$1=="L" && $2>a && $2<b {print $3, $4}' "$L" | sort | uniq -c | sort -rn | head -25
+echo "--- premières lignes de la fenêtre (hors PUB)"
+awk -v a=$A -v b=$B '$1=="L" && $2>a && $2<b && $4!="PUB"' "$L" | head -40
+grep -E "^CMD" "$L" | head

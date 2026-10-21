@@ -1,12 +1,12 @@
 /* Énergie (ENF5) : temps d'activité de la radio de chaque nœud, mesuré par le plugin
-   PowerTracker de Cooja pendant 10 min de fonctionnement normal.
+   PowerTracker de Cooja pendant 15 min de fonctionnement normal.
    La radio CC2420 consomme ~19 mA dès qu'elle écoute ou émet, et presque rien éteinte :
    son temps « allumée » détermine l'autonomie. On en déduit une autonomie estimée pour
    une batterie de 2000 mAh (hypothèse : microcontrôleur 0,1 mA en moyenne).
    Le même script sert à la variante LPL (E_energie_lpl.js). */
 var NOM = (typeof NOM_VARIANTE !== "undefined") ? NOM_VARIANTE : "E";
-var DUREE = 600000;
-TIMEOUT(610000, terminer());     /* nombre écrit en clair : Cooja lit TIMEOUT avec une expression régulière */
+var DUREE = 900000;
+TIMEOUT(910000, terminer());     /* nombre écrit en clair : Cooja lit TIMEOUT avec une expression régulière */
 planifier(DUREE, function () {
   var b = bilanReseau(NOM + "_");
   var pt = null, pl = gui.getStartedPlugins();
@@ -31,13 +31,15 @@ planifier(DUREE, function () {
     if (n != PUITS) onMoy += on[k];                        /* moyenne des capteurs seuls */
   }
   mesure(NOM + "_radio_on_capteurs_moy", onMoy / (nb - 1), "%");
-  var g = pdrGlobal();
-  mesure(NOM + "_pdr_global", g.pdr, "%");
+  /* Livraison « à terme » : rapports publiés au moins 5 min avant la fin. En LPL, un rapport
+     perdu n'est renvoyé qu'au cycle d'acquittement suivant (2 min) : il faut lui laisser le temps. */
+  var g = pdrGlobal(300000);
+  mesure(NOM + "_pdr_global", g.pdr, "% (" + g.recus + "/" + g.publies + ", publies > 5 min avant la fin)");
   verdict(NOM, nb >= 10 && g.pdr >= 99.0, "duty cycle radio mesure sur " + nb + " noeuds, moyenne capteurs " +
           (onMoy / (nb - 1)).toFixed(2) + " %, PDR " + g.pdr.toFixed(2) + " %, latence moy " + b.moy.toFixed(0) + " ms");
   terminer();
 });
-bavard = false;
+bavard = true;        /* journal complet : sert à analyser ce qui consomme */
 while (true) {
   YIELD();
   if (executerAction()) continue;

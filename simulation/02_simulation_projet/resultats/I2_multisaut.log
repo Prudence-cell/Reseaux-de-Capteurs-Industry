@@ -1,50 +1,60 @@
 Random seed: 123456
-L 4475.4 1 BOOT passerelle GW noeud 1 (racine CTP)
-L 4479.4 1 PRET passerelle racine
-L 5001.9 8 BOOT intrusion P1 zone 1 heure usine 17:00 (jour : desarmee)
-L 5342.8 2 PARENT aucun->1 etx=10
-L 6005.1 8 PARENT aucun->2 etx=20
-L 14527.8 2 PUB seq=1 type=1 etat=0 val=345 cpt=0 attente=1
-L 14557.7 1 RX src=2 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512010,"temperature_c":34.5,"production_count":0,"status":"OK"}
-L 14745.5 8 PUB seq=1 type=3 etat=3 val=1029 cpt=0 attente=1
-L 14789.8 1 RX src=8 seq=1 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512010,"presence":false,"detections":0,"heure":"17:09","status":"VEILLE"}
-L 21007.6 8 DETECTION heure=17:16 heures ouvrees : pas d'alerte
-L 29007.6 8 DETECTION heure=17:24 heures ouvrees : pas d'alerte
-L 33007.6 8 DETECTION heure=17:28 heures ouvrees : pas d'alerte
-L 44527.8 2 PUB seq=2 type=1 etat=0 val=520 cpt=0 attente=1
-L 44557.1 1 RX src=2 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512040,"temperature_c":52.0,"production_count":0,"status":"OK"}
-L 44745.5 8 PUB seq=2 type=3 etat=3 val=1059 cpt=3 attente=1
-L 44783.2 1 RX src=8 seq=2 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512040,"presence":false,"detections":3,"heure":"17:39","status":"VEILLE"}
-L 61007.6 8 DETECTION heure=17:56 heures ouvrees : pas d'alerte
-L 64483.5 1 STAT src=2 T1 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
-L 64488.9 1 STAT src=8 P1 recus=2 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
-L 65006.7 8 HORLOGE 18:00 mode nuit : surveillance armee
-L 74527.8 2 PUB seq=3 type=1 etat=0 val=588 cpt=0 attente=1
-L 74558.0 1 RX src=2 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512070,"temperature_c":58.8,"production_count":0,"status":"OK"}
-L 74745.5 8 PUB seq=3 type=3 etat=4 val=1089 cpt=4 attente=1
-L 74783.1 1 RX src=8 seq=3 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512070,"presence":false,"detections":4,"heure":"18:09","status":"ARME"}
-CMD 104338.9 noeud 8 <- P
-L 104340.3 8 SCENARIO presence devant le capteur
-L 104343.3 8 INTRUSION heure=18:39 hors heures ouvrees -> alerte + buzzer
-L 104347.6 8 PUB seq=4 type=3 etat=5 val=1119 cpt=5 attente=1
-L 104381.4 1 RX src=8 seq=4 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512099,"presence":true,"detections":5,"heure":"18:39","status":"INTRUSION"}
-L 104384.2 1 ALERTE INTRUSION ZONE_01 heure=18:39 src=8 seq=4
-L 104527.8 2 PUB seq=4 type=1 etat=0 val=644 cpt=0 attente=1
-L 104552.9 1 RX src=2 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512100,"temperature_c":64.4,"production_count":0,"status":"OK"}
-L 104745.5 8 PUB seq=5 type=3 etat=4 val=1119 cpt=5 attente=1
-L 104782.3 1 RX src=8 seq=5 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512100,"presence":false,"detections":5,"heure":"18:39","status":"ARME"}
-L 124483.8 1 STAT src=2 T1 recus=4 perdus=0 doublons=0 pdr=100.0 sauts=1 parent=1
-L 124489.1 1 STAT src=8 P1 recus=5 perdus=0 doublons=0 pdr=100.0 sauts=2 parent=2
-L 134527.8 2 PUB seq=5 type=1 etat=0 val=643 cpt=0 attente=1
-L 134554.2 1 RX src=2 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512130,"temperature_c":64.3,"production_count":0,"status":"OK"}
-L 134745.5 8 PUB seq=6 type=3 etat=4 val=1149 cpt=5 attente=1
-L 134783.6 1 RX src=8 seq=6 sauts=2 parent=2 age=4 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512130,"presence":false,"detections":5,"heure":"19:09","status":"ARME"}
-MESURE latence_moy=33.59 ms
-MESURE latence_p95=44.29 ms
-MESURE latence_max=44.29 ms
+L 4477.2 1 BOOT passerelle GW noeud 1 (racine CTP)
+L 4481.9 1 PRET passerelle racine
+L 5005.1 8 BOOT intrusion P1 zone 1 heure usine 17:00 (jour : desarmee)
+L 5346.0 2 PARENT aucun->1 etx=10
+L 6009.3 8 PARENT aucun->2 etx=20
+L 6500.8 2 ACQUIT battement=1 ok=0
+L 6503.0 2 EN_LIGNE acquittements recus, 0 rapport(s) a envoyer
+L 8415.3 8 ACQUIT battement=1 ok=0
+L 8417.4 8 EN_LIGNE acquittements recus, 0 rapport(s) a envoyer
+L 17011.1 8 DETECTION heure=17:12 heures ouvrees : pas d'alerte
+L 18079.8 8 PUB seq=1 type=3 etat=3 val=1033 cpt=1 attente=1
+L 18122.7 1 RX src=8 seq=1 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512013,"presence":false,"detections":1,"heure":"17:13","status":"VEILLE"}
+L 18703.9 2 PUB seq=1 type=1 etat=0 val=379 cpt=0 attente=1
+L 18731.0 1 RX src=2 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512014,"temperature_c":37.9,"production_count":0,"status":"OK"}
+L 35011.1 8 DETECTION heure=17:30 heures ouvrees : pas d'alerte
+L 36504.0 2 ACQUIT battement=2 ok=1
+L 38992.6 8 ACQUIT battement=2 ok=1
+L 48079.8 8 PUB seq=2 type=3 etat=3 val=1063 cpt=2 attente=1
+L 48118.3 1 RX src=8 seq=2 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512043,"presence":false,"detections":2,"heure":"17:43","status":"VEILLE"}
+L 48703.8 2 PUB seq=2 type=1 etat=0 val=532 cpt=0 attente=1
+L 48728.8 1 RX src=2 seq=2 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512044,"temperature_c":53.2,"production_count":0,"status":"OK"}
+L 64485.5 1 STAT src=2 T1 recus=2 manquants=0 doublons=0 acquitte=2 sauts=1 parent=1
+L 64490.1 1 STAT src=8 P1 recus=2 manquants=0 doublons=0 acquitte=2 sauts=2 parent=2
+L 65010.3 8 HORLOGE 18:00 mode nuit : surveillance armee
+L 66503.0 2 ACQUIT battement=3 ok=2
+L 67401.2 8 ACQUIT battement=3 ok=2
+L 78079.8 8 PUB seq=3 type=3 etat=4 val=1093 cpt=2 attente=1
+L 78113.7 1 RX src=8 seq=3 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512073,"presence":false,"detections":2,"heure":"18:13","status":"ARME"}
+L 78703.9 2 PUB seq=3 type=1 etat=0 val=602 cpt=0 attente=1
+L 78729.5 1 RX src=2 seq=3 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512074,"temperature_c":60.2,"production_count":0,"status":"OK"}
+L 96508.4 2 ACQUIT battement=4 ok=3
+L 97251.7 8 ACQUIT battement=4 ok=3
+CMD 104342.1 noeud 8 <- P
+L 104343.5 8 SCENARIO presence devant le capteur
+L 104346.5 8 INTRUSION heure=18:39 hors heures ouvrees -> alerte + buzzer
+L 104350.8 8 PUB seq=4 type=3 etat=5 val=1119 cpt=3 attente=1
+L 104388.6 1 RX src=8 seq=4 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512099,"presence":true,"detections":3,"heure":"18:39","status":"INTRUSION"}
+L 104391.5 1 ALERTE INTRUSION ZONE_01 heure=18:39 src=8 seq=4
+L 108079.8 8 PUB seq=5 type=3 etat=4 val=1123 cpt=3 attente=2
+L 108117.4 1 RX src=8 seq=5 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512103,"presence":false,"detections":3,"heure":"18:43","status":"ARME"}
+L 108703.8 2 PUB seq=4 type=1 etat=0 val=628 cpt=0 attente=1
+L 108733.5 1 RX src=2 seq=4 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512104,"temperature_c":62.8,"production_count":0,"status":"OK"}
+L 124485.5 1 STAT src=2 T1 recus=4 manquants=0 doublons=0 acquitte=4 sauts=1 parent=1
+L 124490.1 1 STAT src=8 P1 recus=5 manquants=0 doublons=0 acquitte=5 sauts=2 parent=2
+L 126517.2 2 ACQUIT battement=5 ok=4
+L 137792.5 8 ACQUIT battement=5 ok=5
+L 138079.8 8 PUB seq=6 type=3 etat=4 val=1153 cpt=3 attente=1
+L 138118.2 1 RX src=8 seq=6 sauts=2 parent=2 age=5 diff=0 | factory/security/ZONE_01 {"node_id":"ZONE_01","timestamp":1792512133,"presence":false,"detections":3,"heure":"19:13","status":"ARME"}
+L 138703.8 2 PUB seq=5 type=1 etat=0 val=645 cpt=0 attente=1
+L 138731.9 1 RX src=2 seq=5 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_01 {"node_id":"MACHINE_01","timestamp":1792512134,"temperature_c":64.5,"production_count":0,"status":"OK"}
+MESURE latence_moy=33.14 ms
+MESURE latence_p95=42.82 ms
+MESURE latence_max=42.82 ms
 MESURE latence_n=11.00 
-MESURE latence_1saut_moy=28.22 ms (n=5)
-MESURE latence_2saut_moy=38.06 ms (n=6)
+MESURE latence_1saut_moy=27.10 ms (n=5)
+MESURE latence_2saut_moy=38.17 ms (n=6)
 MESURE pdr_2=100.00 % (5/5) sauts=1 parent=1
 MESURE pdr_8=100.00 % (6/6) sauts=2 parent=2
 VERDICT I2_P1_recu OK rapports de P1 recus=6
@@ -53,4 +63,4 @@ VERDICT I2_mode_nuit OK passage HORLOGE 18:00 vu sur P1
 VERDICT I2_alerte_intrusion OK ALERTE INTRUSION recue par la passerelle
 FIN SUCCES a t=154.3 s
 TEST OK
-Test ended at simulation time: 154338862
+Test ended at simulation time: 154342071

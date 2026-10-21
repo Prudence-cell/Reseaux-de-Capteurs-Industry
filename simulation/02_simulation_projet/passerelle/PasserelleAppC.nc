@@ -13,6 +13,9 @@ implementation {
   components CollectionC as Collecteur;          /* CTP, dont ce nœud est la racine */
   components new TimerMilliC() as Stats;
   components new TimerMilliC() as Supervision;
+  components new TimerMilliC() as Acquitter;
+  components DisseminationC;                     /* Drip : diffusion vers tous les nœuds */
+  components new DisseminatorC(acquit_t, CLE_ACQUIT) as Acquits;
 
   App.Boot           -> MainC;
   App.Leds           -> LedsC;
@@ -22,8 +25,12 @@ implementation {
   App.RootControl    -> Collecteur;
   App.Receive        -> Collecteur.Receive[COL_USINE];  /* paquets arrivés à la racine */
   App.CtpPacket      -> Collecteur;                     /* lire le nombre de sauts */
+  App.CtpInfo        -> Collecteur;                     /* forcer une annonce de route */
   App.Stats          -> Stats;
   App.Supervision    -> Supervision;
+  App.Acquitter      -> Acquitter;
+  App.DisseminationControl -> DisseminationC;
+  App.Acquit         -> Acquits;                /* la passerelle PUBLIE les acquittements */
 #ifdef LOW_POWER_LISTENING
   App.LowPowerListening -> ActiveMessageC;
 #endif

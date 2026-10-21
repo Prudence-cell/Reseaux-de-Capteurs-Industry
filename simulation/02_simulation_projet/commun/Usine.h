@@ -36,6 +36,23 @@
 #define FERMETURE_MIN   (18 * 60)   /* 18h00 */
 #define EPOCH_DEBUT     1792512000UL /* 2026-10-20 17:00:00 (UTC+1) : base des « timestamp » JSON */
 
+/* Acquittement de bout en bout (équivalent du QoS 1 de MQTT) :
+   la passerelle diffuse toutes les ACQUIT_MS le dernier numéro reçu « sans trou » de chaque nœud.
+   Un capteur qui n'entend plus aucun acquittement pendant HORS_LIGNE_MS se met en
+   stockage local (il arrête d'émettre) ; un rapport envoyé mais non acquitté au bout de
+   RENVOI_MS est renvoyé. */
+#ifndef ACQUIT_MS
+#define ACQUIT_MS       30000UL    /* LPL : 120 s (voir Makefile.commun) */
+#endif
+#define HORS_LIGNE_MS   (2 * ACQUIT_MS + 15000UL)
+/* Vidage du tampon après une coupure : un rapport toutes les 250 ms (et non en rafale),
+   sinon les 9 capteurs saturent ensemble les files d'attente des relais CTP. */
+#define RYTHME_VIDAGE_MS 250UL
+/* Passerelle : nombre de numéros suivis au-delà du dernier « reçu sans trou ».
+   Plus grand que le tampon des capteurs : on n'est jamais obligé d'abandonner un trou. */
+#define FENETRE_SUIVI   160
+#define RENVOI_MS       (ACQUIT_MS + 10000UL)
+
 /* Passerelle : un nœud est déclaré muet après 3 périodes sans nouvelles (+ marge) */
 #define SILENCE_MS      (3 * PERIODE_MS + 5000UL)
 #define STATS_MS        60000UL
@@ -84,6 +101,16 @@ typedef nx_struct rapport {
   nx_uint16_t mac;        /* code d'authentification (ENF6) */
 } rapport_t;
 
+/* ------------------------------------------------------------------ acquittements (passerelle -> tous)
+   Diffusé avec Drip (tos/lib/net/drip) : chaque nœud garde la dernière version et la
+   répète à ses voisins (algorithme « Trickle »), donc elle atteint aussi les nœuds à 2-3 sauts. */
+enum { CLE_ACQUIT = 0x47 };
+typedef nx_struct acquit {
+  nx_uint16_t battement;            /* augmente à chaque diffusion : « la passerelle est vivante » */
+  nx_uint16_t dernier[MAX_ID + 1];  /* par nœud : plus grand seq reçu sans trou avant lui */
+  nx_uint16_t mac;                  /* signé par la passerelle : un faux acquittement ferait */
+} acquit_t;                         /* effacer des données jamais reçues ! */
+
 /* ------------------------------------------------------------------ authentification (ENF6)
    Code d'authentification de message (MAC) sur 16 bits, calculé avec une clé partagée
    par tous les nœuds légitimes. Un nœud qui ne connaît pas la clé ne peut pas fabriquer
@@ -94,14 +121,21 @@ typedef nx_struct rapport {
 #define CLE_RESEAU 0x5A17C3E9UL
 #endif
 
-static inline uint16_t calculerMac(const rapport_t *r, uint32_t cle) {
-  const uint8_t *o = (const uint8_t *)r;
-  uint8_t i, n = sizeof(rapport_t) - 2;      /* tout sauf le champ mac lui-même */
+static inline uint16_t macOctets(const void *donnees, uint8_t n, uint32_t cle) {
+  const uint8_t *o = (const uint8_t *)donnees;
+  uint8_t i;
   uint32_t h = 2166136261UL ^ cle;
   for (i = 0; i < n; i++) { h ^= o[i]; h *= 16777619UL; }
   h ^= cle >> 7;
   h *= 16777619UL;
   return (uint16_t)(h ^ (h >> 16));
+}
+/* Le champ mac est toujours le DERNIER de la structure : on signe tout ce qui le précède */
+static inline uint16_t calculerMac(const rapport_t *r, uint32_t cle) {
+  return macOctets(r, sizeof(rapport_t) - 2, cle);
+}
+static inline uint16_t macAcquit(const acquit_t *a, uint32_t cle) {
+  return macOctets(a, sizeof(acquit_t) - 2, cle);
 }
 
 /* Heure d'usine (en minutes depuis minuit) à partir de l'horloge locale du nœud (vraies ms) */

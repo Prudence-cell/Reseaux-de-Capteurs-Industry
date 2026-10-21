@@ -2,18 +2,29 @@
 # -I : dossiers où nesC cherche les composants (notre dossier commun + CTP de TinyOS)
 CFLAGS += -I../commun
 CFLAGS += -I$(TINYOS_OS_DIR)/lib/net -I$(TINYOS_OS_DIR)/lib/net/ctp -I$(TINYOS_OS_DIR)/lib/net/4bitle
+# Drip : diffusion des acquittements de la passerelle vers tous les nœuds
+CFLAGS += -I$(TINYOS_OS_DIR)/lib/net/drip
 # Charge utile radio portée à 48 octets (notre rapport + en-tête CTP > 28 octets par défaut)
 CFLAGS += -DTOSH_DATA_LENGTH=48
+# Accusés de réception radio envoyés par la PUCE CC2420 elle-même (et non par le logiciel) :
+# même quand le microcontrôleur est occupé (ex. la passerelle qui écrit sur le port série),
+# l'émetteur reçoit son accusé. Nécessite la reconnaissance d'adresse matérielle.
+CFLAGS += -DCC2420_HW_ACKNOWLEDGEMENTS -DCC2420_HW_ADDRESS_RECOGNITION
 
 # make telosb LPL=1 : écoute basse consommation (la radio dort, se réveille toutes les LPL_MS ms)
 # make telosb LPL=1 LPL_MS=2048 : réveil toutes les 2 s (moins d'énergie, plus de latence)
 LPL_MS ?= 512
 ifdef LPL
 CFLAGS += -DLOW_POWER_LISTENING -DLPL_DEF_LOCAL_WAKEUP=$(LPL_MS) -DLPL_DEF_REMOTE_WAKEUP=$(LPL_MS) -DDELAY_AFTER_RECEIVE=20
+# En basse consommation, chaque diffusion coûte un long préambule : acquittements toutes les 2 min
+CFLAGS += -DACQUIT_MS=120000UL
 endif
 # make telosb CLE=0x12345678 : autre clé d'authentification (nœud « intrus » du test ENF6)
 ifdef CLE
 CFLAGS += -DCLE_RESEAU=$(CLE)
+endif
+ifdef INTRUS
+CFLAGS += -DINTRUS
 endif
 
 TINYOS_ROOT_DIR ?= $(HOME)/tinyos-main

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rapport de simulation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+@page { size: A4; margin: 15mm 15mm 17mm; }
+:root { --ink:#17293B; --muted:#5A6B7B; --rule:#CDD6DE; --code:#F1F4F6; --accent:#0E746D; --warn:#B4611A; --ok:#0E746D; --ko:#B3261E; }
+* { box-sizing: border-box; }
+html, body { background:#fff; }
+body { margin:0 auto; max-width:190mm; padding:0 4mm; color:var(--ink); font:10.2pt/1.55 'IBM Plex Sans','Segoe UI',Arial,sans-serif; }
+h1 { font:700 27pt/1.05 'Barlow Condensed','Arial Narrow',Arial,sans-serif; margin:10pt 0 6pt; }
+h2 { font:700 16pt/1.2 'Barlow Condensed','Arial Narrow',Arial,sans-serif; margin:20pt 0 6pt; padding-top:7pt; border-top:1px solid var(--rule); break-after:avoid; }
+h3 { font-size:10.6pt; margin:12pt 0 4pt; break-after:avoid; }
+p, ul, ol { margin:0 0 7pt; }
+ul, ol { padding-left:16pt; } li { margin-bottom:3pt; }
+.eyebrow { font:500 8.5pt 'IBM Plex Mono',Consolas,monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:6pt; }
+.lead { font-size:11.3pt; }
+pre { background:var(--code); border:1px solid var(--rule); border-radius:3px; padding:7pt 9pt; margin:0 0 2pt;
+      font:8.4pt/1.45 'IBM Plex Mono',Consolas,monospace; white-space:pre-wrap; break-inside:avoid; }
+code { font:8.8pt 'IBM Plex Mono',Consolas,monospace; background:var(--code); padding:0 3pt; border-radius:2px; }
+pre code { background:none; padding:0; font-size:inherit; }
+.src { font:7.8pt 'IBM Plex Mono',Consolas,monospace; color:var(--muted); margin:0 0 9pt; }
+.box { border-left:3px solid var(--accent); background:#F3F8F7; padding:7pt 10pt; margin:0 0 9pt; break-inside:avoid; }
+.box.warn { border-color:var(--warn); background:#FBF5EE; }
+table { width:100%; border-collapse:collapse; margin:0 0 9pt; font-size:9pt; }
+tr { break-inside:avoid; }
+th, td { text-align:left; vertical-align:top; padding:4.5pt 6pt; border-bottom:1px solid var(--rule); }
+th { font:600 7.6pt 'IBM Plex Mono',Consolas,monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+td.n, th.n { text-align:right; font-variant-numeric: tabular-nums; }
+.exig td:nth-child(3) { font-variant-numeric: tabular-nums; }
+.ok { color:var(--ok); font-weight:600; white-space:nowrap; } .ko { color:var(--ko); font-weight:600; white-space:nowrap; }
+figure { margin:4pt 0 12pt; break-inside:avoid; }
+figure img { width:100%; display:block; }
+figcaption { font-size:8.6pt; color:var(--muted); margin-top:3pt; }
+.flow { font:8.6pt/1.55 'IBM Plex Mono',Consolas,monospace; background:var(--code); border:1px solid var(--rule); padding:8pt 10pt; white-space:pre; overflow-x:auto; break-inside:avoid; margin-bottom:9pt; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:6pt; margin:8pt 0 12pt; }
+.kpi { border:1px solid var(--rule); border-radius:3px; padding:7pt 9pt; }
+.kpi b { display:block; font:700 17pt/1.1 'Barlow Condensed','Arial Narrow',Arial,sans-serif; }
+.kpi span { font-size:8.3pt; color:var(--muted); }
+footer { margin-top:16pt; padding-top:6pt; border-top:1px solid var(--rule); font-size:8.3pt; color:var(--muted); }
+@media (max-width: 640px) { body { padding:0 16px; } .kpis { grid-template-columns:repeat(2,1fr); } table { font-size:8.4pt; } }
+</style></head><body>
+<div class="eyebrow">IFRI · Réseaux de capteurs sans fil &amp; IoT · Groupe 7 · rapport de simulation</div>
+<h1>Surveillance d'une ligne de production : simulation TinyOS / Cooja</h1>
+<p class="lead">Dix cartes simulées aux positions exactes du plan d'implantation, un réseau radio
+multi-saut (CTP), des capteurs de température, de comptage et de présence, et une passerelle
+qui produit les messages MQTT du cahier des charges. Chaque exigence vérifiable a son test
+automatique ; toutes les valeurs de ce rapport sont extraites des journaux de ces tests.</p>
+
+<div class="kpis">
+  <div class="kpi"><b>17 / 18</b><span>exigences vérifiées conformes (1 non conforme : ENF5 ; 1 non mesurable)</span></div>
+  <div class="kpi"><b>33 ms</b><span>latence moyenne capteur → passerelle (T6)</span></div>
+  <div class="kpi"><b>100,0 %</b><span>taux de livraison, 10 nœuds, 20 min</span></div>
+  <div class="kpi"><b>100 %</b><span>des rapports d'1 h de coupure récupérés</span></div>
+</div>
+
+<h2>1. Objectifs et correspondance réel ↔ simulation</h2>
+<p>Le système réel (architecture du groupe) repose sur des ESP32 en WiFi et un Raspberry Pi
+(Mosquitto, Node-RED, InfluxDB, Grafana). Cooja n'émule ni l'ESP32 ni le WiFi : il émule, instruction
+par instruction, des cartes de réseau de capteurs. On garde donc ce qui fait la difficulté du
+projet — la <b>géographie</b> de l'usine, les <b>rôles</b>, les <b>exigences temporelles</b> — et on
+remplace le matériel par son équivalent « réseau de capteurs ».</p>
+<table class=""><thead><tr><th>Dans l&#x27;usine</th><th>Dans la simulation</th><th>Pourquoi / conséquence</th></tr></thead><tbody><tr><td>ESP32 + capteur</td><td>Carte Sky (TelosB, MSP430 + radio CC2420), programmée en nesC / TinyOS</td><td>Seule carte que TinyOS compile et que Cooja émule ; 10 Ko de RAM, 48 Ko de ROM</td></tr><tr><td>WiFi 2,4 GHz, point d'accès</td><td>IEEE 802.15.4 (250 kbit/s), modèle radio UDGM, portée 20 m</td><td>Plus courte portée que le WiFi (30 m retenus) : impose le multi-saut, comme un vrai réseau de capteurs</td></tr><tr><td>Raspberry Pi (passerelle + serveur)</td><td>Nœud 1 : racine CTP, écrit sur son port série une ligne « topic + JSON » par message</td><td>Le pont série → MQTT est la seule partie non simulée</td></tr><tr><td>DS18B20 / thermocouple K</td><td>Modèle thermique (montée en régime, dérive, bruit ± 0,3 °C)</td><td>Scénario de surchauffe injectable (commande H)</td></tr><tr><td>Barrière infrarouge FC-51</td><td>Arrivées de pièces aléatoires (2 à 6 s), compteur en flash</td><td>100 pièces injectables (commande +)</td></tr><tr><td>PIR HC-SR501 + buzzer</td><td>Détections aléatoires de jour, présence injectable (P), buzzer = LED bleue</td><td>Horloge d'usine accélérée : 1 s = 1 min, départ 17h00</td></tr><tr><td>Coupure réseau</td><td>La passerelle est éloignée à 1 km pendant 1 h</td><td>Coupure de la liaison sans arrêter la passerelle</td></tr><tr><td>Nœud débranché</td><td>Nœud retiré de la simulation (sim.removeMote)</td><td>Panne franche, sans prévenir les voisins</td></tr></tbody></table>
+<div class="box warn"><b>Limites de la correspondance.</b> Les latences mesurées sont celles d'un réseau
+802.15.4 non chargé, sans le trajet passerelle → broker → Node-RED → notification (budget
+&lt; 3 + 3 + 2 s dans ENF1, non simulé). L'énergie est celle de la radio CC2420, pas d'un ESP32.
+Le modèle UDGM est idéal (disque de portée, pas d'obstacle ni d'évanouissement) ; le test T6b
+le dégrade volontairement. Les capteurs sont simulés : la précision de ± 1 °C (EF1) dépend du
+composant réel (DS18B20 : ± 0,5 °C), pas du réseau.</div>
+
+<h2>2. Architecture de la simulation</h2>
+<h3>2.1 Quatre rôles, quatre programmes</h3>
+<p>Une application nesC par rôle, avec un dossier <code>commun/</code> partagé. Cooja charge donc
+quatre « types de cartes » ; chaque carte connaît son numéro (<code>TOS_NODE_ID</code>, écrit par
+Cooja) et en déduit, grâce à <code>Plan.h</code> généré depuis le plan, son repère, sa machine et son seuil.</p>
+<table class=""><thead><tr><th>Nœuds</th><th>Programme</th><th>Ce qu&#x27;il fait</th></tr></thead><tbody><tr><td>1 (GW)</td><td><code>passerelle</code></td><td>Racine CTP ; vérifie l'authentification ; écrit topic + JSON ; alertes ; statistiques ; diffuse les acquittements</td></tr><tr><td>2–4 (T1–T3)</td><td><code>thermique</code></td><td>Lecture toutes les 2 s, rapport toutes les 30 s, alerte immédiate au-delà du seuil de SA machine</td></tr><tr><td>5–7 (C1–C3)</td><td><code>comptage</code></td><td>+1 à chaque pièce (sauvegarde en flash), rapport toutes les 30 s : cumul + cadence</td></tr><tr><td>8–10 (P1–P3)</td><td><code>intrusion</code></td><td>Suit l'heure de l'usine ; de nuit, toute présence → alerte immédiate + buzzer ; rapport de vie toutes les 30 s</td></tr></tbody></table>
+<h3>2.2 Le message radio</h3>
+<p>Le JSON du cahier des charges est trop gros et trop coûteux à émettre sur une radio basse
+consommation. Les capteurs envoient une structure binaire de 23 octets ; c'est la passerelle qui
+fabrique le JSON. Un exemple de ligne réellement écrite par la passerelle (test T6) :</p>
+<pre><code>RX src=4 seq=1 sauts=1 parent=1 age=4 diff=0 | factory/machines/MACHINE_03 {&quot;node_id&quot;:&quot;MACHINE_03&quot;,&quot;timestamp&quot;:1792512010,&quot;temperature_c&quot;:61.5,&quot;production_count&quot;:2,&quot;status&quot;:&quot;OK&quot;}</code></pre>
+<table class=""><thead><tr><th>Champ</th><th>Taille</th><th>Contenu</th></tr></thead><tbody><tr><td>type, etat</td><td>1 + 1 octet</td><td>température / comptage / présence ; OK, ALERTE, FIN_ALERTE, VEILLE, ARME, INTRUSION</td></tr><tr><td>source, seq</td><td>2 + 2</td><td>numéro du nœud et numéro de rapport (sert au taux de livraison et aux acquittements)</td></tr><tr><td>age_ms</td><td>4</td><td>temps passé dans le tampon : la passerelle en déduit l'horodatage réel de la mesure</td></tr><tr><td>valeur, compteur</td><td>2 + 4</td><td>dixièmes de °C · cadence et cumul de pièces · heure d'usine et nombre de détections</td></tr><tr><td>parent, etx</td><td>2 + 2</td><td>le premier relais et le coût de route CTP : permet de dessiner l'arbre</td></tr><tr><td>differe</td><td>1</td><td>1 si le rapport a attendu une coupure</td></tr><tr><td>mac</td><td>2</td><td>code d'authentification calculé avec la clé du réseau (ENF6)</td></tr></tbody></table>
+<h3>2.3 Routage multi-saut (CTP) et acquittements de bout en bout (Drip)</h3>
+<div class="flow">capteur ──PUB──> tampon ──CTP (saut par saut, accusé radio à chaque saut)──> passerelle ──> ligne MQTT
+   ^                                                                            │
+   └──────────── Drip : « nœud 8, j'ai tout reçu jusqu'au n° 41 » (toutes les 30 s) ┘</div>
+<p><b>CTP</b> (Collection Tree Protocol, <code>tos/lib/net/ctp</code>) construit seul un arbre dont la
+passerelle est la racine. Chaque nœud estime la qualité de ses liens (ETX : nombre moyen
+d'émissions pour réussir un envoi) et choisit le voisin qui minimise le coût total jusqu'à la
+racine. À 20 m de portée, P1 (22,7 m), P2 (26,2 m) et P3 (20,8 m) ne voient pas la passerelle :
+leurs rapports passent par un relais.</p>
+<p><b>Drip</b> (<code>tos/lib/net/drip</code>) fait le chemin inverse : il propage une valeur de la
+passerelle vers tous les nœuds. On l'utilise pour un <b>acquittement de bout en bout</b> — l'équivalent
+du QoS 1 de MQTT — car l'accusé de réception de CTP ne prouve que la réception par le voisin
+(voir § 5.5 : sans lui, une coupure faisait perdre 100 % des données). L'acquittement est
+<b>signé</b> par la passerelle avec la clé du réseau : un acquittement altéré ou falsifié ferait
+effacer aux capteurs des données jamais reçues (voir § 5.6).</p>
+<figure><img src="figures/topologie.png" alt="Plan de l'usine avec les 10 nœuds et les flèches de l'arbre de routage CTP, avant et après le retrait de T1">
+<figcaption>Figure 1 — Positions du plan (mètres) et arbre CTP mesuré (flèche = « je confie mes paquets à »).
+Le cercle pointillé est la portée de 20 m autour de la passerelle. À droite, après le retrait de T1, P1 passe par P2.</figcaption></figure>
+
+<h2>3. Le code, pas à pas</h2>
+<p>TinyOS est piloté par des <b>événements</b> : pas de boucle infinie, on écrit ce qu'il faut faire
+quand « la carte a démarré », « la minuterie a sonné », « un paquet est arrivé ». Un composant
+nesC a deux fichiers : une <b>configuration</b> (le câblage, avec des flèches <code>-&gt;</code>) et un
+<b>module</b> (le comportement).</p>
+<h3>3.1 Câbler une application : le nœud thermique</h3>
+<pre><code>configuration ThermiqueAppC {}
+implementation {
+  components MainC, LedsC, RandomC, ConsoleC, PublicationC;
+  components ThermiqueC as App;
+  components new TimerMilliC() as Lecture;
+  components new TimerMilliC() as Rapport;
+
+  App.Boot        -&gt; MainC;
+  App.Leds        -&gt; LedsC;
+  App.Random      -&gt; RandomC;
+  App.Console     -&gt; ConsoleC;
+  App.Publication -&gt; PublicationC;
+  App.Lecture     -&gt; Lecture;
+  App.Rapport     -&gt; Rapport;
+}</code></pre><p class="src">thermique/ThermiqueAppC.nc, ligne 7</p>
+<p>Le nœud thermique ne connaît ni la radio ni CTP : il utilise <code>PublicationC</code>, notre
+service commun, et <code>ConsoleC</code> pour écrire du texte lisible dans Cooja.</p>
+<h3>3.2 Lire le capteur et alerter tout de suite</h3>
+<pre><code>  event void Lecture.fired() {
+    if (surchauffe) {
+      temp = seuil + 50 + aleatoire(3);        /* la sonde lit seuil + 5 °C */
+    } else {
+      derive += aleatoire(2);
+      if (derive &gt; 30) derive = 30;
+      if (derive &lt; -30) derive = -30;
+      temp += (consigne + derive - temp) / 20;
+      temp += aleatoire(3);                    /* bruit ±0,3 °C */
+    }
+
+    if (temp &gt; seuil &amp;&amp; !enAlerte) {
+      enAlerte = TRUE;
+      call Leds.led2On();                      /* LED bleue = machine en alerte */
+      call Console.texte(&quot;DEPASSEMENT temp=&quot;); call Console.dixiemes(temp);
+      call Console.texte(&quot; seuil=&quot;);           call Console.dixiemes(seuil);
+      call Console.car(&#x27;\n&#x27;);
+      call Publication.publier(TYPE_TEMPERATURE, ETAT_ALERTE, temp, 0);
+    } else if (enAlerte &amp;&amp; temp &lt;= seuil - HYSTERESIS_DIXIEMES) {
+      enAlerte = FALSE;
+      call Leds.led2Off();
+      call Console.texte(&quot;RETOUR_NORMAL temp=&quot;); call Console.dixiemes(temp);
+      call Console.car(&#x27;\n&#x27;);
+      call Publication.publier(TYPE_TEMPERATURE, ETAT_FIN_ALERTE, temp, 0);
+    }
+  }
+
+  /* --------------------------------------------------------------- rapport périodique */</code></pre><p class="src">thermique/ThermiqueC.nc, ligne 71</p>
+<p>La lecture locale toutes les 2 s ne coûte rien en radio. Sans elle, une surchauffe pourrait
+attendre jusqu'à 30 s le rapport suivant, ce qui violerait ENF1.</p>
+<h3>3.3 Ne rien perdre : tampon et acquittements</h3>
+<pre><code>  event void Acquit.changed() {
+    const acquit_t *a = call Acquit.get();
+    uint16_t ok = (TOS_NODE_ID &lt;= MAX_ID) ? a-&gt;dernier[TOS_NODE_ID] : 0;
+    uint8_t liberes = 0;
+
+    /* Acquittement non signé par la passerelle (paquet altéré ou falsifié) : on l&#x27;ignore,
+       sinon on effacerait des rapports que la passerelle n&#x27;a jamais reçus. */
+#ifndef INTRUS   /* le nœud intrus du test ENF6 ne respecte pas le protocole : il émet quand même */
+    if (macAcquit(a, CLE_RESEAU) != a-&gt;mac) {
+      call Console.texte(&quot;ACQUIT_REJETE code d&#x27;authentification invalide\n&quot;);
+      return;
+    }
+#endif
+    dernierAcquit = maintenant();
+    call Console.texte(&quot;ACQUIT battement=&quot;); call Console.nombre(a-&gt;battement);
+    call Console.texte(&quot; ok=&quot;);              call Console.nombre(ok);
+    call Console.car(&#x27;\n&#x27;);
+    if (!enLigne) {
+      enLigne = TRUE;
+      call Console.texte(&quot;EN_LIGNE acquittements recus, &quot;);
+      call Console.nombre(nb);
+      call Console.texte(&quot; rapport(s) a envoyer\n&quot;);
+    }
+    /* On oublie tous les rapports que la passerelle a bien reçus */
+    while (nb &gt; 0 &amp;&amp; entree(0)-&gt;seq &lt;= ok &amp;&amp; !(occupe &amp;&amp; envoyes == 0)) {
+      debut = (debut + 1) % CAPACITE_TAMPON;
+      nb--;
+      if (envoyes &gt; 0) envoyes--;
+      liberes++;
+    }</code></pre><p class="src">commun/PublicationP.nc, ligne 161</p>
+<h3>3.4 La passerelle : authentifier, dédoublonner, publier, alerter</h3>
+<pre><code>    /* 1. Authentification : on recalcule le code avec NOTRE clé et on compare */
+    if (calculerMac(r, CLE_RESEAU) != r-&gt;mac) {
+      call Console.texte(&quot;REJET_AUTH origine=&quot;);
+      call Console.nombre(call CtpPacket.getOrigin(msg));
+      call Console.texte(&quot; seq=&quot;);  call Console.nombre(r-&gt;seq);
+      call Console.texte(&quot; (code d&#x27;authentification invalide)\n&quot;);
+      return msg;
+    }
+    /* Clé correcte, mais nœud absent du plan ou qui se fait passer pour un autre */
+    if (r-&gt;source &gt; MAX_ID || r-&gt;source != call CtpPacket.getOrigin(msg)) {
+      call Console.texte(&quot;REJET_ORIGINE origine=&quot;);
+      call Console.nombre(call CtpPacket.getOrigin(msg));
+      call Console.texte(&quot; source annoncee=&quot;); call Console.nombre(r-&gt;source);
+      call Console.car(&#x27;\n&#x27;);
+      return msg;
+    }
+
+    src = r-&gt;source;
+    s = &amp;suivi[src];
+    /* THL (« time has lived ») : CTP l&#x27;augmente de 1 à chaque réception, y compris
+       à la racine (CtpForwardingEngineP). C&#x27;est donc directement le nombre de sauts. */</code></pre><p class="src">passerelle/PasserelleC.nc, ligne 185</p>
+<h3>3.5 Le compteur qui survit au redémarrage</h3>
+<pre><code>    /* IMPORTANT : pendant l&#x27;effacement et l&#x27;écriture, le contrôleur de flash bloque le CPU.
+       Une interruption à ce moment fait planter le MSP430 (mspsim le reproduit :
+       « Got interrupt while flash controller blocks CPU »). Le module d&#x27;origine servait
+       au chargeur d&#x27;amorçage, sans interruptions ; ici on les MASQUE avec atomic. */
+    atomic {
+      FCTL2 = FWKEY + FSSEL1 + FN2;     /* horloge du contrôleur de flash */
+      FCTL3 = FWKEY;                    /* déverrouillage */
+      FCTL1 = FWKEY + ERASE;            /* effacement du segment de destination */</code></pre><p class="src">commun/FlashInterneC.nc, ligne 49</p>
+<p>Le compteur est écrit dans la mémoire flash interne du MSP430 à chaque pièce, et relu au démarrage.
+mspsim reproduit fidèlement une contrainte du vrai matériel : une interruption pendant l'écriture
+fait planter le microcontrôleur. D'où le bloc <code>atomic</code>.</p>
+<h3>3.6 Un test automatique</h3>
+<pre><code>TIMEOUT(260000, terminer());
+var tInj = {}, tDetect = {}, tAlerte = {}, alerteM3Avant = false, finM2 = false, statusAlerte = false;
+planifier(120000, function () { tInj[3] = maintenant(); commander(3, &quot;H&quot;); });
+planifier(160000, function () { commander(3, &quot;N&quot;); });
+planifier(200000, function () { tInj[4] = maintenant(); commander(4, &quot;H&quot;); });
+planifier(250000, function () {
+  var l2 = tAlerte[3] - tInj[3], l3 = tAlerte[4] - tInj[4];
+  mesure(&quot;T2_latence_injection_alerte_M2&quot;, l2, &quot;ms&quot;);
+  mesure(&quot;T2_latence_detection_alerte_M2&quot;, tAlerte[3] - tDetect[3], &quot;ms&quot;);
+  mesure(&quot;T2_latence_injection_alerte_M3&quot;, l3, &quot;ms&quot;);
+  verdict(&quot;T2&quot;, tAlerte[3] !== undefined &amp;&amp; l2 &lt; 10000,
+          &quot;M2 a 95 C : alerte &quot; + (l2 / 1000).toFixed(2) + &quot; s apres l&#x27;injection (exigence &lt; 10 s, cible 5 s)&quot;);
+  verdict(&quot;T2_json_status&quot;, statusAlerte, &quot;JSON MACHINE_02 avec status ALERTE publie&quot;);
+  verdict(&quot;T2_seuil_par_machine&quot;, !alerteM3Avant &amp;&amp; tAlerte[4] !== undefined &amp;&amp; l3 &lt; 10000,
+          &quot;M3 a ~185 C sans alerte (seuil 220 C), puis alerte a 225 C en &quot; + (l3 / 1000).toFixed(2) + &quot; s&quot;);
+  verdict(&quot;T2_fin_alerte&quot;, finM2, &quot;FIN_ALERTE SURCHAUFFE MACHINE_02 apres retour a la normale&quot;);
+  terminer();
+});
+while (true) {
+  YIELD();
+  if (executerAction()) continue;
+  noter();</code></pre><p class="src">scenarios/tests/T2_surchauffe.js, ligne 8</p>
+<p>Le script, exécuté par le plugin ScriptRunner de Cooja, reçoit chaque ligne écrite par chaque carte,
+injecte des événements sur les ports série (<code>commander(3, "H")</code>), mesure les délais avec
+l'horloge de Cooja (commune à tous les nœuds) et écrit ses verdicts.</p>
+
+<h2>4. Les scénarios de test</h2>
+<table class=""><thead><tr><th>Test</th><th>Durée simulée</th><th>Scénario</th></tr></thead><tbody><tr><td>T1</td><td>10 min</td><td>fonctionnement normal ; on mesure l'écart entre rapports de chaque capteur</td></tr><tr><td>T2</td><td>4 min</td><td>t = 120 s : sonde de M2 à 95 °C ; t = 160 s : retour normal ; t = 200 s : four M3 à 225 °C</td></tr><tr><td>T4</td><td>4 min</td><td>C1 : arrêt des arrivées, remise à zéro, 100 pièces ; C2 : redémarrage forcé à t = 150 s</td></tr><tr><td>T5</td><td>16 min</td><td>présences à 17h30 (P2), 19h00 (P1, P2, P3) et 08h30 le lendemain (P3)</td></tr><tr><td>T6 / T6b</td><td>20 min</td><td>fonctionnement normal, 10 nœuds ; T6b : 80 % de réussite radio en limite de portée</td></tr><tr><td>T7</td><td>75 min</td><td>t = 5 min : passerelle hors de portée pendant 1 h ; 10 min d'observation après le retour</td></tr><tr><td>T9</td><td>10 min</td><td>t = 5 min : retrait du nœud T1, relais de P1</td></tr><tr><td>ENF6</td><td>5 min</td><td>un 11e nœud, programmé avec une autre clé, posé près de T2</td></tr><tr><td>Énergie</td><td>4 × 15 min</td><td>radio toujours allumée, puis écoute basse consommation (LPL) à 512, 1024, 2048 ms</td></tr></tbody></table>
+
+<h2>5. Résultats</h2>
+<h3>5.1 Réseau : latence, sauts, taux de livraison (T6, T6b)</h3>
+<table class=""><thead><tr><th>Nœud</th><th>x ; y (m)</th><th>Parent CTP</th><th>Sauts</th><th>Latence moy. (ms)</th><th>max (ms)</th><th>PDR T6</th><th>PDR T6b</th></tr></thead><tbody><tr><td>T1 (2)</td><td>15 ; 16.5</td><td>1 (GW)</td><td><span class="n">1</span></td><td>29,0</td><td>33</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>T2 (3)</td><td>24 ; 16.5</td><td>2 (T1)</td><td><span class="n">2</span></td><td>40,0</td><td>48</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>T3 (4)</td><td>33 ; 16.5</td><td>1 (GW)</td><td><span class="n">1</span></td><td>28,5</td><td>34</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>C1 (5)</td><td>19.5 ; 17.6</td><td>1 (GW)</td><td><span class="n">1</span></td><td>28,0</td><td>33</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>C2 (6)</td><td>28.5 ; 17.6</td><td>1 (GW)</td><td><span class="n">1</span></td><td>27,9</td><td>33</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>C3 (7)</td><td>37.5 ; 17.6</td><td>1 (GW)</td><td><span class="n">1</span></td><td>27,4</td><td>32</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>P1 (8)</td><td>5.5 ; 1.2</td><td>2 (T1)</td><td><span class="n">2</span></td><td>38,7</td><td>45</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>P2 (9)</td><td>4 ; 15</td><td>2 (T1)</td><td><span class="n">2</span></td><td>39,9</td><td>56</td><td>100,0 %</td><td>100,0 %</td></tr><tr><td>P3 (10)</td><td>46 ; 15</td><td>4 (T3)</td><td><span class="n">2</span></td><td>38,6</td><td>47</td><td>100,0 %</td><td>100,0 %</td></tr></tbody></table>
+<figure><img src="figures/latence.png" alt="Boîtes à moustaches de la latence par nombre de sauts, liens parfaits et dégradés">
+<figcaption>Figure 2 — Latence capteur → passerelle de chaque rapport, par nombre de sauts. Les liens
+dégradés provoquent des retransmissions (points isolés) mais aucune perte : CTP réémet jusqu'à 30 fois.</figcaption></figure>
+<p>La latence mesurée inclut l'écriture de la ligne JSON sur le port série de la passerelle
+(≈ 11 ms à 115 200 bit/s) : la part radio est encore plus faible. On est très loin du budget de
+1 s du cahier pour le trajet nœud → passerelle.</p>
+<p>Observation : T2 (nœud 3, à 12,6 m du puits) passe par T1. CTP fige son choix au démarrage et ne change de parent que si le gain dépasse un seuil (hystérésis), pour éviter les oscillations de route. Le coût est d'environ 10 ms par rapport.</p>
+
+<h3>5.2 Alertes de surchauffe (T2)</h3>
+<figure><img src="figures/t2_temperatures.png" alt="Courbes de température des trois machines avec leurs seuils et les alertes">
+<figcaption>Figure 3 — Températures rapportées (points = rapports, triangles = alertes de la passerelle).
+Chaque machine a son seuil : le four tourne à 185 °C sans alerte.</figcaption></figure>
+<p>De la mise à 95 °C à la ligne <code>ALERTE SURCHAUFFE MACHINE_02</code> :
+<b>0,88 s</b>, dont
+51 ms entre la détection sur le nœud et l'alerte
+— le reste est l'attente de la lecture suivante (au plus 2 s). Cible de 5 s tenue.</p>
+
+<h3>5.3 Comptage et intrusion (T4, T5)</h3>
+<p><b>T4</b> : après 100 pièces, le compteur local vaut 100 et
+la passerelle publie <code>"production_count":100</code>.
+Le nœud C2, redémarré par son chien de garde à 40 pièces,
+relit 40 dans sa flash ; la passerelle détecte le redémarrage
+(numéro de rapport revenu à 1).</p>
+<p><b>T5</b> : de nuit, l'alerte arrive en 48,
+51 et 49 ms
+pour les zones 1, 2 et 3 (deux sauts chacune), avec le buzzer local. Les présences à 17h30 et à 08h30
+ne déclenchent aucune alerte.</p>
+
+<h3>5.4 Panne d'un relais et reconvergence (T9, ENF8)</h3>
+<table class=""><thead><tr><th>Mesure (depuis le retrait de T1)</th><th>Valeur</th></tr></thead><tbody><tr><td>P1 choisit un nouveau parent</td><td>18,2 s — s (P1 : parent 2 -&gt; 9)</td></tr><tr><td>Premier rapport de P1 reçu par le nouveau chemin</td><td>47,3 s — s (premier rapport de P1 recu, 3 sauts)</td></tr><tr><td>La passerelle signale « NOEUD_MUET T1 »</td><td>84,5 s (seuil : 3 périodes + 5 s sans nouvelles)</td></tr><tr><td>Taux de livraison des 8 autres capteurs après la panne</td><td>100,0 %</td></tr></tbody></table>
+<p>CTP ne détecte la panne qu'en essayant d'envoyer : P1 découvre l'absence de T1 à son rapport
+suivant, épuise ses retransmissions, puis change de parent. Le rapport retardé n'est pas perdu : il
+reste dans le tampon jusqu'à son acquittement.</p>
+
+<h3>5.5 Coupure d'une heure (T7, ENF3)</h3>
+<figure><img src="figures/t7_coupure.png" alt="Occupation des tampons pendant la coupure et cumul des rapports reçus">
+<figcaption>Figure 4 — En haut : rapports en attente dans le tampon de trois capteurs (1 par 30 s).
+En bas : cumul des rapports reçus par la passerelle ; la marche au retour est le vidage des tampons.</figcaption></figure>
+<p>1080 rapports sur 1080 publiés pendant la
+coupure ont été reçus après le retour, tous marqués <code>diff=1</code>, en 114 s.
+Leur horodatage JSON est celui de la mesure, grâce au champ <code>age_ms</code> : écart maximal
+3,6 s. Le cahier ne fixant pas de tolérance, nous avons retenu ± 5 s (1/6 de la période :
+une mesure ne peut pas être confondue avec sa voisine). L'écart restant est le temps passé dans les files des relais pendant le
+vidage, que <code>age_ms</code> ne compte pas ; une horloge commune (synchronisation) l'éliminerait.</p>
+<div class="box"><b>Ce que ce test nous a appris.</b> La première version perdait <b>100 %</b> des données
+de la coupure. Quand la racine disparaît, aucun nœud ne le sait : chacun prend un voisin pour parent,
+le coût de route gonfle sans fin (« comptage à l'infini », ETX de 20 à 12 000) et les paquets tournent
+en boucle avant d'être jetés. L'accusé de réception de CTP était pourtant positif, puisque le voisin
+avait bien reçu. Quatre corrections, chacune validée par un nouvel essai : (1) un acquittement de
+bout en bout diffusé par la passerelle, et l'arrêt des émissions après 75 s sans acquittement ; (2) une balise de routage
+forcée par la racine toutes les 30 s, sans quoi les nœuds ne la retrouvaient pas à son retour (une racine stable espace
+ses balises jusqu'à plusieurs minutes) ; (3) au retour, les 9 capteurs vidaient leurs tampons en rafale et saturaient
+les files des relais : le vidage est cadencé à un rapport toutes les 250 ms ; (4) la passerelle « abandonnait » les trous
+de plus de 32 numéros et acquittait donc des rapports jamais reçus (57 % de pertes) : elle suit désormais une fenêtre de 160
+numéros, plus grande que le tampon, et n'acquitte jamais un rapport qu'elle n'a pas reçu.</div>
+<p>Capacité : le tampon garde 130 rapports, soit 65 min à 30 s. ENF3 demande 24 h, soit 2 880 rapports
+(≈ 58 Ko) : il faudrait la flash externe de 1 Mo de la carte (<code>LogStorageC</code>), ou la mémoire
+flash de l'ESP32 dans le prototype réel.</p>
+
+<h3>5.6 Énergie (ENF5)</h3>
+<figure><img src="figures/energie.png" alt="Pourcentage de radio allumée, autonomie estimée et latence pour quatre réglages de la radio">
+<figcaption>Figure 5 — Mesures PowerTracker (15 min, 10 nœuds). Autonomie estimée pour 2000 mAh avec
+19 mA radio allumée et 0,1 mA pour le microcontrôleur (hypothèses, pas des mesures).</figcaption></figure>
+<table class=""><thead><tr><th>Radio</th><th>Latence moy. (ms)</th><th>95 % sous (ms)</th><th>max (ms)</th><th>Livraison à terme</th></tr></thead><tbody><tr><td>toujours allumée</td><td>33</td><td>43</td><td>56</td><td>100,00 %</td></tr><tr><td>LPL 512 ms</td><td>392</td><td>1983</td><td>5072</td><td>100,00 %</td></tr><tr><td>LPL 1024 ms</td><td>1040</td><td>4479</td><td>23607</td><td>100,00 %</td></tr><tr><td>LPL 2048 ms</td><td>2224</td><td>9173</td><td>19800</td><td>100,00 %</td></tr></tbody></table>
+<table class=""><thead><tr><th>Nœud</th><th>Toujours allumée</th><th>LPL 512 ms</th><th>LPL 1024 ms</th><th>LPL 2048 ms</th></tr></thead><tbody><tr><td>GW (1)</td><td>99,5 %</td><td>99,5 %</td><td>99,5 %</td><td>99,5 %</td></tr><tr><td>T1 (2)</td><td>99,5 %</td><td>5,1 %</td><td>10,3 %</td><td>19,2 %</td></tr><tr><td>T2 (3)</td><td>99,5 %</td><td>3,5 %</td><td>7,9 %</td><td>18,4 %</td></tr><tr><td>T3 (4)</td><td>99,5 %</td><td>3,8 %</td><td>6,5 %</td><td>16,5 %</td></tr><tr><td>C1 (5)</td><td>99,5 %</td><td>4,0 %</td><td>7,0 %</td><td>10,5 %</td></tr><tr><td>C2 (6)</td><td>99,5 %</td><td>4,0 %</td><td>6,4 %</td><td>15,3 %</td></tr><tr><td>C3 (7)</td><td>99,5 %</td><td>4,1 %</td><td>13,5 %</td><td>21,3 %</td></tr><tr><td>P1 (8)</td><td>99,5 %</td><td>11,1 %</td><td>13,6 %</td><td>29,3 %</td></tr><tr><td>P2 (9)</td><td>99,5 %</td><td>7,8 %</td><td>18,8 %</td><td>25,6 %</td></tr><tr><td>P3 (10)</td><td>99,5 %</td><td>7,3 %</td><td>15,0 %</td><td>30,6 %</td></tr></tbody></table>
+<p>Radio toujours allumée, la radio d'un capteur est active 99,5 % du
+temps : environ 4 jours sur 2000 mAh. C'est l'argument du cahier contre
+une écoute permanente (un ESP32 connecté en WiFi consomme encore davantage). L'écoute basse consommation (LPL) éteint la radio
+et la rallume brièvement à intervalle fixe ; pour joindre un voisin endormi, l'émetteur répète son paquet pendant tout un
+intervalle. Le meilleur réglage mesuré est <b>LPL 512 ms</b> : radio active 5,6 % du temps, soit environ
+<b>71 jours</b> — en deçà des 6 mois d'ENF5 avec ces hypothèses.</p><p><b>Latence :</b> avec LPL 512 ms, la latence maximale reste sous les 10 s d'ENF1 (mais il faut 2,0 s pour que 95 % des rapports arrivent, au-delà du budget d'1 s prévu pour le trajet nœud → passerelle : l'alerte arrive à temps, en consommant une plus grosse part du budget). En revanche LPL 1024 ms (23,6 s), LPL 2048 ms (19,8 s) dépassent les 10 s : ces réglages sont incompatibles avec ENF1.</p><p><b>Résultat contre-intuitif :</b> espacer les réveils (1024 puis 2048 ms) <i>augmente</i> la consommation.
+Notre réseau diffuse beaucoup — balises de routage CTP, acquittements Drip répétés de proche en proche — et en LPL chaque
+diffusion dure tout un intervalle de réveil. Au-delà de 512 ms, le coût des émissions dépasse l'économie d'écoute, et le canal
+se sature (latence en secondes, plus de collisions). Pour viser 6 mois, il faut donc réduire les diffusions plutôt qu'allonger
+le sommeil : acquittement toutes les 2 min en LPL (déjà fait), balises CTP plus espacées, rapports de vie moins fréquents.
+Les nœuds de comptage et d'intrusion étant sur secteur d'après le plan, seuls les trois nœuds thermiques ont réellement
+besoin de LPL.</p><div class="box warn"><b>Un piège découvert grâce à ces mesures.</b> En LPL, l'émulateur de la radio CC2420 produit
+parfois des paquets incohérents (avertissement Cooja « packet size too large - repeating packet bytes ») dont le contrôle
+CRC est pourtant valide. Un acquittement ainsi altéré disait « tout est reçu » : les capteurs effaçaient des données jamais
+arrivées (taux de livraison tombé à 93 %). Depuis que la passerelle signe ses acquittements, ces faux messages sont rejetés
+(196 rejets <code>ACQUIT_REJETE</code> sur les essais d'énergie). Artefact de simulation ou brouillage réel, la
+leçon est la même : un message de contrôle doit être authentifié autant que les données.</div>
+<p>Le taux de livraison des essais d'énergie est mesuré « à terme » (rapports publiés au moins 5 min avant la fin) : en LPL, un
+rapport perdu n'est renvoyé qu'au cycle d'acquittement suivant, 2 min plus tard.</p>
+<h3>5.7 Authentification (ENF6)</h3>
+<p>Les 10 rapports de l'intrus (même programme, autre clé)
+— 30 envois avec ses renvois, puisqu'il n'est jamais acquitté — sont tous rejetés (<code>REJET_AUTH</code>), et aucun rapport légitime ne l'est. Dans l'autre sens, un
+nœud sans la clé rejette les acquittements de la passerelle : l'intrus du test est volontairement programmé pour passer
+outre et émettre quand même. Le code
+d'authentification est calculé par le capteur et vérifié par la passerelle : un relais ne peut pas
+modifier un rapport sans être détecté.</p>
+
+<h2>6. Exigences vérifiées</h2>
+<table class="exig"><thead><tr><th>Exigence</th><th>Test</th><th>Valeur mesurée</th><th>Verdict</th></tr></thead><tbody><tr><td>EF1 — une mesure toutes les 30 s ± 2 s</td><td>T1 (10 min, 9 capteurs)</td><td>écart entre rapports : 30,00 à 30,00 s (175 intervalles)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF1 — valeur transmise sans altération</td><td>T1</td><td>61 temperatures comparees capteur/passerelle, 0 differentes</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF2 + ENF1 — 95 °C → alerte < 10 s (cible 5 s)</td><td>T2 (presse M2, seuil 90 °C)</td><td>alerte 0,88 s après la mise à 95 °C</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF2 — seuil propre à chaque machine</td><td>T2 (four M3, seuil 220 °C)</td><td>185 °C sans alerte ; 225 °C → alerte en 0,32 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF5 — 100 pièces → compteur = 100</td><td>T4 (poste C1)</td><td>compteur local 100, reçu par la passerelle 100</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF5 — le compteur survit à un redémarrage</td><td>T4 (poste C2, chien de garde)</td><td>40 pièces avant, 40 restaurées</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>EF6 — présence hors 08h–18h → alerte < 5 s</td><td>T5 (P1, P2, P3 à 19h00)</td><td>alerte en 0,05 s au pire (3 zones), buzzer local activé</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>B4 — pas d'alerte pendant les heures ouvrées</td><td>T5 (17h30 et 08h30)</td><td>0 alerte(s) pendant les heures ouvrees (presences a 17h30 et 08h30)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF1 / T6 — latence totale < 10 s</td><td>T6 (20 min, 10 nœuds)</td><td>capteur → passerelle : moyenne 33,1 ms, max 56 ms</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF1 — budget nœud → passerelle < 1 s</td><td>T6</td><td>95 % des rapports en moins de 44 ms</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>B3 — données centralisées (taux de livraison)</td><td>T6 / T6b</td><td>PDR 100,00 % (liens parfaits), 100,00 % (liens dégradés)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF3 / T7 — coupure d'1 h : données gardées puis renvoyées</td><td>T7 (passerelle hors de portée 1 h)</td><td>1080 / 1080 rapports récupérés, tampons vidés en 114 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF3 — horodatage de la mesure conservé</td><td>T7</td><td>écart max 3,6 s (critère retenu : ± 5 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF8 / T9 — un nœud retiré, les autres continuent</td><td>T9 (retrait du relais T1)</td><td>8/8 capteurs continuent, PDR après la panne 100,0 %</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF8 — reconvergence du routage</td><td>T9 (P1, qui passait par T1)</td><td>nouveau parent en 18,2 s, rapports rétablis en 47,3 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF8 — détection du nœud défaillant</td><td>T9</td><td>alerte NOEUD_MUET après 84 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF6 — messages authentifiés</td><td>ENF6 (11e nœud sans la clé)</td><td>30 rapports de l'intrus rejetés, 0 rapport légitime rejeté</td><td><span class="ok">✔ conforme</span></td></tr><tr><td>ENF5 — autonomie ≥ 6 mois</td><td>E_energie (PowerTracker)</td><td>radio toujours allumée : 99,5 % → 4 jours ; meilleure variante LPL : 71 jours (estimation, voir § 5.6)</td><td><span class="ko">✘ non conforme</span></td></tr><tr><td>ENF4 / T10 — disponibilité ≥ 99,5 %</td><td>—</td><td>non mesurable en simulation (pas de pannes matérielles aléatoires) ; voir § 6</td><td>—</td></tr></tbody></table>
+<p><b>ENF4 (disponibilité ≥ 99,5 %, T10)</b> n'est pas mesurable en simulation : il faudrait des pannes
+aléatoires sur une longue durée. La simulation en donne les briques : détection des nœuds muets,
+reconvergence automatique (T9), stockage pendant les coupures (T7). <b>T3 et T8</b> (non rappelés dans
+la consigne) ne sont pas traités.</p>
+<h3>Détail de toutes les vérifications</h3>
+<table class=""><thead><tr><th>Journal</th><th>Vérification</th><th>Détail (tel qu&#x27;écrit par le script)</th><th>Résultat</th></tr></thead><tbody><tr><td><code>T1_periode</code></td><td>T1</td><td>9 capteurs, 175 intervalles entre 30.00 et 30.00 s (tolerance 28-32 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T1_periode</code></td><td>T1_fidelite</td><td>61 temperatures comparees capteur/passerelle, 0 differentes</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T2_surchauffe</code></td><td>T2</td><td>M2 a 95 C : alerte 0.88 s apres l&#x27;injection (exigence &lt; 10 s, cible 5 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T2_surchauffe</code></td><td>T2_json_status</td><td>JSON MACHINE_02 avec status ALERTE publie</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T2_surchauffe</code></td><td>T2_seuil_par_machine</td><td>M3 a ~185 C sans alerte (seuil 220 C), puis alerte a 225 C en 0.32 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T2_surchauffe</code></td><td>T2_fin_alerte</td><td>FIN_ALERTE SURCHAUFFE MACHINE_02 apres retour a la normale</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T4_comptage</code></td><td>T4</td><td>100 pieces injectees : compteur local=100, production_count recu=100</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T4_comptage</code></td><td>T4_redemarrage</td><td>C2 redemarre a 40 pieces, RESTAURE compteur=40, passerelle voit REDEMARRAGE puis production_count=42</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T5_intrusion</code></td><td>T5</td><td>alertes de nuit : ZONE_01=0.05 s ZONE_02=0.05 s ZONE_03=0.05 s (exigence &lt; 5 s, buzzer local actif)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T5_intrusion</code></td><td>T5_pas_alerte_de_jour</td><td>0 alerte(s) pendant les heures ouvrees (presences a 17h30 et 08h30)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6_reseau</code></td><td>T6</td><td>latence capteur-&gt;passerelle max 56 ms, moyenne 33.1 ms sur 360 rapports (exigence &lt; 10 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6_reseau</code></td><td>T6_budget_radio</td><td>95 % des rapports en moins de 44 ms (budget noeud-&gt;passerelle &lt; 1 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6_reseau</code></td><td>T6_pdr</td><td>taux de livraison 100.00 % (seuil 99 %)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6_reseau</code></td><td>T6_multisaut</td><td>P1, P2, P3 hors de portee du puits : sauts = 2, 2, 2</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6b_pertes</code></td><td>T6b</td><td>latence capteur-&gt;passerelle max 116 ms, moyenne 37.2 ms sur 360 rapports (exigence &lt; 10 s)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T6b_pertes</code></td><td>T6b_pdr</td><td>taux de livraison 100.00 % (seuil 98 %)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T7_coupure</code></td><td>T7</td><td>rapports publies pendant 1 h de coupure puis recus : 1080/1080 (2:120/120 3:120/120 4:120/120 5:120/120 6:120/120 7:120/120 8:120/120 9:120/120 10:120/120 )</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T7_coupure</code></td><td>T7_horodatage</td><td>ecart max entre timestamp JSON et instant de mesure : 3.6 s (critere +/- 5 s = 1/6 de la periode)</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T9_panne</code></td><td>T9</td><td>T1 retire : 8/8 autres capteurs continuent, PDR apres panne 100.0 %</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T9_panne</code></td><td>T9_reroutage_P1</td><td>P1 passe par 9 (3 sauts), rapports retablis en 47.3 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>T9_panne</code></td><td>ENF8_detection</td><td>passerelle signale NOEUD_MUET T1 apres 84.5 s</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>ENF6_auth</code></td><td>ENF6</td><td>30 rapports de l&#x27;intrus rejetes, 0 acceptes ; 0 rapport legitime rejete</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>E_energie</code></td><td>E</td><td>duty cycle radio mesure sur 10 noeuds, moyenne capteurs 99.50 %, PDR 100.00 %, latence moy 33 ms</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>E_energie_lpl</code></td><td>E_lpl</td><td>duty cycle radio mesure sur 10 noeuds, moyenne capteurs 5.64 %, PDR 100.00 %, latence moy 392 ms</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>E_energie_lpl1024</code></td><td>E_lpl1024</td><td>duty cycle radio mesure sur 10 noeuds, moyenne capteurs 11.00 %, PDR 100.00 %, latence moy 1040 ms</td><td><span class="ok">✔ conforme</span></td></tr><tr><td><code>E_energie_lpl2048</code></td><td>E_lpl2048</td><td>duty cycle radio mesure sur 10 noeuds, moyenne capteurs 20.74 %, PDR 100.00 %, latence moy 2224 ms</td><td><span class="ok">✔ conforme</span></td></tr></tbody></table>
+
+<h2>7. Limites et perspectives</h2>
+<ul>
+<li><b>Prototype réel ESP32 + MQTT.</b> Les lignes de la passerelle contiennent déjà le topic et le JSON :
+un pont série → <code>mosquitto_pub</code> suffit pour alimenter Node-RED, InfluxDB et Grafana. En WiFi, CTP
+disparaît (le point d'accès joue la racine) mais le tampon et l'acquittement QoS 1 restent nécessaires.</li>
+<li><b>Sécurité.</b> Le code d'authentification sur 16 bits est pédagogique (FNV-1a « salé »), sans
+protection contre le rejeu ni chiffrement. En réel : AES-CCM matériel du CC2420 (802.15.4) ou TLS
+sur MQTT (port 8883) avec un certificat par ESP32, et un compteur anti-rejeu.</li>
+<li><b>Énergie.</b> Combiner LPL, une période de rapport adaptée (30 s seulement pour la température,
+quelques minutes pour les rapports de vie) et un intervalle de balises CTP plus long. Les nœuds de
+comptage et d'intrusion sont sur secteur (plan) : seuls les nœuds thermiques ont besoin de LPL.</li>
+<li><b>Stockage 24 h.</b> Passer le tampon en flash externe (LogStorage) pour couvrir ENF3 en entier.</li>
+<li><b>Heure d'usine.</b> Chaque nœud la calcule depuis son démarrage (écart ≤ 1 s entre nœuds dans
+Cooja). En réel : NTP sur l'ESP32, ou l'heure de la passerelle diffusée par Drip.</li>
+<li><b>Modèle radio.</b> UDGM est un disque parfait. Une étude plus réaliste utiliserait le modèle
+MRM ou DGRM de Cooja avec les murs du plan.</li>
+</ul>
+
+<footer>Généré le 21/10/2026 par <code>rapport/generer_rapport.py</code> à partir de
+<code>resultats/*.log</code>. Pour tout relancer : <code>bash tout_relancer.sh</code> dans WSL, puis
+<code>python rapport/generer_rapport.py</code>. Code, scénarios et guide : <code>simulation/02_simulation_projet/README.md</code>.</footer>
+</body></html>

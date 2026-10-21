@@ -3,6 +3,7 @@
    - t = 150 s : retour à la normale
    - t = 100 s : présence à l'entrée (P1, nœud 8) à 18h40 → ALERTE INTRUSION + buzzer (LED bleue)
    - t = 40 s  : présence sur le quai de réception (P2) à 17h40 : heures ouvrées, pas d'alerte */
+TIMEOUT(36000000);   /* 10 h de simulation (sinon Cooja arrête le script après 20 min) */
 bavard = false;
 planifier(40000,  function () { commander(9, "P"); });
 planifier(90000,  function () { commander(3, "H"); });

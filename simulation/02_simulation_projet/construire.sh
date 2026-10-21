@@ -41,10 +41,13 @@ if [ "$TOUT" = 1 ]; then
   for a in $APPS; do compiler "$a" "${a}_lpl" LPL=1; done
   for ms in 1024 2048; do for a in $APPS; do compiler "$a" "${a}_lpl$ms" LPL=1 LPL_MS=$ms; done; done
   mkdir -p "$DST/intrus" && cp "$DST/thermique"/* "$DST/intrus"/ 2>/dev/null || true
-  compiler intrus intrus CLE=0x0BADC0DE
+  compiler intrus intrus CLE=0x0BADC0DE INTRUS=1
 fi
 
 mkdir -p "$SRC/firmwares"
 cp "$DST"/*.sky "$SRC/firmwares"/
 cp "$SRC/commun/Plan.h" "$DST/commun/"
+# Copie des scénarios Cooja générés (avec fenêtres + tests) pour pouvoir les lire depuis Windows
+mkdir -p "$SRC/scenarios/csc"
+cp "$DST"/*.csc "$DST"/test_*.js "$DST"/scenario_demo.js "$SRC/scenarios/csc"/
 echo "OK : firmwares dans $DST (copie dans firmwares/) et scénarios $DST/*.csc"

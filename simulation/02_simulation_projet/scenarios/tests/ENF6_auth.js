@@ -1,6 +1,8 @@
 /* ENF6 : « messages authentifiés ».
    Un 11e nœud, INTRUS, est posé près de T2 (26 ; 14 m). Il exécute le même programme
-   thermique mais ne connaît pas la clé du réseau (compilé avec CLE=0x0BADC0DE).
+   thermique mais ne connaît pas la clé du réseau (compilé avec CLE=0x0BADC0DE). Un nœud
+   honnête sans la clé rejetterait déjà les acquittements de la passerelle et n'émettrait pas ;
+   l'intrus est compilé avec INTRUS=1 pour ignorer cette vérification et émettre quand même.
    Attendu : la passerelle rejette TOUS ses rapports (REJET_AUTH) et accepte tous
    ceux des 9 capteurs légitimes. */
 TIMEOUT(310000, terminer());
