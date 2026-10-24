@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Démo TinyOS + Cooja sous Linux</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  :root { --ink:#17293B; --muted:#5A6B7B; --rule:#CDD6DE; --code:#F1F4F6; --accent:#0E746D; --warn:#B4611A; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); background:#fff; font:10.5pt/1.55 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif; }
+  h1 { font:700 26pt/1.05 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; margin:0 0 6pt; }
+  h2 { font:700 15pt/1.2 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; margin:18pt 0 6pt; padding-top:6pt; border-top:1px solid var(--rule); break-after:avoid; }
+  h3 { font-size:10.5pt; margin:10pt 0 4pt; break-after:avoid; }
+  p, ul, ol { margin:0 0 7pt; }
+  ul, ol { padding-left:16pt; }
+  li { margin-bottom:3pt; }
+  .eyebrow { font:500 8.5pt 'IBM Plex Mono', Consolas, monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6pt; }
+  .lead { font-size:11.5pt; max-width:160mm; }
+  pre { background:var(--code); border:1px solid var(--rule); border-radius:3px; padding:7pt 9pt; margin:0 0 8pt;
+        font:9pt/1.5 'IBM Plex Mono', Consolas, monospace; white-space:pre-wrap; break-inside:avoid; }
+  code { font:9pt 'IBM Plex Mono', Consolas, monospace; background:var(--code); padding:0 3pt; border-radius:2px; }
+  pre code { background:none; padding:0; }
+  .c { color:var(--muted); }
+  .box { border-left:3px solid var(--accent); background:#F3F8F7; padding:7pt 10pt; margin:0 0 8pt; break-inside:avoid; }
+  .box.warn { border-color:var(--warn); background:#FBF5EE; }
+  table { width:100%; border-collapse:collapse; margin:0 0 8pt; font-size:9.5pt; break-inside:avoid; }
+  th, td { text-align:left; vertical-align:top; padding:5pt 7pt; border-bottom:1px solid var(--rule); }
+  th { font:600 8pt 'IBM Plex Mono', Consolas, monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  .flow { font:9pt/1.6 'IBM Plex Mono', Consolas, monospace; background:var(--code); border:1px solid var(--rule); padding:8pt 10pt; white-space:pre; break-inside:avoid; margin-bottom:8pt; }
+  .step { break-inside:avoid; }
+  footer { margin-top:16pt; padding-top:6pt; border-top:1px solid var(--rule); font-size:8.5pt; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">IFRI · Réseaux de capteurs &amp; IoT · Groupe 7</div>
+<h1>Démo TinyOS + Cooja sous Linux</h1>
+<p class="lead">Ce guide montre comment compiler un petit programme TinyOS et le faire tourner dans le simulateur Cooja. Les capteurs envoient une température par radio, une passerelle la reçoit et lève une alerte au-dessus de 90 °C. Compte environ 20 minutes si les outils sont déjà installés.</p>
+
+<h2>Ce qu'il te faut</h2>
+<ul>
+  <li>Un PC sous <b>Ubuntu</b> (testé sur Ubuntu 20.04), ou une machine virtuelle Ubuntu.</li>
+  <li>L'archive <code>demo_tinyos_cooja_groupe7.zip</code>, envoyée avec ce guide.</li>
+  <li>TinyOS, le compilateur nesC, le compilateur MSP430, Java et Contiki-NG (qui contient Cooja). L'étape 0 vérifie s'ils sont présents. Sinon, l'annexe explique comment les installer.</li>
+</ul>
+
+<h2>Le principe en une image</h2>
+<p>Le code est écrit en <b>nesC</b>, le langage de TinyOS. La compilation produit un binaire pour la carte <b>TelosB</b>, appelée « Sky » dans Cooja. Cooja charge ce binaire et l'exécute exactement comme le ferait la vraie carte.</p>
+<div class="flow">DemoUsineC.nc + DemoUsineAppC.nc     ← le code, en nesC
+        │  make telosb
+        ▼
+   nescc       →  app.c              ← nesC est traduit en C
+   msp430-gcc  →  main.exe           ← binaire pour le processeur de la carte
+        │  copié sous le nom demo_usine.sky
+        ▼
+   Cooja, type de carte « Sky mote »  ← charge et exécute ce binaire
+        ▼
+   LED, radio et messages affichés en temps réel</div>
+
+<div class="step">
+<h2>Étape 0 · Vérifier les outils</h2>
+<p>Ouvre un terminal (<b>Ctrl+Alt+T</b>) et tape :</p>
+<pre><code>nescc --version        <span class="c"># compilateur nesC (TinyOS)</span>
+msp430-gcc --version   <span class="c"># compilateur pour le processeur des cartes Sky/TelosB</span>
+java -version          <span class="c"># Java 17 ou plus récent</span>
+ls ~/tinyos-main ~/contiki-ng/tools/cooja</code></pre>
+<p>Si une commande répond « command not found » ou « No such file », passe d'abord par l'<b>annexe</b>.</p>
+<p>TinyOS doit savoir où il est installé. Vérifie :</p>
+<pre><code>grep TINYOS_ROOT_DIR ~/.bashrc</code></pre>
+<p>Si rien ne s'affiche, ajoute la ligne puis recharge :</p>
+<pre><code>echo 'export TINYOS_ROOT_DIR=$HOME/tinyos-main' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+</div>
+
+<div class="step">
+<h2>Étape 1 · Décompresser la démo</h2>
+<pre><code>mkdir -p ~/projet_g7
+unzip demo_tinyos_cooja_groupe7.zip -d ~/projet_g7
+cd ~/projet_g7/simulation
+sed -i 's/\r$//' 01_demo_tinyos_cooja/*.sh outils/*.sh   <span class="c"># retire les fins de ligne Windows</span>
+chmod +x 01_demo_tinyos_cooja/*.sh outils/*.sh</code></pre>
+<p>Tu obtiens :</p>
+<pre><code>~/projet_g7/simulation/01_demo_tinyos_cooja/   <span class="c"># code nesC, scénario Cooja, scripts</span>
+~/projet_g7/simulation/outils/cooja.sh         <span class="c"># lanceur de Cooja</span></code></pre>
+</div>
+
+<div class="step">
+<h2>Étape 2 · Compiler le programme TinyOS</h2>
+<pre><code>cd ~/projet_g7/simulation/01_demo_tinyos_cooja
+bash construire.sh</code></pre>
+<p>Ce script :</p>
+<ol>
+  <li>copie le code dans <code>~/projets/01_demo_tinyos_cooja</code> ;</li>
+  <li>lance <code>make telosb</code> (nesC → C → binaire MSP430) ;</li>
+  <li>copie <code>build/telosb/main.exe</code> sous le nom <code>demo_usine.sky</code> ;</li>
+  <li>prépare le scénario Cooja <code>demo_usine.csc</code> avec le bon chemin vers ce binaire.</li>
+</ol>
+<p>À la fin, tu dois voir la taille du programme (environ 12 Ko) et <code>OK : …/demo_usine.sky</code>. Un avertissement « LOW POWER COMMUNICATIONS DISABLED » est normal.</p>
+</div>
+
+<div class="step">
+<h2>Étape 3 · Ouvrir Cooja avec le scénario</h2>
+<pre><code>bash ouvrir_cooja.sh</code></pre>
+<p>La fenêtre met environ 15 s à s'ouvrir, plus longtemps la toute première fois. Clique sur <b>Start</b> en haut.</p>
+<p>Sans le script, la commande équivalente est :</p>
+<pre><code>cd ~/contiki-ng/tools/cooja
+./gradlew run --args="$HOME/projets/01_demo_tinyos_cooja/demo_usine.csc"</code></pre>
+</div>
+
+<div class="step">
+<h2>Ce que tu dois voir</h2>
+<table>
+  <tr><th>Fenêtre</th><th>Contenu</th></tr>
+  <tr><td><b>Network</b></td><td>Les 4 cartes à leur position. Le nœud 1 est le puits (la passerelle), les nœuds 2 et 3 sont des capteurs, le nœud 4 est à 90 m, hors de portée. Une flèche apparaît à chaque émission. LED : rouge = « j'émets », vert = « j'ai reçu », bleu = « alerte ».</td></tr>
+  <tr><td><b>Mote output</b></td><td>Les capteurs écrivent <code>TX temp=…</code>. Le puits écrit <code>RX noeud=2 temp=…</code>, puis <code>&gt;&gt;&gt; ALERTE SURCHAUFFE</code> au-dessus de 90 °C.</td></tr>
+  <tr><td><b>Radio messages</b></td><td>Chaque paquet radio qui passe dans l'air.</td></tr>
+</table>
+<div class="box">Le nœud 4 émet bien (on voit ses <code>TX</code>), mais le puits ne reçoit <b>jamais</b> ses mesures : il est trop loin. Dans le vrai projet, ce problème se résout avec le routage multi-saut, où un nœud relaie les messages d'un autre.</div>
+</div>
+
+<div class="step">
+<h2>Variante · Charger le binaire à la main</h2>
+<p>C'est la manipulation qu'on demande en TP.</p>
+<pre><code>cd ~/contiki-ng/tools/cooja
+./gradlew run</code></pre>
+<ol>
+  <li><b>File → New simulation</b>, garde les réglages par défaut, puis <b>Create</b>.</li>
+  <li><b>Motes → Add motes → Create new mote type → Sky mote</b>.</li>
+  <li><b>Browse</b>, puis choisis <code>~/projets/01_demo_tinyos_cooja/build/telosb/main.exe</code>, puis <b>Create</b>.</li>
+  <li>Nombre de cartes : <b>4</b>, puis <b>Add motes</b>.</li>
+  <li>Dans la fenêtre <b>Network</b>, fais glisser une carte loin des autres.</li>
+  <li>Clique sur <b>Start</b>.</li>
+</ol>
+</div>
+
+<div class="step">
+<h2>Facultatif · Test automatique sans fenêtre</h2>
+<pre><code>cd ~/projet_g7/simulation/01_demo_tinyos_cooja
+bash tester.sh</code></pre>
+<p>La fin doit afficher le nombre de mesures reçues par le puits, <code>alerte=true</code>, puis <code>TEST OK</code>.</p>
+</div>
+
+<div class="step">
+<h2>Comprendre le code</h2>
+<table>
+  <tr><th>Fichier</th><th>Rôle</th></tr>
+  <tr><td><code>DemoUsineAppC.nc</code></td><td>Le <b>câblage</b> : on déclare des briques (minuterie, radio, LED, port série) et on les relie avec des flèches <code>-&gt;</code>.</td></tr>
+  <tr><td><code>DemoUsineC.nc</code></td><td>Le <b>comportement</b>. TinyOS n'a pas de boucle principale : on écrit des réactions à des événements (<code>Boot.booted</code>, <code>Minuterie.fired</code>, <code>Receive.receive</code>).</td></tr>
+  <tr><td><code>DemoUsine.h</code></td><td>Le <b>format du message radio</b> (n° du nœud, n° de séquence, température) et les réglages (<code>PERIODE_MS</code>, <code>SEUIL_ALERTE</code>).</td></tr>
+  <tr><td><code>demo_usine.csc</code></td><td>Le <b>scénario Cooja</b> : position des 4 cartes, portée radio (50 m), fenêtres à afficher.</td></tr>
+</table>
+<p>Le même programme tourne sur les 4 cartes. Chacune lit son numéro, attribué par Cooja, pour savoir si elle est le puits (n° 1) ou un capteur. Pour expérimenter, modifie <code>PERIODE_MS</code> ou <code>SEUIL_ALERTE</code> dans <code>DemoUsine.h</code>, puis relance les étapes 2 et 3.</p>
+</div>
+
+<div class="step">
+<h2>En cas de problème</h2>
+<table>
+  <tr><th>Symptôme</th><th>Solution</th></tr>
+  <tr><td><code>make: *** No rule to make target</code> ou <code>Makefile.include</code> introuvable</td><td><code>TINYOS_ROOT_DIR</code> n'est pas défini : refais la fin de l'étape 0, puis ouvre un nouveau terminal.</td></tr>
+  <tr><td><code>nescc: command not found</code></td><td>Le compilateur nesC manque : voir l'annexe.</td></tr>
+  <tr><td><code>Cooja introuvable</code></td><td>Contiki-NG n'est pas dans <code>~/contiki-ng</code>. Indique son emplacement : <code>export COOJA_DIR=/chemin/vers/contiki-ng/tools/cooja</code>.</td></tr>
+  <tr><td>La fenêtre Cooja ne s'ouvre pas, ou le terminal reste bloqué sans rien afficher</td><td>Un autre Cooja est peut-être déjà lancé avec Gradle. Ferme-le, puis relance.</td></tr>
+  <tr><td><code>bash\r: No such file</code></td><td>Les scripts ont gardé les fins de ligne Windows : refais la commande <code>sed</code> de l'étape 1.</td></tr>
+</table>
+</div>
+
+<div class="step">
+<h2>Annexe · Installer les outils sur Ubuntu</h2>
+<div class="box warn">À faire uniquement si l'étape 0 a signalé un outil manquant. Ces commandes ont besoin d'Internet et du mot de passe administrateur (<code>sudo</code>). Le premier lancement de Cooja télécharge aussi ses dépendances.</div>
+<pre><code><span class="c"># Outils de base, Java, compilateurs MSP430 et nesC</span>
+sudo apt update
+sudo apt install -y git make python3 openjdk-17-jdk \
+     gcc-msp430 binutils-msp430 msp430-libc msp430mcu nescc
+
+<span class="c"># TinyOS</span>
+git clone https://github.com/tinyos/tinyos-main.git ~/tinyos-main
+echo 'export TINYOS_ROOT_DIR=$HOME/tinyos-main' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+
+<span class="c"># Contiki-NG, qui contient Cooja</span>
+git clone --recursive https://github.com/contiki-ng/contiki-ng.git ~/contiki-ng
+cd ~/contiki-ng/tools/cooja &amp;&amp; ./gradlew run   <span class="c"># premier lancement : télécharge les dépendances</span></code></pre>
+<p>Si un paquet est introuvable sur ta version d'Ubuntu, note le message exact et envoie-le : la solution dépend de la version.</p>
+</div>
+
+<footer>Groupe 7 · Surveillance d'une ligne de production · Démo TinyOS/Cooja · octobre 2026</footer>
+</body>
+</html>

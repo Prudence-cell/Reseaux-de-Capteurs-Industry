@@ -1,0 +1,11 @@
+id_cooja;repere;famille;x_m;y_m;zone
+1;GW;infra;28;4.5;Z3
+2;T1;temp;15;16.5;Z7
+3;T2;temp;24;16.5;Z7
+4;T3;temp;33;16.5;Z7
+5;C1;count;19.5;17.6;Z7
+6;C2;count;28.5;17.6;Z7
+7;C3;count;37.5;17.6;Z7
+8;P1;pir;5.5;1.2;Z1
+9;P2;pir;4;15;Z6
+10;P3;pir;46;15;Z8

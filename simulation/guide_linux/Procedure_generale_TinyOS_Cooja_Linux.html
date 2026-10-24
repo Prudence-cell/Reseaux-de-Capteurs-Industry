@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Simuler une application TinyOS dans Cooja</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  :root { --ink:#17293B; --muted:#5A6B7B; --rule:#CDD6DE; --code:#F1F4F6; --accent:#0E746D; --warn:#B4611A; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); background:#fff; font:10.5pt/1.55 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif; }
+  h1 { font:700 26pt/1.05 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; margin:0 0 6pt; }
+  h2 { font:700 15pt/1.2 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; margin:18pt 0 6pt; padding-top:6pt; border-top:1px solid var(--rule); break-after:avoid; }
+  h3 { font-size:10.5pt; margin:10pt 0 4pt; break-after:avoid; }
+  p, ul, ol { margin:0 0 7pt; }
+  ul, ol { padding-left:16pt; }
+  li { margin-bottom:3pt; }
+  .eyebrow { font:500 8.5pt 'IBM Plex Mono', Consolas, monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6pt; }
+  .lead { font-size:11.5pt; max-width:160mm; }
+  pre { background:var(--code); border:1px solid var(--rule); border-radius:3px; padding:7pt 9pt; margin:0 0 8pt;
+        font:9pt/1.5 'IBM Plex Mono', Consolas, monospace; white-space:pre-wrap; break-inside:avoid; }
+  code { font:9pt 'IBM Plex Mono', Consolas, monospace; background:var(--code); padding:0 3pt; border-radius:2px; }
+  pre code { background:none; padding:0; }
+  .c { color:var(--muted); }
+  .box { border-left:3px solid var(--accent); background:#F3F8F7; padding:7pt 10pt; margin:0 0 8pt; break-inside:avoid; }
+  .box.warn { border-color:var(--warn); background:#FBF5EE; }
+  table { width:100%; border-collapse:collapse; margin:0 0 8pt; font-size:9.5pt; break-inside:avoid; }
+  th, td { text-align:left; vertical-align:top; padding:5pt 7pt; border-bottom:1px solid var(--rule); }
+  th { font:600 8pt 'IBM Plex Mono', Consolas, monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  .flow { font:9pt/1.6 'IBM Plex Mono', Consolas, monospace; background:var(--code); border:1px solid var(--rule); padding:8pt 10pt; white-space:pre; break-inside:avoid; margin-bottom:8pt; }
+  .step { break-inside:avoid; }
+  footer { margin-top:16pt; padding-top:6pt; border-top:1px solid var(--rule); font-size:8.5pt; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">IFRI · Réseaux de capteurs &amp; IoT · procédure générale</div>
+<h1>Simuler une application TinyOS dans Cooja</h1>
+<p class="lead">Cette procédure vaut pour n'importe quel programme TinyOS : un exemple fourni (Blink, RadioCountToLeds…), un exercice de TP ou votre propre projet. Elle suppose un PC sous Ubuntu où TinyOS, nesC, le compilateur MSP430, Java et Contiki-NG (qui contient Cooja) sont installés.</p>
+
+<h2>Vue d'ensemble</h2>
+<div class="flow">1. Écrire ou choisir l'application   →  fichiers .nc + Makefile
+2. Compiler pour une carte simulable   →  make telosb  →  build/telosb/main.exe
+3. Ouvrir Cooja                         →  ./gradlew run
+4. Créer une simulation                 →  File → New simulation
+5. Créer un type de carte               →  Sky mote + main.exe
+6. Ajouter et placer les cartes         →  positions, portée radio
+7. Ouvrir les fenêtres d'observation    →  Mote output, Radio messages, Timeline
+8. Lancer, observer, enregistrer        →  Start, puis File → Save simulation</div>
+<div class="box">Règle à retenir : Cooja exécute le <b>binaire compilé</b> (<code>main.exe</code>), pas le code source. Après chaque modification du code, il faut recompiler (étape 2), puis recharger le binaire dans Cooja (étape 8, « Reload »).</div>
+
+<div class="step">
+<h2>Étape 0 · Vérifier l'environnement</h2>
+<pre><code>nescc --version          <span class="c"># compilateur nesC</span>
+msp430-gcc --version     <span class="c"># compilateur pour les cartes Sky/TelosB et Z1</span>
+java -version            <span class="c"># Java 17 ou plus récent</span>
+echo $TINYOS_ROOT_DIR    <span class="c"># doit afficher le dossier de TinyOS, par ex. /home/moi/tinyos-main</span>
+ls ~/contiki-ng/tools/cooja</code></pre>
+<p>Si <code>TINYOS_ROOT_DIR</code> est vide :</p>
+<pre><code>echo 'export TINYOS_ROOT_DIR=$HOME/tinyos-main' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+</div>
+
+<div class="step">
+<h2>Étape 1 · Préparer l'application</h2>
+<h3>Cas A : un exemple fourni avec TinyOS</h3>
+<pre><code>ls $TINYOS_ROOT_DIR/apps                      <span class="c"># Blink, RadioCountToLeds, Oscilloscope…</span>
+cp -r $TINYOS_ROOT_DIR/apps/RadioCountToLeds ~/tinyos-apps/
+cd ~/tinyos-apps/RadioCountToLeds</code></pre>
+<p>On travaille sur une <b>copie</b>, pour ne pas abîmer les exemples d'origine.</p>
+<h3>Cas B : une nouvelle application</h3>
+<p>Une application TinyOS tient au minimum en 3 fichiers, dans un dossier sans espace ni accent dans son chemin :</p>
+<table>
+  <tr><th>Fichier</th><th>Rôle</th></tr>
+  <tr><td><code>MonAppAppC.nc</code></td><td>Configuration : déclare les composants et les relie avec <code>-&gt;</code>.</td></tr>
+  <tr><td><code>MonAppC.nc</code></td><td>Module : le comportement, écrit sous forme de réactions à des événements.</td></tr>
+  <tr><td><code>Makefile</code></td><td>Indique quel composant compiler (voir ci-dessous).</td></tr>
+</table>
+<pre><code><span class="c"># Makefile minimal</span>
+COMPONENT=MonAppAppC
+TINYOS_ROOT_DIR?=$(HOME)/tinyos-main
+include $(TINYOS_ROOT_DIR)/Makefile.include</code></pre>
+<div class="box warn">Évitez les espaces et les accents dans le chemin du dossier (par exemple « Réseaux de capteurs ») : le système de compilation de TinyOS les gère mal. Travaillez dans <code>~/tinyos-apps/</code>.</div>
+</div>
+
+<div class="step">
+<h2>Étape 2 · Compiler pour une carte que Cooja sait simuler</h2>
+<pre><code>make telosb</code></pre>
+<p>Le binaire est produit dans <code>build/telosb/main.exe</code>. Vérifiez sa présence :</p>
+<pre><code>ls -l build/telosb/main.exe</code></pre>
+<table>
+  <tr><th>Commande</th><th>Carte TinyOS</th><th>Type de carte dans Cooja</th></tr>
+  <tr><td><code>make telosb</code></td><td>TelosB (MSP430 + radio CC2420)</td><td><b>Sky mote</b> (choix recommandé)</td></tr>
+  <tr><td><code>make z1</code></td><td>Zolertia Z1</td><td>Z1 mote</td></tr>
+</table>
+<p>Les avertissements (<code>warning</code>) n'empêchent pas la compilation. Seules les lignes <code>error</code> bloquent.</p>
+</div>
+
+<div class="step">
+<h2>Étape 3 · Ouvrir Cooja</h2>
+<pre><code>cd ~/contiki-ng/tools/cooja
+./gradlew run</code></pre>
+<p>Le premier lancement prend une à deux minutes (téléchargement des dépendances), puis environ 15 s les fois suivantes. Laissez ce terminal ouvert : le fermer ferme Cooja.</p>
+</div>
+
+<div class="step">
+<h2>Étape 4 · Créer une simulation</h2>
+<ol>
+  <li>Menu <b>File → New simulation…</b></li>
+  <li>Donnez un nom à la simulation.</li>
+  <li><b>Radio medium</b> : gardez <b>Unit Disk Graph Medium (UDGM): Distance Loss</b>. C'est le modèle le plus simple : un message est reçu si la distance est inférieure à la portée.</li>
+  <li>Cliquez sur <b>Create</b>.</li>
+</ol>
+</div>
+
+<div class="step">
+<h2>Étape 5 · Créer un type de carte avec votre binaire</h2>
+<ol>
+  <li>Menu <b>Motes → Add motes → Create new mote type → Sky mote…</b></li>
+  <li><b>Description</b> : un nom parlant, par exemple « Capteur » ou « Passerelle ».</li>
+  <li><b>Browse</b>, puis sélectionnez <code>~/tinyos-apps/MonApp/build/telosb/main.exe</code>. Si la fenêtre ne propose que les fichiers <code>.sky</code>, choisissez le filtre « All files ».</li>
+  <li>Cliquez sur <b>Create</b>.</li>
+</ol>
+<p>Pour que des cartes exécutent des programmes <b>différents</b> (par exemple une passerelle et des capteurs), répétez cette étape avec un second binaire. Chaque type de carte apparaît ensuite dans le menu <b>Motes → Add motes</b>.</p>
+</div>
+
+<div class="step">
+<h2>Étape 6 · Ajouter et placer les cartes</h2>
+<ol>
+  <li>Dans la fenêtre qui suit, indiquez le <b>nombre de cartes</b>.</li>
+  <li><b>Positioning</b> : <i>Random</i> (aléatoire), <i>Linear</i> (en ligne) ou <i>Ellipse</i>.</li>
+  <li>Cliquez sur <b>Add motes</b>.</li>
+  <li>Dans la fenêtre <b>Network</b>, faites glisser une carte pour la déplacer. Pour une position exacte en mètres : clic droit sur la carte, puis <i>Mote tools</i>, puis <i>Mote Interface Viewer</i>, et dans la liste déroulante, <i>Position</i>.</li>
+</ol>
+<div class="box">Numéros de carte : Cooja numérote les cartes 1, 2, 3… et écrit ce numéro dans la variable <code>TOS_NODE_ID</code> de chaque carte. Un même programme peut donc se comporter différemment selon la carte, par exemple <code>if (TOS_NODE_ID == 1)</code> pour la passerelle.</div>
+<h3>Régler la portée radio</h3>
+<p>Dans la fenêtre <b>Network</b>, menu <b>View</b>, cochez <i>Radio environment (UDGM)</i>. Cliquez sur une carte : le cercle vert montre la portée d'émission, le cercle gris la zone d'interférence. Pour modifier ces valeurs (par défaut 50 m et 100 m), passez par le menu <b>Tools → Radio medium…</b>, ou faites un clic droit dans la fenêtre Network selon votre version de Cooja.</p>
+</div>
+
+<div class="step">
+<h2>Étape 7 · Ouvrir les fenêtres d'observation</h2>
+<p>Elles se trouvent dans le menu <b>Tools</b> :</p>
+<table>
+  <tr><th>Fenêtre</th><th>Ce qu'elle montre</th></tr>
+  <tr><td><b>Network</b></td><td>Le terrain et les cartes. Le menu <i>View</i> permet d'afficher les numéros (<i>Mote IDs</i>), les LED, la portée radio et le trafic radio (<i>Radio traffic</i>).</td></tr>
+  <tr><td><b>Mote output</b></td><td>Le texte que chaque carte écrit sur son port série. Un champ de filtre permet de n'afficher qu'une carte.</td></tr>
+  <tr><td><b>Radio messages</b></td><td>Chaque paquet radio, avec l'émetteur, les récepteurs et le contenu en octets.</td></tr>
+  <tr><td><b>Timeline</b></td><td>L'activité dans le temps : radio allumée, émission, réception, LED. Pratique pour mesurer des délais.</td></tr>
+  <tr><td><b>Mote Interface Viewer</b></td><td>L'état d'une carte : LED, bouton, position, port série.</td></tr>
+</table>
+</div>
+
+<div class="step">
+<h2>Étape 8 · Lancer, observer, enregistrer</h2>
+<ul>
+  <li><b>Start</b> lance la simulation, <b>Pause</b> la met en pause, <b>Step</b> avance pas à pas.</li>
+  <li><b>Speed limit</b> règle la vitesse. Pour l'observation, gardez 100 % (temps réel). Sans limite, la simulation va aussi vite que le PC le permet.</li>
+  <li><b>Reload</b> (ou <b>File → Reload simulation</b>) recharge le binaire : c'est indispensable après chaque recompilation.</li>
+  <li><b>File → Save simulation as…</b> enregistre un fichier <code>.csc</code> : cartes, positions, binaires et fenêtres ouvertes. Pour le rouvrir plus tard, utilisez <b>File → Open simulation</b>, ou lancez directement :</li>
+</ul>
+<pre><code>cd ~/contiki-ng/tools/cooja
+./gradlew run --args="/chemin/vers/ma_simulation.csc"</code></pre>
+</div>
+
+<div class="step">
+<h2>Afficher du texte depuis une application TinyOS</h2>
+<p>Par défaut, la plupart des exemples TinyOS n'écrivent rien : on ne voit que les LED. Pour lire des messages dans <b>Mote output</b>, il y a deux méthodes.</p>
+<h3>Méthode 1 (simple) : écrire du texte brut sur le port série</h3>
+<pre><code><span class="c">// Configuration (…AppC.nc)</span>
+components PlatformSerialC;
+App.SerieControl -&gt; PlatformSerialC;
+App.UartByte     -&gt; PlatformSerialC;
+
+<span class="c">// Module (…C.nc)</span>
+uses interface StdControl as SerieControl;
+uses interface UartByte;
+
+void ecrire(const char *s) { while (*s) call UartByte.send(*s++); }
+
+event void Boot.booted() {
+  call SerieControl.start();      <span class="c">// à faire une fois au démarrage</span>
+  ecrire("Bonjour\n");            <span class="c">// chaque \n = une ligne dans Mote output</span>
+}</code></pre>
+<h3>Méthode 2 : la bibliothèque printf de TinyOS</h3>
+<p>Le composant <code>PrintfC</code> envoie des paquets série en binaire. Dans Mote output, ils apparaissent comme des caractères illisibles. Pour les lire, il faut ouvrir un <i>Serial Socket</i> sur la carte (clic droit, puis <i>Mote tools</i>, puis <i>Serial Socket (SERVER)</i>, qui indique un port, par exemple 60001), puis dans un autre terminal :</p>
+<pre><code>java net.tinyos.tools.PrintfClient -comm network@localhost:60001</code></pre>
+<p>Le même principe permet de brancher les outils Java de TinyOS (<code>Listen</code>, <code>Oscilloscope</code>…) sur une carte <code>BaseStation</code> simulée.</p>
+</div>
+
+<div class="step">
+<h2>Facultatif · Lancer sans fenêtre (tests automatiques)</h2>
+<p>Ajoutez un script de test à la simulation (menu <b>Tools → Simulation script editor</b>), enregistrez le <code>.csc</code>, puis :</p>
+<pre><code>cd ~/contiki-ng/tools/cooja
+./gradlew run --args="--no-gui /chemin/vers/ma_simulation.csc"</code></pre>
+<p>Le script lit les lignes écrites par les cartes (variables <code>id</code> et <code>msg</code>) et conclut par <code>log.testOK()</code> ou <code>log.testFailed()</code>. Le résultat est écrit dans <code>COOJA.testlog</code>.</p>
+<pre><code>TIMEOUT(60000);                          <span class="c">// abandon après 60 s simulées</span>
+while (true) {
+  YIELD();                               <span class="c">// attend la prochaine ligne écrite</span>
+  log.log(time + " carte " + id + " : " + msg + "\n");
+  if (msg.contains("Bonjour")) log.testOK();
+}</code></pre>
+</div>
+
+<div class="step">
+<h2>En cas de problème</h2>
+<table>
+  <tr><th>Symptôme</th><th>Cause probable et solution</th></tr>
+  <tr><td><code>Makefile.include</code> introuvable</td><td><code>TINYOS_ROOT_DIR</code> n'est pas défini : voir l'étape 0, puis ouvrir un nouveau terminal.</td></tr>
+  <tr><td>Erreur de compilation sur un chemin coupé en deux</td><td>Espace ou accent dans le chemin du dossier : déplacer l'application dans <code>~/tinyos-apps/</code>.</td></tr>
+  <tr><td>Les modifications du code ne changent rien dans Cooja</td><td>Le binaire n'a pas été recompilé (<code>make telosb</code>) ou pas rechargé (<b>Reload</b>).</td></tr>
+  <tr><td>Mote output reste vide</td><td>L'application n'écrit rien sur le port série, c'est normal pour Blink. Voir « Afficher du texte ».</td></tr>
+  <tr><td>Caractères illisibles dans Mote output</td><td>L'application utilise <code>PrintfC</code> : voir la méthode 2.</td></tr>
+  <tr><td>Aucun message reçu entre deux cartes</td><td>Distance supérieure à la portée radio (voir l'étape 6), ou numéro de destination incorrect dans <code>AMSend.send(...)</code>.</td></tr>
+  <tr><td><code>./gradlew run</code> reste bloqué sans ouvrir de fenêtre</td><td>Un autre Cooja tourne déjà dans ce dossier : le fermer avant d'en relancer un.</td></tr>
+</table>
+</div>
+
+<footer>Groupe 7 · IFRI · Réseaux de capteurs &amp; IoT · procédure valable pour TinyOS 2.x et Cooja (Contiki-NG) · octobre 2026</footer>
+</body>
+</html>
