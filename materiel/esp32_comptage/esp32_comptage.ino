@@ -75,7 +75,7 @@ uint32_t dernierRapport = 0, dernierEssaiMqtt = 0;
 void IRAM_ATTR pieceDetectee() {
   uint32_t t = millis();
   if (t - dernierFrontMs >= ANTI_REBOND_MS) {
-    piecesIsr++;
+    piecesIsr = piecesIsr + 1;
     dernierFrontMs = t;
   }
 }
