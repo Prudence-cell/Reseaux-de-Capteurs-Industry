@@ -1,0 +1,25 @@
+Random seed: 123456
+L 382.0 1 BOOT passerelle GW noeud 1 (racine RPL)
+L 382.0 1 PRET passerelle racine
+L 7918.0 3 PUB seq=1 type=1 etat=0 val=318 cpt=0 attente=1
+L 11236.0 3 PARENT aucun->1 rang=308
+L 17266.0 1 RX src=3 seq=1 sauts=1 parent=1 age=9318 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512007,"temperature_c":31.8,"production_count":0,"status":"OK"}
+L 37918.0 3 PUB seq=2 type=1 etat=0 val=537 cpt=0 attente=1
+L 37936.0 1 RX src=3 seq=2 sauts=1 parent=1 age=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512037,"temperature_c":53.7,"production_count":0,"status":"OK"}
+L 60382.0 1 STAT src=3 T2 recus=2 perdus=0 doublons=0 sauts=1 parent=1
+L 67918.0 3 PUB seq=3 type=1 etat=0 val=646 cpt=0 attente=1
+L 67955.0 1 RX src=3 seq=3 sauts=1 parent=1 age=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512067,"temperature_c":64.6,"production_count":0,"status":"OK"}
+L 97918.0 3 PUB seq=4 type=1 etat=0 val=694 cpt=0 attente=1
+L 97958.0 1 RX src=3 seq=4 sauts=1 parent=1 age=0 | factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512097,"temperature_c":69.4,"production_count":0,"status":"OK"}
+MESURE latence_moy=31.71 ms
+MESURE latence_p95=40.05 ms
+MESURE latence_max=40.05 ms
+MESURE latence_n=3.00 
+MESURE latence_1saut_moy=31.71 ms (n=3)
+MESURE pdr_3=100.00 % (4/4) sauts=1 parent=1
+VERDICT I1_reception OK rapports de T2 recus=4
+VERDICT I1_un_saut OK sauts=1
+VERDICT I1_json OK exemple : factory/machines/MACHINE_02 {"node_id":"MACHINE_02","timestamp":1792512097,"temperature_c":69.4,"production_count":0,"status":"OK"}
+FIN SUCCES a t=120.2 s
+TEST OK
+Test ended at simulation time: 120236000

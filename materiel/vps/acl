@@ -1,0 +1,20 @@
+# /etc/mosquitto/acl — chaque nœud ne peut écrire QUE sur ses propres topics (ENF6)
+
+user MACHINE_01
+topic write factory/machines/MACHINE_01
+topic write factory/status/MACHINE_01
+topic read  factory/cmd/MACHINE_01
+
+user POSTE_01
+topic write factory/production/POSTE_01
+topic write factory/status/POSTE_01
+topic read  factory/cmd/POSTE_01
+
+user ZONE_01
+topic write factory/security/ZONE_01
+topic write factory/status/ZONE_01
+topic read  factory/cmd/ZONE_01
+
+# Le serveur (base de connaissances, Node-RED, tableau de bord) lit tout et envoie les commandes
+user serveur
+topic readwrite factory/#
